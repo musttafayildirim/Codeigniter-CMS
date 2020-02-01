@@ -55,7 +55,7 @@
 
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
                         <span class="menu-text">Dashboards</span>
                     </a>
@@ -94,7 +94,7 @@
 
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-sliders"></i>
                         <span class="menu-text">Slider</span>
                     </a>
@@ -102,7 +102,7 @@
 
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-user-secret"></i>
                         <span class="menu-text">Kullanıcılar</span>
                     </a>
@@ -110,14 +110,14 @@
 
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-user"></i>
                         <span class="menu-text">Aboneler</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="<?php echo base_url("product"); ?>">
                         <i class="menu-icon fa fa-product-hunt"></i>
                         <span class="menu-text">Ürünler</span>
                     </a>
@@ -125,14 +125,14 @@
 
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-newspaper-o"></i>
                         <span class="menu-text">Haberler</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-train"></i>
                         <span class="menu-text">Eğitimler</span>
                     </a>
@@ -140,7 +140,7 @@
 
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
                         <span class="menu-text">Markalar</span>
                     </a>
@@ -148,7 +148,7 @@
 
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-share"></i>
                         <span class="menu-text">Referanslar</span>
                     </a>
@@ -156,7 +156,7 @@
 
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-pied-piper"></i>
                         <span class="menu-text">Popup Hizmeti</span>
                     </a>
@@ -165,7 +165,7 @@
                 <li class="menu-separator"><hr></li>
 
                 <li>
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                    <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-home"></i>
                         <span class="menu-text">Ana Sayfa</span>
                     </a>
