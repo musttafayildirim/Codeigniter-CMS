@@ -1,7 +1,8 @@
 var LIBS = {
 	// Chart libraries
+
 	plot: [
-		"../panel/assets/libs/misc/flot/jquery.flot.min.js",
+		"window.location.origin/assets/libs/misc/flot/jquery.flot.min.js",
 		"../panel/assets/libs/misc/flot/jquery.flot.pie.min.js",
 		"../panel/assets/libs/misc/flot/jquery.flot.stack.min.js",
 		"../panel/assets/libs/misc/flot/jquery.flot.resize.min.js",

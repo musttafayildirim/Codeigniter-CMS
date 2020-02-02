@@ -5,7 +5,7 @@
             <header class="widget-header">
                 <h4 class="widget-title">
                     Ürün Listesi
-                    <a href="#" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
+                    <a href="<?php echo base_url("product/new_product"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
                 </h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">

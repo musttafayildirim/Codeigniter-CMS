@@ -165,10 +165,17 @@
                 <li class="menu-separator"><hr></li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="http://localhost/cms/resources/elements-infinity-responsive-web-app-kit-NATTKL-2016-08-16/Infinity-v2.0.0/default/index.html" target="_blank">
                         <i class="menu-icon fa fa-home"></i>
                         <span class="menu-text">Ana Sayfa</span>
                     </a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost/phpmyadmin/db_structure.php?server=1&db=cms" target="_blank">
+
+                        <i class="menu-icon fa fa-database"></i>
+                        <span class="menu-text">Database</span> </a>
                 </li>
 
             </ul><!-- .app-menu -->
