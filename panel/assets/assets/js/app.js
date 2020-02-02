@@ -556,7 +556,7 @@
 
 	window.app.init();
 
-	window.app.navbar.setTheme("danger");
+	window.app.navbar.setTheme("success");
 	window.app.navbar.applyTheme();
 
 	window.app.menubar.setTheme("dark");
