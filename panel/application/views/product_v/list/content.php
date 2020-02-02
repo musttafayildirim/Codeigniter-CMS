@@ -9,12 +9,14 @@
                 </h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
-            <div class="widget-body">
 
+
+            <div class="widget-body">
+                <?php if (empty($items)) { ?>
                 <div class="alert alert-info alert-dismissible text-center">
                     <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="#">tıklayınız.</a></p>
                 </div>
-
+                    <?php }else{ ?>
                 <div class="table-responsive">
                     <table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
                         <thead>
@@ -38,13 +40,20 @@
                         </tr>
                         </tfoot>
                         <tbody>
+
+                        <?php foreach ($items as $item){ ?>
                         <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
+                            <td>#<?php echo $item->id; ?></td>
+                            <td><?php echo $item->url; ?></td>
+                            <td><?php echo $item->title; ?></td>
+                            <td><?php echo $item->description; ?></td>
                             <td>
-                                <input id="switch-2-2" type="checkbox" data-switchery="true" data-color="#10c469" checked="" style="display: none;">
+                                <input
+                                        type="checkbox"
+                                        data-switchery="true"
+                                        data-color="#10c469"
+                                        <?php echo ($item->isActive) ? "checked": ""  ?>
+                                >
                             </td>
                             <td>
                                 <a href="#" class="btn btn-danger mw-xs"><i class="fa fa-trash-o"></i></a>
@@ -52,37 +61,14 @@
                             </td>
                         </tr>
 
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                            <td>
-                                <input id="switch-2-2" type="checkbox" data-switchery="true" data-color="#10c469" checked="" style="display: none;">
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-danger mw-xs"><i class="fa fa-trash-o"></i></a>
-                                <a href="#" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td>Donna Snider</td>
-                            <td>Customer Support</td>
-                            <td>New York</td>
-                            <td>27</td>
-                            <td>
-                                <input id="switch-2-2" type="checkbox" data-switchery="true" data-color="#10c469" checked="" style="display: none;">
-                            </td>
-                            <td>
-                                <a href="#" class="btn btn-danger mw-xs"><i class="fa fa-trash-o"></i></a>
-                                <a href="#" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                            </td>
-                        </tr>
+                        <?php } ?>
 
                         </tbody>
                     </table>
                 </div>
+
+                    <?php   } ?>
+
             </div><!-- .widget-body -->
         </div><!-- .widget -->
     </div><!-- END column -->
