@@ -42,7 +42,22 @@ class Product extends CI_Controller
 
     //yeni ürünün eklenmesi
     public function save(){
-        echo("deneme");
+      $this->load->library("form_validation");
+
+      $this->form_validation->set_rules("title", "Başlık", "required|trim");
+      $this->form_validation->set_message(
+          array(
+              "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
+          )
+      );
+      $validate = $this->form_validation->run();
+
+      if ($validate){
+          echo " işlemi başlar";
+      }
+      else{
+          echo validation_errors();
+      }
     }
 
 }
