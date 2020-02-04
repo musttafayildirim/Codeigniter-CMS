@@ -14,6 +14,9 @@
                                 <div class="form-group">
                                     <label >Başlık</label>
                                     <input type="text" class="form-control"  placeholder="Başlık" name="title">
+                                    <?php if(isset($form_error)){ ?>
+                                        <small class="pull-right input-form-error"><?php echo form_error( "title");?></small>
+                                    <?php } ?>
                                 </div>
                                 <div class="form-group">
                                     <label >Açıklama</label>
