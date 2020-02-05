@@ -56,7 +56,7 @@ class Product extends CI_Controller
 
           $insert = $this->product_model->add(
               array(
-                  "url"         => "test..",
+                  "url"         => converToSEO($this->input->post("title")),
                   "title"       => $this->input->post("title"),
                   "description" => $this->input->post("description"),
                   "rank"        => 0,
