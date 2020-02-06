@@ -8,9 +8,13 @@ class Product_model extends CI_Model{
         parent::__construct();
     }
 
-    public function get_all()
+    public function get($where = array()){
+        return $this->db->where($where)->get($this->tableName)->row();
+    }
+
+    public function get_all($where = array())
     {
-        return $this->db->get($this->tableName)->result();
+        return $this->db->where($where)->get($this->tableName)->result();
     }
 
     public function add($data = array()){
