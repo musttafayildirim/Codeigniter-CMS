@@ -84,7 +84,7 @@ class Product extends CI_Controller
       }
     }
 
-
+    //düzenlenecek sayfaya gitmek
     public function update_product($id){
         $viewData = new stdClass();
 
@@ -101,6 +101,7 @@ class Product extends CI_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
 
+    //düzenlenen veriyi veri tabanına kaydetmek
     public function update($id){
         $this->load->library("form_validation");
 
@@ -150,5 +151,22 @@ class Product extends CI_Controller
 
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
         }
+    }
+
+    public function delete($id){
+
+        $delete = $this->product_model->delete(
+          array(
+              "id" => $id
+          )
+        );
+
+        if($delete){
+            redirect(base_url("product"));
+        }
+        else{
+            redirect(base_url("product"));
+        }
+
     }
 }
