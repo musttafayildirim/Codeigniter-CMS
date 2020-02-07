@@ -49,7 +49,9 @@
                             <td><?php echo $item->description; ?></td>
                             <td>
                                 <input
+                                        data-url = "<?php echo base_url("product/isActiveSetter/$item->id"); ?>";
                                         type="checkbox"
+                                        class="isActive"
                                         data-switchery="true"
                                         data-color="#10c469"
                                         <?php echo ($item->isActive) ? "checked": ""  ?>

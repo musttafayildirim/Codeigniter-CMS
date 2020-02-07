@@ -169,4 +169,23 @@ class Product extends CI_Controller
         }
 
     }
+
+
+    public function isActiveSetter($id){
+
+        if($id){
+
+            $isActive = ($this->input->post("data") === "true") ? 1 : 0;
+
+            $this->product_model->update(
+                array(
+                    "id" => $id,
+                ),
+                array(
+                    "isActive" => $isActive
+                )
+            );
+        }
+
+    }
 }
