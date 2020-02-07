@@ -21,6 +21,7 @@
                     <table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
                         <thead>
                         <tr>
+                            <th><i class="fa fa-reorder"></i></th>
                             <th>#id</th>
                             <th>URL</th>
                             <th>Başlık</th>
@@ -31,6 +32,7 @@
                         </thead>
                         <tfoot>
                         <tr>
+                            <th><i class="fa fa-reorder"></i></th>
                             <th>#id</th>
                             <th>URL</th>
                             <th>Başlık</th>
@@ -39,10 +41,11 @@
                             <th>İşlem</th>
                         </tr>
                         </tfoot>
-                        <tbody>
+                        <tbody class="sortable" data-url="<?php echo base_url("product/rankSetter");?>">
 
                         <?php foreach ($items as $item){ ?>
-                        <tr>
+                        <tr id="ord-<?php echo $item->id; ?>">
+                            <th><i class="fa fa-reorder"></i></th>
                             <td>#<?php echo $item->id; ?></td>
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
