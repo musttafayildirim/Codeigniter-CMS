@@ -66,6 +66,7 @@
                                         class="btn btn-danger mw-xs remove-btn">
                                         <i class="fa fa-trash-o"></i></button>
                                 <a href="<?php echo base_url("product/update_product/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                <a href="<?php echo base_url("product/image_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa fa-image"></i></a>
                             </td>
                         </tr>
 
