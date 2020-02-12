@@ -2,16 +2,20 @@
 
     <div class="col-md-12">
         <div class="widget">
-            
+            <header class="widget-header">
+                <h4 class="widget-title">
+                    <strong><?php echo $item->title; ?></strong> kaydına ait resimler
+                </h4>
+            </header><!-- .widget-header -->
             <hr class="widget-separator">
 
 
             <div class="widget-body">
 
-                <form action="../api/dropzone" class="dropzone dz-clickable" data-plugin="dropzone" data-options="{ url: '../api/dropzone'}">
+                <form action="<?php echo base_url("product/image_upload/$item->id") ?>" class="dropzone dz-clickable" data-plugin="dropzone" data-options="{ url: '<?php echo base_url("product/image_upload/$item->id"); ?>'}">
                     <div class="dz-message">
-                        <h3 class="m-h-lg">Drop files here or click to upload.</h3>
-                        <p class="m-b-lg text-muted">(This is just a demo dropzone. Selected files are not actually uploaded.)</p>
+                        <h3 class="m-h-lg">Dosyaları sürükleyin veya yüklemek için tıklayın.</h3>
+                        <p class="m-b-lg text-muted">(Sadece img, jpg veya jpeg seçiniz. )</p>
                     </div>
                 </form>
 
@@ -20,6 +24,7 @@
     </div><!-- END column -->
 
 </div>
+
 
 <div class="row">
 
