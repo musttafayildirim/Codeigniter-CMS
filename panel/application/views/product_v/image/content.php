@@ -39,196 +39,57 @@
 
 
             <div class="widget-body">
+                <?php if (empty($item_images)) { ?>
+                    <div class="alert alert-info alert-dismissible text-center">
+                        <p>Burada herhangi bir resim bulunamadı.</p>
+                    </div>
+                <?php }else { ?>
+                   <table class="table table-bordered table-hover table-striped">
+                       <thead>
+                       <th>#id</th>
+                       <th>Görsel</th>
+                       <th>Resim Adı</th>
+                       <th>Durum</th>
+                       <th>Cover</th>
+                       <th>İşlem</th>
+                       </thead>
 
-               <table class="table table-bordered table-hover table-striped">
-                   <thead>
-                   <th>#id</th>
-                   <th>Görsel</th>
-                   <th>Resim Adı</th>
-                   <th>Durum</th>
-                   <th>Cover</th>
-                   <th>İşlem</th>
-                   </thead>
-
-                   <tbody>
-                   <tr>
-                       <td class="w100 text-center">#1</td>
-                       <td class="w100"><img src="https://via.placeholder.com/35" alt="" class="img-responsive"></td>
-                       <td>Merhaba</td>
-                       <td  class="w100 text-center">
-                           <input
-                               data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                               type="checkbox"
-                               class="isActive"
-                               data-switchery="true"
-                               data-color="#10c469"
-                           ?>
-                        </td>
-
-                       <td class="w100 text-center">
-                           <input
+                       <tbody>
+                       <?php foreach ($item_images as $image) { ?>
+                       <tr>
+                           <td class="w100 text-center">#<?php echo $image->id; ?></td>
+                           <td class="w100"><img src="<?php echo base_url("uploads/{$viewFolder}/$image->img_url"); ?>" alt="<?php echo base_url("uploads/{$viewFolder}/$image->img_url"); ?>" class="img-responsive"></td>
+                           <td><?php echo $image->img_url;?></td>
+                           <td  class="w100 text-center">
+                               <input
                                    data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
                                    type="checkbox"
                                    class="isActive"
                                    data-switchery="true"
                                    data-color="#10c469"
-                                   ?>
-                       </td>
-                       <td class="w100 text-center">
-                           <button
-                               data-url="<?php echo base_url("product/delete/")?>"
-                               class="btn btn-danger mw-xs remove-btn btn-block">
-                           <i class="fa fa-trash-o"></i></button> </td>
-                   </tr>
-                   <tr>
-                       <td class="w100 text-center">#1</td>
-                       <td class="w100"><img src="https://via.placeholder.com/35" alt="" class="img-responsive"></td>
-                       <td>Merhaba</td>
-                       <td  class="w100 text-center">
-                           <input
-                               data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                               type="checkbox"
-                               class="isActive"
-                               data-switchery="true"
-                               data-color="#10c469"
-                           ?>
-                        </td>
+                               ?>
+                            </td>
 
-                       <td class="w100 text-center">
-                           <input
-                                   data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                                   type="checkbox"
-                                   class="isActive"
-                                   data-switchery="true"
-                                   data-color="#10c469"
-                                   ?>
-                       </td>
-                       <td class="w100 text-center">
-                           <button
-                               data-url="<?php echo base_url("product/delete/")?>"
-                               class="btn btn-danger mw-xs remove-btn btn-block">
-                           <i class="fa fa-trash-o"></i></button> </td>
-                   </tr>
-                   <tr>
-                       <td class="w100 text-center">#1</td>
-                       <td class="w100"><img src="https://via.placeholder.com/35" alt="" class="img-responsive"></td>
-                       <td>Merhaba</td>
-                       <td  class="w100 text-center">
-                           <input
-                               data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                               type="checkbox"
-                               class="isActive"
-                               data-switchery="true"
-                               data-color="#10c469"
-                           ?>
-                        </td>
+                           <td class="w100 text-center">
+                               <input
+                                       data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
+                                       type="checkbox"
+                                       class="isActive"
+                                       data-switchery="true"
+                                       data-color="#10c469"
+                                       ?>
+                           </td>
+                           <td class="w100 text-center">
+                               <button
+                                   data-url="<?php echo base_url("product/delete/")?>"
+                                   class="btn btn-danger mw-xs remove-btn btn-block">
+                               <i class="fa fa-trash-o"></i></button> </td>
+                       </tr>
+                       <?php } ?>
 
-                       <td class="w100 text-center">
-                           <input
-                                   data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                                   type="checkbox"
-                                   class="isActive"
-                                   data-switchery="true"
-                                   data-color="#10c469"
-                                   ?>
-                       </td>
-                       <td class="w100 text-center">
-                           <button
-                               data-url="<?php echo base_url("product/delete/")?>"
-                               class="btn btn-danger mw-xs remove-btn btn-block">
-                           <i class="fa fa-trash-o"></i></button> </td>
-                   </tr>
-                   <tr>
-                       <td class="w100 text-center">#1</td>
-                       <td class="w100"><img src="https://via.placeholder.com/35" alt="" class="img-responsive"></td>
-                       <td>Merhaba</td>
-                       <td  class="w100 text-center">
-                           <input
-                               data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                               type="checkbox"
-                               class="isActive"
-                               data-switchery="true"
-                               data-color="#10c469"
-                           ?>
-                        </td>
-
-                       <td class="w100 text-center">
-                           <input
-                                   data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                                   type="checkbox"
-                                   class="isActive"
-                                   data-switchery="true"
-                                   data-color="#10c469"
-                                   ?>
-                       </td>
-                       <td class="w100 text-center">
-                           <button
-                               data-url="<?php echo base_url("product/delete/")?>"
-                               class="btn btn-danger mw-xs remove-btn btn-block">
-                           <i class="fa fa-trash-o"></i></button> </td>
-                   </tr>
-                   <tr>
-                       <td class="w100 text-center">#1</td>
-                       <td class="w100"><img src="https://via.placeholder.com/35" alt="" class="img-responsive"></td>
-                       <td>Merhaba</td>
-                       <td  class="w100 text-center">
-                           <input
-                               data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                               type="checkbox"
-                               class="isActive"
-                               data-switchery="true"
-                               data-color="#10c469"
-                           ?>
-                        </td>
-
-                       <td class="w100 text-center">
-                           <input
-                                   data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                                   type="checkbox"
-                                   class="isActive"
-                                   data-switchery="true"
-                                   data-color="#10c469"
-                                   ?>
-                       </td>
-                       <td class="w100 text-center">
-                           <button
-                               data-url="<?php echo base_url("product/delete/")?>"
-                               class="btn btn-danger mw-xs remove-btn btn-block">
-                           <i class="fa fa-trash-o"></i></button> </td>
-                   </tr>
-                   <tr>
-                       <td class="w100 text-center">#1</td>
-                       <td class="w100"><img src="https://via.placeholder.com/35" alt="" class="img-responsive"></td>
-                       <td>Merhaba</td>
-                       <td  class="w100 text-center">
-                           <input
-                               data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                               type="checkbox"
-                               class="isActive"
-                               data-switchery="true"
-                               data-color="#10c469"
-                           ?>
-                        </td>
-
-                       <td class="w100 text-center">
-                           <input
-                                   data-url = "<?php echo base_url("product/isActiveSetter/"); ?>";
-                                   type="checkbox"
-                                   class="isActive"
-                                   data-switchery="true"
-                                   data-color="#10c469"
-                                   ?>
-                       </td>
-                       <td class="w100 text-center">
-                           <button
-                               data-url="<?php echo base_url("product/delete/")?>"
-                               class="btn btn-danger mw-xs remove-btn btn-block">
-                           <i class="fa fa-trash-o"></i></button> </td>
-                   </tr>
-                    
-                   
-                   </tbody>
-               </table>
+                       </tbody>
+                   </table>
+                <?php } ?>
 
             </div><!-- .widget-body -->
         </div><!-- .widget -->
