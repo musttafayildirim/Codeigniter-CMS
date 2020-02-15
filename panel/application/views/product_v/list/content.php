@@ -17,7 +17,7 @@
                     <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="#">tıklayınız.</a></p>
                 </div>
                     <?php }else{ ?>
-                <div class="table-responsive">
+                <div class="table-responsive content-container">
                     <table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
                         <thead>
                         <tr>
@@ -45,7 +45,7 @@
 
                         <?php foreach ($items as $item){ ?>
                         <tr id="ord-<?php echo $item->id; ?>">
-                            <th><i class="fa fa-reorder"></i></th>
+                            <td><i class="fa fa-reorder"></i></td>
                             <td>#<?php echo $item->id; ?></td>
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>

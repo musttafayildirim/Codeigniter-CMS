@@ -192,6 +192,24 @@ class Product extends CI_Controller
 
     }
 
+    public function imageIsActiveSetter($id){
+
+        if($id){
+
+            $isActive = ($this->input->post("data") === "true") ? 1 : 0;
+
+            $this->product_image_model->update(
+                array(
+                    "id" => $id,
+                ),
+                array(
+                    "isActive" => $isActive
+                )
+            );
+        }
+
+    }
+
 
     public function rankSetter(){
         $data = $this->input->post("data");
@@ -212,8 +230,27 @@ class Product extends CI_Controller
         }
     }
 
+    public function imageRankSetter(){
+        $data = $this->input->post("data");
+
+        parse_str($data, $order);
+        $items = $order["ord"];
+
+        foreach ($items as $rank => $id){
+            $this->product_image_model->update(
+                array(
+                    "id"        =>  $id,
+                    "rank !="   =>  $rank
+                ),
+                array(
+                    "rank" => $rank
+                )
+            );
+        }
+    }
+
     public function image_form($id){
-         $viewData = new stdClass();
+        $viewData = new stdClass();
 
         $item = $this->product_model->get(
             array(
@@ -223,8 +260,9 @@ class Product extends CI_Controller
 
         $viewData->item_images =  $this->product_image_model->get_all(
           array(
-              "product_id" => $id
-          )
+              "product_id" => $id,
+          ),
+            "rank ASC"
         );
 
 
@@ -240,7 +278,7 @@ class Product extends CI_Controller
     public function image_upload($id){
 
         $file_name = converToSEO(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
-        $config["allowed_types"] = "jpg|jpeg|pnp";
+        $config["allowed_types"] = "jpg|jpeg|png";
         $config["upload_path"] = "uploads/$this->viewFolder/";
         $config["file_name"] = $file_name;
 
@@ -266,6 +304,72 @@ class Product extends CI_Controller
                 echo "islem basarisiz";
         }
 
+    }
+
+    public function refresh_image_list($id){
+        $viewData = new stdClass();
+
+        $viewData-> viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "image";
+
+        $viewData->item_images =  $this->product_image_model->get_all(
+            array(
+                "product_id" => $id
+            )
+        );
+
+        $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData, true);
+
+        echo $render_html;
+
+
+    }
+
+    public function isCoverSetter($id, $parent_id){
+        if($id && $parent_id){
+            $isCover = ($this->input->post("data") == "true") ? 1 : 0;
+
+            //bu kayıt kapak fotoğrafı olacaktır dediğin..
+            $this -> product_image_model->update(
+                array(
+                    "id"            => $id,
+                    "product_id"    => $parent_id
+                ),
+                array(
+                    "isCover"       => $isCover
+                )
+            );
+
+            //kapak olmayan kayıtlar kapalı hale getiriliyor.
+            $this->product_image_model->update(
+                array(
+                    "id !="         => $id,
+                    "product_id"    => $parent_id
+                ),
+                array(
+                    "isCover"       => 0
+                )
+            );
+
+            $viewData = new stdClass();
+
+            $viewData-> viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "image";
+
+            $viewData->item_images =  $this->product_image_model->get_all(
+                array(
+                    "product_id" => $parent_id
+                ),
+                    "rank ASC"
+            );
+
+            $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData, true);
+
+            echo $render_html;
+
+
+
+        }
     }
 
 
