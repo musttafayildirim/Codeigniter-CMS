@@ -5,8 +5,8 @@
 <?php }else { ?>
     <table class="table table-bordered table-hover table-striped image_list_container">
         <thead>
-        <th><i class="fa fa-reorder"></i></th>
-        <th>#id</th>
+        <th><i class="order fa fa-reorder"></i></th>
+        <th class="w50">#id</th>
         <th>Görsel</th>
         <th>Resim Adı</th>
         <th>Durum</th>
@@ -17,9 +17,9 @@
         <tbody class="sortable" data-url="<?php echo base_url("product/imageRankSetter");?>">
         <?php foreach ($item_images as $image) { ?>
             <tr id="ord-<?php echo $image->id;?>">
-                <td><i class="fa fa-reorder"></i></td>
-                <td class="w100 text-center">#<?php echo $image->id; ?></td>
-                <td class="w100"><img src="<?php echo base_url("uploads/{$viewFolder}/$image->img_url"); ?>" alt="<?php echo base_url("uploads/{$viewFolder}/$image->img_url"); ?>" class="img-responsive"></td>
+                <td class="order"  ><i class="fa fa-reorder"></i></td>
+                <td class="text-center w50">#<?php echo $image->id; ?></td>
+                <td class="w150"><img src="<?php echo base_url("uploads/{$viewFolder}/$image->img_url"); ?>" alt="<?php echo base_url("uploads/{$viewFolder}/$image->img_url"); ?>" class="img-responsive"></td>
                 <td><?php echo $image->img_url;?></td>
                 <td  class="w100 text-center">
                     <input

@@ -16,12 +16,12 @@
                 <div class="alert alert-info alert-dismissible text-center">
                     <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="#">tıklayınız.</a></p>
                 </div>
-                    <?php }else{ ?>
+                        <?php } else { ?>
                 <div class="table-responsive content-container">
-                    <table id="default-datatable" data-plugin="DataTable" class="table table-striped" cellspacing="0" width="100%">
+                    <table class="table table-striped table-bordered">
                         <thead>
                         <tr>
-                            <th><i class="fa fa-reorder"></i></th>
+                            <th><i class="fa fa-reorder order"></i></th>
                             <th>#id</th>
                             <th>URL</th>
                             <th>Başlık</th>
@@ -30,23 +30,12 @@
                             <th>İşlem</th>
                         </tr>
                         </thead>
-                        <tfoot>
-                        <tr>
-                            <th><i class="fa fa-reorder"></i></th>
-                            <th>#id</th>
-                            <th>URL</th>
-                            <th>Başlık</th>
-                            <th>Açıklama</th>
-                            <th>Durum</th>
-                            <th>İşlem</th>
-                        </tr>
-                        </tfoot>
                         <tbody class="sortable" data-url="<?php echo base_url("product/rankSetter");?>">
 
                         <?php foreach ($items as $item){ ?>
                         <tr id="ord-<?php echo $item->id; ?>">
-                            <td><i class="fa fa-reorder"></i></td>
-                            <td>#<?php echo $item->id; ?></td>
+                            <td><i class="fa fa-reorder order"></i></td>
+                            <td class="w50 text-center">#<?php echo $item->id; ?></td>
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
                             <td><?php echo $item->description; ?></td>

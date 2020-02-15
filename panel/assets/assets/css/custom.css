@@ -3,3 +3,32 @@
     color: #ff5b5b;
     font-style: inherit;
 }
+
+td{
+    vertical-align: middle!important;
+}
+th{
+    text-align: center;
+}
+
+.order{
+    width: 35px!important;
+    text-align: center;
+}
+
+.w100{
+    width: 100px;
+}
+
+.w50{
+    width: 50px;
+}
+
+.w150{
+    width: 125px;
+}
+
+.sortable{
+    cursor: move;
+}
+
