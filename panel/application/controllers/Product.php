@@ -41,8 +41,7 @@ class Product extends CI_Controller
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
-
-
+    
     //yeni ürünün eklenmesi
     public function save(){
       $this->load->library("form_validation");
@@ -69,11 +68,21 @@ class Product extends CI_Controller
           );
 
           if($insert){
-             redirect(base_url("product"));
+              $alert = array(
+                  "title"   => "Tebrikler",
+                  "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                  "type"    => "success"
+              );
           }
           else{
-              redirect(base_url("product"));
+              $alert = array(
+                  "title"   => "İşlem başarısız",
+                  "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                  "type"    => "error"
+              );
           }
+             $this->session->set_flashdata("alert", $alert);
+             redirect(base_url("product"));
 
       }
       else{
@@ -83,7 +92,15 @@ class Product extends CI_Controller
           $viewData->subViewFolder = "add";
           $viewData->form_error = "true";
 
+          $alert = array(
+              "title"   => "İşlem başarısız",
+              "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+              "type"    => "error"
+          );
+
+          $this->session->set_flashdata("alert", $alert);
           $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+          unset($_SESSION['alert']);
       }
     }
 
@@ -131,11 +148,22 @@ class Product extends CI_Controller
             );
 
             if($update){
-                redirect(base_url("product"));
+                $alert = array(
+                    "title"   => "Tebrikler",
+                    "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                    "type"    => "success"
+                );
+
             }
             else{
-                redirect(base_url("product"));
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                    "type"    => "error"
+                );
             }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("product"));
 
         }
         else{
@@ -152,12 +180,20 @@ class Product extends CI_Controller
             $viewData->form_error = "true";
             $viewData->item = $item;
 
+
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "type"    => "error"
+            );
+            $this->session->set_flashdata("alert", $alert);
             $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+            unset($_SESSION['alert']);
         }
     }
 
     public function delete($id){
-
+        //ürün silindiği zaman resmi silmeyi de eklemeliyim....
         $delete = $this->product_model->delete(
           array(
               "id" => $id
@@ -165,11 +201,23 @@ class Product extends CI_Controller
         );
 
         if($delete){
-            redirect(base_url("product"));
+            $alert = array(
+                "title"   => "Tebrikler",
+                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                "type"    => "success"
+            );
+
         }
         else{
-            redirect(base_url("product"));
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "type"    => "error"
+            );
         }
+
+        $this->session->set_flashdata("alert", $alert);
+        redirect(base_url("product"));
 
     }
 
@@ -189,14 +237,28 @@ class Product extends CI_Controller
 
         if($delete){
             unlink("uploads/{$this->viewFolder}/$fileName->img_url");
+
+            $alert = array(
+                "title"   => "Tebrikler",
+                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                "type"    => "success"
+            );
+            $this->session->set_flashdata("alert", $alert);
             redirect(base_url("product/image_form/$parent_id"));
         }
         else{
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "type"    => "error"
+            );
+
+            $this->session->set_flashdata("alert", $alert);
             redirect(base_url("product/image_form/$parent_id"));
+            unset($_SESSION['alert']);
         }
 
     }
-
 
     public function isActiveSetter($id){
 
@@ -233,7 +295,6 @@ class Product extends CI_Controller
         }
 
     }
-
 
     public function rankSetter(){
         $data = $this->input->post("data");
@@ -297,7 +358,6 @@ class Product extends CI_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
-
 
     public function image_upload($id){
 
@@ -395,7 +455,5 @@ class Product extends CI_Controller
 
         }
     }
-
-
 
 }
