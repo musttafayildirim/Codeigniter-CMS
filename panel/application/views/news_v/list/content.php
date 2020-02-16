@@ -4,8 +4,8 @@
         <div class="widget">
             <header class="widget-header">
                 <h4 class="widget-title">
-                    Ürün Listesi
-                    <a href="<?php echo base_url("product/new_product"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
+                    Haber Listesi
+                    <a href="<?php echo base_url("news/new_news"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
                 </h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
@@ -26,11 +26,13 @@
                             <th>URL</th>
                             <th>Başlık</th>
                             <th>Açıklama</th>
+                            <th>Haber Türü</th>
+                            <th>Görsel</th>
                             <th>Durum</th>
                             <th>İşlem</th>
                         </tr>
                         </thead>
-                        <tbody class="sortable" data-url="<?php echo base_url("product/rankSetter");?>">
+                        <tbody class="sortable" data-url="<?php echo base_url("news/rankSetter");?>">
 
                         <?php foreach ($items as $item){ ?>
                         <tr id="ord-<?php echo $item->id; ?>">
@@ -39,9 +41,11 @@
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
                             <td><?php echo $item->description; ?></td>
-                            <td>
+                            <td class="text-center">haber türü</td>
+                            <td class="text-center">görsel..</td>
+                            <td class="w50">
                                 <input
-                                        data-url = "<?php echo base_url("product/isActiveSetter/$item->id"); ?>";
+                                        data-url = "<?php echo base_url("news/isActiveSetter/$item->id"); ?>";
                                         type="checkbox"
                                         class="isActive"
                                         data-switchery="true"
@@ -51,11 +55,10 @@
                             </td>
                             <td>
                                 <button
-                                        data-url="<?php echo base_url("product/delete/$item->id")?>"
+                                        data-url="<?php echo base_url("news/delete/$item->id")?>"
                                         class="btn btn-danger mw-xs remove-btn">
                                         <i class="fa fa-trash-o"></i></button>
-                                <a href="<?php echo base_url("product/update_product/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                <a href="<?php echo base_url("product/image_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa fa-image"></i></a>
+                                <a href="<?php echo base_url("news/update_news/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
                             </td>
                         </tr>
 
