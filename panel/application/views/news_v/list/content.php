@@ -18,8 +18,8 @@
                 </div>
                         <?php } else { ?>
                 <div class="table-responsive content-container">
-                    <table class="table table-striped table-bordered">
-                        <thead>
+                    <table class="table table-bordered table-hover">
+                        <thead class="text-secondary bg-inverse">
                         <tr>
                             <th><i class="fa fa-reorder"></i></th>
                             <th>#id</th>

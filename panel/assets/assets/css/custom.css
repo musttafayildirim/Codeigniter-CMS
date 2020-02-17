@@ -29,7 +29,7 @@ th{
 }
 
 .sortable{
-    cursor: move;
+    cursor: grab;
 }
 
 .video_url_container{
