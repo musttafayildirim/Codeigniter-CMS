@@ -18,21 +18,21 @@
                 </div>
                         <?php } else { ?>
                 <div class="table-responsive content-container">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover table-condensed">
                         <thead class="text-secondary bg-inverse">
                         <tr>
                             <th><i class="fa fa-reorder"></i></th>
                             <th>#id</th>
                             <th>URL</th>
                             <th>Başlık</th>
-                            <th>Açıklama</th>
+<!--                            <th>Açıklama</th>-->
                             <th>Haber Türü</th>
                             <th>Görsel</th>
                             <th>Durum</th>
                             <th>İşlem</th>
                         </tr>
                         </thead>
-                        <tbody class="sortable" data-url="<?php echo base_url("news/rankSetter");?>">
+                        <tbody class="sortable text-center" data-url="<?php echo base_url("news/rankSetter");?>">
 
                         <?php foreach ($items as $item){ ?>
                         <tr id="ord-<?php echo $item->id; ?>">
@@ -40,7 +40,7 @@
                             <td class="w50 text-center">#<?php echo $item->id; ?></td>
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
-                            <td><?php echo $item->description; ?></td>
+<!--                            <td>--><?php //echo $item->description; ?><!--</td>-->
                             <td class="text-center"><?php echo $item->news_type; ?></td>
                             <td class="text-center">
                                 <?php if ($item->news_type === "image"){ ?>
