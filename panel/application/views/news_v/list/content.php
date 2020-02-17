@@ -41,7 +41,7 @@
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
                             <td><?php echo $item->description; ?></td>
-                            <td class="text-center">haber türü</td>
+                            <td class="text-center"><?php echo $item->news_type?></td>
                             <td class="text-center">görsel..</td>
                             <td class="w50">
                                 <input
