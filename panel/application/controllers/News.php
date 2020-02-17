@@ -76,17 +76,57 @@ class News extends CI_Controller
       $validate = $this->form_validation->run();
 
       if ($validate){
+          if($news_type === "image"){
+              $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
+              $config["allowed_types"] = "jpg|jpeg|png";
+              $config["upload_path"] = "uploads/$this->viewFolder/";
+              $config["file_name"] = $file_name;
 
-          $insert = $this->news_model->add(
-              array(
+              $this->load->library("upload", $config);
+              $upload = $this->upload->do_upload("img_url");
+
+
+              if($upload){
+
+                  $uploaded_file = $this->upload->data("file_name");
+
+                  $data = array(
+                      "url"         => converToSEO($this->input->post("title")),
+                      "title"       => $this->input->post("title"),
+                      "description" => $this->input->post("description"),
+                      "news_type"   => $news_type,
+                      "img_url"     => $uploaded_file,
+                      "video_url"     => '#',
+                      "rank"        => 0,
+                      "isActive"    => true,
+                      "createdAt"   => date("Y-m-d H:i:s")
+                  );
+              }
+              else{
+                  $alert = array(
+                      "title"   => "Opppss",
+                      "text"    => "Resim yüklenme esnasında bir problem oluştu.",
+                      "type"    => "error"
+                  );
+                  $this->session->set_flashdata("alert", $alert);
+                  redirect(base_url("news/new_news"));
+              }
+
+          }
+          else if($news_type === "video"){
+              $data = array(
                   "url"         => converToSEO($this->input->post("title")),
                   "title"       => $this->input->post("title"),
                   "description" => $this->input->post("description"),
+                  "news_type"   => $news_type,
+                  "img_url"     => '#',
+                  "video_url"   => $this->input->post("video_url"),
                   "rank"        => 0,
                   "isActive"    => true,
                   "createdAt"   => date("Y-m-d H:i:s")
-              )
-          );
+              );
+          }
+          $insert = $this->news_model->add($data);
 
           if($insert){
               $alert = array(

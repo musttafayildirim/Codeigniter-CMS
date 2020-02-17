@@ -41,8 +41,30 @@
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
                             <td><?php echo $item->description; ?></td>
-                            <td class="text-center"><?php echo $item->news_type?></td>
-                            <td class="text-center">görsel..</td>
+                            <td class="text-center"><?php echo $item->news_type; ?></td>
+                            <td class="text-center">
+                                <?php if ($item->news_type === "image"){ ?>
+                                    <img
+                                            src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
+                                            alt=""
+                                            class="img-rounded w100">
+                                <?php } else { ?>
+                                    <iframe
+                                            height="150"
+                                            src="<?php echo $item->video_url; ?>"
+                                            frameborder="0"
+                                            allow="accelerometer;
+                                            autoplay;
+                                            encrypted-media;
+                                            gyroscope;
+                                            picture-in-picture"
+                                            allowfullscreen>
+                                    </iframe>
+
+                                <?php } ?>
+
+
+                            </td>
                             <td class="w50">
                                 <input
                                         data-url = "<?php echo base_url("news/isActiveSetter/$item->id"); ?>";
