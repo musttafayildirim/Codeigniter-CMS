@@ -148,7 +148,7 @@
 
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("reference"); ?>">
                         <i class="menu-icon fa fa-share"></i>
                         <span class="menu-text">Referanslar</span>
                     </a>
