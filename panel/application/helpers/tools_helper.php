@@ -6,3 +6,8 @@ function converToSEO($text){
 
     return strtolower(str_replace($turkce, $convert, $text));
 }
+
+
+function get_readable_date($time){
+    return strftime('%e %B %Y', strtotime($time));
+}
