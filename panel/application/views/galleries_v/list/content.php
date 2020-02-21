@@ -36,7 +36,7 @@
                             <td class="order"><i class="fa fa-reorder"></i></td>
                             <td class="text-center"><?php echo $item->gallery_name; ?></td>
                             <td class="text-center"><?php echo $item->gallery_type; ?></td>
-                            <td><?php echo $item->folder_name; ?></td>
+                            <td class="text-center"><?php echo $item->folder_name; ?></td>
                             <td class="w50">
                                 <input
                                         data-url = "<?php echo base_url("galleries/isActiveSetter/$item->id"); ?>";
