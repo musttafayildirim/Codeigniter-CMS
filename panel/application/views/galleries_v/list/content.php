@@ -34,7 +34,7 @@
                         <?php foreach ($items as $item){ ?>
                         <tr id="ord-<?php echo $item->id; ?>">
                             <td class="order"><i class="fa fa-reorder"></i></td>
-                            <td class="text-center"><?php echo $item->gallery_name; ?></td>
+                            <td class="text-center"><?php echo $item->title; ?></td>
                             <td class="text-center"><?php echo $item->gallery_type; ?></td>
                             <td class="text-center"><?php echo $item->folder_name; ?></td>
                             <td class="w50">

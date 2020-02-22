@@ -58,14 +58,39 @@ class Galleries extends CI_Controller
 
       if ($validate){
 
+          $gallery_type = $this->input->post("gallery_type");
+          $path = "uploads/$this->viewFolder";
+          $folder_name = "";
+
+          if ($gallery_type == "image"){
+              $folder_name = converToSEO($this->input->post("title"));
+              $path = "$path/images/$folder_name";
+          }else if($gallery_type == "file"){
+              $folder_name = converToSEO($this->input->post("title"));
+              $path = "$path/files/$folder_name";
+          }
+echo $path;
+          if($gallery_type !== "video"){
+              if(!mkdir($path, 0777)){
+                  $alert = array(
+                      "title"   => "İşlem başarısız",
+                      "text"    => "Dosya yolu bozuk veya izinler verilmemiş!",
+                      "type"    => "error"
+                  );
+                  $this->session->set_flashdata("alert", $alert);
+                  redirect(base_url("galleries"));
+              }
+          }
+
           $insert = $this->gallery_model->add(
               array(
-                  "url"         => converToSEO($this->input->post("title")),
-                  "title"       => $this->input->post("title"),
-                  "description" => $this->input->post("description"),
-                  "rank"        => 0,
-                  "isActive"    => true,
-                  "createdAt"   => date("Y-m-d H:i:s")
+                  "url"                 => converToSEO($this->input->post("title")),
+                  "title"               => $this->input->post("title"),
+                  "gallery_type"        => $this->input->post("gallery_type"),
+                  "folder_name"         => $folder_name,
+                  "rank"                => 0,
+                  "isActive"            => true,
+                  "createdAt"           => date("Y-m-d H:i:s")
               )
           );
 
