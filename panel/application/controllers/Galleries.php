@@ -69,7 +69,6 @@ class Galleries extends CI_Controller
               $folder_name = converToSEO($this->input->post("title"));
               $path = "$path/files/$folder_name";
           }
-echo $path;
           if($gallery_type !== "video"){
               if(!mkdir($path, 0777)){
                   $alert = array(
@@ -149,7 +148,7 @@ echo $path;
     }
 
     //düzenlenen veriyi veri tabanına kaydetmek
-    public function update($id){
+    public function update($id, $gallery_type, $oldFolderName = ""){
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -163,6 +162,28 @@ echo $path;
 
         if ($validate){
 
+            $path = "uploads/$this->viewFolder";
+            $folder_name = "";
+
+            if ($gallery_type == "image"){
+                $folder_name = converToSEO($this->input->post("title"));
+                $path = "$path/images";
+            }else if($gallery_type == "file"){
+                $folder_name = converToSEO($this->input->post("title"));
+                $path = "$path/files";
+            }
+            if($gallery_type != "video"){
+                if(!rename("$path/$oldFolderName", "$path/$folder_name")){
+                    $alert = array(
+                        "title"   => "İşlem başarısız",
+                        "text"    => "Dosya yolu bozuk veya izinler verilmemiş!",
+                        "type"    => "error"
+                    );
+                    $this->session->set_flashdata("alert", $alert);
+                    redirect(base_url("galleries"));
+                }
+            }
+
             $update = $this->gallery_model->update(
                 array(
                     "id" => $id,
@@ -170,7 +191,7 @@ echo $path;
                 array(
                     "url"         => converToSEO($this->input->post("title")),
                     "title"       => $this->input->post("title"),
-                    "description" => $this->input->post("description")
+                    "folder_name" => $folder_name
                 )
             );
 
