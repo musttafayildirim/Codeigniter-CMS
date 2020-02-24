@@ -241,32 +241,60 @@ class Galleries extends CI_Controller
     }
 
     public function delete($id){
-        //ürün silindiği zaman resmi silmeyi de eklemeliyim....
-        $delete = $this->gallery_model->delete(
+        //Silmeyi istediğimiz klasöre erişiyoruz....
+        $gallery = $this->gallery_model->get(
           array(
               "id" => $id
           )
         );
 
-        if($delete){
-            $alert = array(
-                "title"   => "Tebrikler",
-                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type"    => "success"
+        if($gallery){
+            $gallery_type = $gallery->gallery_type;
+
+            if($gallery_type != "video"){
+                if($gallery_type == "image")
+                    $path = "uploads/$this->viewFolder/images/$gallery->folder_name";
+                else if($gallery_type == "file")
+                    $path = "uploads/$this->viewFolder/files/$gallery->folder_name";
+
+                $delete_folder = rmdir($path);
+
+                if(!$delete_folder){
+                    $alert = array(
+                        "title"   => "İşlem başarısız",
+                        "text"    => "Klasör silme sırasında bir problem oluştu.",
+                        "type"    => "error"
+                    );
+
+                    $this->session->set_flashdata("alert", $alert);
+                    redirect(base_url("galleries"));
+
+                }
+            }
+
+            $delete = $this->gallery_model->delete(
+                array(
+                    "id" => $id
+                )
             );
 
+            if($delete){
+                $alert = array(
+                    "title"   => "Tebrikler",
+                    "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                    "type"    => "success"
+                );
+            }
+            else{
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                    "type"    => "error"
+                );
+            }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("galleries"));
         }
-        else{
-            $alert = array(
-                "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type"    => "error"
-            );
-        }
-
-        $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("galleries"));
-
     }
 
     public function imageDelete($id, $parent_id){
