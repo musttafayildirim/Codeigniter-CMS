@@ -11,9 +11,9 @@ class Galleries extends CI_Controller
         $this->viewFolder = "galleries_v";
 
         $this->load->model("gallery_model");
-        $this->load->model("Image_model");
-        $this->load->model("File_model");
-        $this->load->model("Video_model");
+        $this->load->model("image_model");
+        $this->load->model("file_model");
+        $this->load->model("video_model");
     }
 
     public function index()
@@ -410,8 +410,11 @@ class Galleries extends CI_Controller
         }
     }
 
-    public function image_form($id){
+    public function upload_form($id){
         $viewData = new stdClass();
+
+        $viewData-> viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "image";
 
         $item = $this->gallery_model->get(
             array(
@@ -419,23 +422,38 @@ class Galleries extends CI_Controller
             )
         );
 
-        $viewData->item_images =  $this->galleries_image_model->get_all(
-          array(
-              "galleries_id" => $id,
-          ),
-            "rank ASC"
-        );
-
-
-        $viewData-> viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "image";
         $viewData->item = $item;
+
+        if($item->gallery_type == "image"){
+            $viewData->item_images =  $this->image_model->get_all(
+                array(
+                    "gallery_id" => $id,
+                ),
+                "rank ASC"
+            );
+
+        }else if($item->gallery_type == "file"){
+            $viewData->item_images =  $this->file_model->get_all(
+                array(
+                    "gallery_id" => $id,
+                ),
+                "rank ASC"
+            );
+        }
+        else{
+            $viewData->item_images =  $this->video_model->get_all(
+                array(
+                    "gallery_id" => $id,
+                ),
+                "rank ASC"
+            );
+        }
 
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
 
-    public function image_upload($id){
+    public function file_upload($id){
 
         $file_name = converToSEO(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
         $config["allowed_types"] = "jpg|jpeg|png";
@@ -466,7 +484,7 @@ class Galleries extends CI_Controller
 
     }
 
-    public function refresh_image_list($id){
+    public function refresh_file_list($id){
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;

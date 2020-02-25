@@ -51,9 +51,26 @@
                                 <button
                                         data-url="<?php echo base_url("galleries/delete/$item->id")?>"
                                         class="btn btn-danger mw-xs remove-btn">
-                                        <i class="fa fa-trash-o"> Sil </i></button>
+                                        <i class="fa fa-trash-o"> Sil </i>
+                                </button>
+
+                                <?php
+                                if($item->gallery_type == "image"){
+                                    $btn_icon = "fa-image";
+                                    $type_text = "Resim Ekle";
+                                }
+                                else if($item->gallery_type == "video"){
+                                    $btn_icon = "fa-play-circle";
+                                    $type_text = "Video Ekle";
+                                }
+                                else{
+                                    $btn_icon = "fa-folder";
+                                    $type_text = "Dosya Ekle";
+                                }
+                                ?>
+
                                 <a href="<?php echo base_url("galleries/update_galleries/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"> Düzenle </i></a>
-                                <a href="<?php echo base_url("galleries/image_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa fa-image"> Resimler </i></a>
+                                <a href="<?php echo base_url("galleries/upload_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa <?php echo $btn_icon; ?>"> <?php echo $type_text;?> </i></a>
                             </td>
                         </tr>
 
