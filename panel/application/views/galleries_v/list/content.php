@@ -58,19 +58,22 @@
                                 if($item->gallery_type == "image"){
                                     $btn_icon = "fa-image";
                                     $type_text = "Resim Ekle";
+                                    $type_url = "galleries/upload_form/$item->id";
                                 }
                                 else if($item->gallery_type == "video"){
                                     $btn_icon = "fa-play-circle";
                                     $type_text = "Video Ekle";
+                                    $type_url = "galleries/gallery_video_list/$item->id";
                                 }
                                 else{
                                     $btn_icon = "fa-folder";
                                     $type_text = "Dosya Ekle";
+                                    $type_url = "galleries/upload_form/$item->id";
                                 }
                                 ?>
 
                                 <a href="<?php echo base_url("galleries/update_galleries/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"> Düzenle </i></a>
-                                <a href="<?php echo base_url("galleries/upload_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa <?php echo $btn_icon; ?>"> <?php echo $type_text;?> </i></a>
+                                <a href="<?php echo base_url($type_url); ?>" class="btn btn-success mw-xs"><i class="fa <?php echo $btn_icon; ?>"> <?php echo $type_text;?> </i></a>
                             </td>
                         </tr>
 

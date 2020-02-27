@@ -517,4 +517,106 @@ class Galleries extends CI_Controller
 
     }
 
+
+    /*
+     * Video İşlemleri
+     * */
+
+    public function gallery_video_list($id)
+    {
+        $viewData = new stdClass();
+
+        $gallery = $this->gallery_model->get(
+            array(
+                "id" => $id
+            )
+        );
+
+        //Tablodan verilerin getirilmesi...
+        $items = $this->video_model->get_all(
+            array(
+                "gallery_id" => $id
+            ), "rank ASC"
+        );
+
+        //View'e gönderilecek değişkenlerin set edilmesi...
+        $viewData-> viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "video/list";
+        $viewData->items = $items;
+        $viewData->gallery = $gallery;
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+
+    public function new_gallery_video_form($gallery_id)
+    {
+        $viewData = new stdClass();
+
+        $viewData-> viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "video/add";
+        $viewData->gallery_id = $gallery_id;
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+
+    public function gallery_video_save($gallery_id){
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules("url", "Video URL", "required|trim");
+        $this->form_validation->set_message(
+            array(
+                "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
+            )
+        );
+        $validate = $this->form_validation->run();
+
+        if ($validate){
+
+            $insert = $this->video_model->add(
+                array(
+                    "url"                 => $this->input->post("url"),
+                    "gallery_id"          => $gallery_id,
+                    "rank"                => 0,
+                    "isActive"            => true,
+                    "createdAt"           => date("Y-m-d H:i:s")
+                )
+            );
+
+            if($insert){
+                $alert = array(
+                    "title"   => "Tebrikler",
+                    "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                    "type"    => "success"
+                );
+            }
+            else{
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                    "type"    => "error"
+                );
+            }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("galleries/gallery_video_list/$gallery_id"));
+
+        }
+        else{
+            $viewData = new stdClass();
+
+            $viewData-> viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "add";
+            $viewData->form_error = "true";
+
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "type"    => "error"
+            );
+
+            $this->session->set_flashdata("alert", $alert);
+            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+            unset($_SESSION['alert']);
+        }
+    }
+
 }

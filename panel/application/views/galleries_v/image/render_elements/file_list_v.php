@@ -4,8 +4,6 @@ if($type == "image")
     $type_text = "resim";
 else if($type == "file")
     $type_text = "dosya";
-else
-    $type_text = "video";
 ?>
 
 <?php if (empty($item_images)) {?>
