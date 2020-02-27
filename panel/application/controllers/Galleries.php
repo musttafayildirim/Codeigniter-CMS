@@ -297,22 +297,24 @@ class Galleries extends CI_Controller
         }
     }
 
-    public function imageDelete($id, $parent_id){
+    public function fileDelete($id, $parent_id, $gallery_type){
 
-        $fileName = $this->galleries_image_model->get(
+        $modelName = ($gallery_type == "image") ? "image_model" : "file_model";
+
+        $fileName = $this->$modelName->get(
             array(
                 "id"  => $id
             )
         );
 
-        $delete = $this->galleries_image_model->delete(
+        $delete = $this->$modelName->delete(
           array(
               "id" => $id
           )
         );
 
         if($delete){
-            unlink("uploads/{$this->viewFolder}/$fileName->img_url");
+            unlink("$fileName->url");
 
             $alert = array(
                 "title"   => "Tebrikler",
@@ -320,7 +322,7 @@ class Galleries extends CI_Controller
                 "type"    => "success"
             );
             $this->session->set_flashdata("alert", $alert);
-            redirect(base_url("galleries/image_form/$parent_id"));
+            redirect(base_url("galleries/upload_form/$parent_id"));
         }
         else{
             $alert = array(
@@ -354,13 +356,14 @@ class Galleries extends CI_Controller
 
     }
 
-    public function imageIsActiveSetter($id){
+    public function fileIsActiveSetter($id, $gallery_type){
 
-        if($id){
-
+        if($id && $gallery_type){
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
 
-            $this->galleries_image_model->update(
+            $modelName = ($gallery_type == "image") ? "image_model" : "file_model";
+
+            $this->$modelName->update(
                 array(
                     "id" => $id,
                 ),
@@ -391,14 +394,17 @@ class Galleries extends CI_Controller
         }
     }
 
-    public function imageRankSetter(){
+    public function fileRankSetter($gallery_type){
         $data = $this->input->post("data");
 
         parse_str($data, $order);
         $items = $order["ord"];
 
+        $modelName = ($gallery_type == "image") ? "image_model" : "file_model";
+
         foreach ($items as $rank => $id){
-            $this->galleries_image_model->update(
+
+            $this->$modelName->update(
                 array(
                     "id"        =>  $id,
                     "rank !="   =>  $rank
@@ -449,32 +455,37 @@ class Galleries extends CI_Controller
             );
         }
 
+        $viewData->gallery_type = $item->gallery_type;
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
 
     }
 
-    public function file_upload($id){
+    public function file_upload($gallery_id, $gallery_type, $folderName){
 
         $file_name = converToSEO(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
-        $config["allowed_types"] = "jpg|jpeg|png";
-        $config["upload_path"] = "uploads/$this->viewFolder/";
+        $config["allowed_types"] = ($gallery_type == "image" ) ? "jpg|jpeg|png" : "doc|pdf|docx|";
+        $config["upload_path"] = ($gallery_type == "image" ) ? "uploads/$this->viewFolder/images/$folderName" : "uploads/$this->viewFolder/files/$folderName";
         $config["file_name"] = $file_name;
+
+
 
         $this->load->library("upload", $config);
         $upload = $this->upload->do_upload("file");
-
 
         if($upload){
 
             $uploaded_file = $this->upload->data("file_name");
 
-            $this->galleries_image_model->add(
+            $modelName = ($gallery_type == "image") ? "image_model" : "file_model";
+
+
+            $this->$modelName->add(
                 array(
-                    "img_url"       => $uploaded_file,
+                    "url"           => "{$config["upload_path"]}/$uploaded_file",
                     "rank"          => 0,
                     "isActive"      => 1,
                     "createdAt"     => date("Y-m-d H:i:s"),
-                    "galleries_id"    => $id
+                    "gallery_id"    => $gallery_id
                 )
             );
         }
@@ -484,70 +495,26 @@ class Galleries extends CI_Controller
 
     }
 
-    public function refresh_file_list($id){
+    public function refresh_file_list($gallery_id, $gallery_type){
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "image";
 
-        $viewData->item_images =  $this->galleries_image_model->get_all(
+        $modelName = ($gallery_type == "image") ? "image_model" : "file_model";
+
+        $viewData->item_images =  $this->$modelName->get_all(
             array(
-                "galleries_id" => $id
+                "gallery_id" => $gallery_id
             )
         );
 
-        $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData, true);
+        $viewData->gallery_type = $gallery_type;
+        $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/file_list_v", $viewData, true);
 
         echo $render_html;
 
 
-    }
-
-    public function isCoverSetter($id, $parent_id){
-        if($id && $parent_id){
-            $isCover = ($this->input->post("data") == "true") ? 1 : 0;
-
-            //bu kayıt kapak fotoğrafı olacaktır dediğin..
-            $this -> galleries_image_model->update(
-                array(
-                    "id"            => $id,
-                    "galleries_id"    => $parent_id
-                ),
-                array(
-                    "isCover"       => $isCover
-                )
-            );
-
-            //kapak olmayan kayıtlar kapalı hale getiriliyor.
-            $this->galleries_image_model->update(
-                array(
-                    "id !="         => $id,
-                    "galleries_id"    => $parent_id
-                ),
-                array(
-                    "isCover"       => 0
-                )
-            );
-
-            $viewData = new stdClass();
-
-            $viewData-> viewFolder = $this->viewFolder;
-            $viewData->subViewFolder = "image";
-
-            $viewData->item_images =  $this->galleries_image_model->get_all(
-                array(
-                    "galleries_id" => $parent_id
-                ),
-                    "rank ASC"
-            );
-
-            $render_html = $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/render_elements/image_list_v", $viewData, true);
-
-            echo $render_html;
-
-
-
-        }
     }
 
 }

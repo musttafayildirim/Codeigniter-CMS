@@ -5,12 +5,21 @@
                 <h4 class="widget-title">
                     <?php
                     $type = $item->gallery_type;
-                    if($type == "image")
-                       $type_text = "resimler";
-                    else if($type == "file")
+                    if($type == "image"){
+                        $type_text = "resimler";
+                        $limitation_text = "(Sadece img, jpg veya jpeg seçiniz.)";
+                    }
+
+                    else if($type == "file"){
                         $type_text = "dosyalar";
-                    else
-                       $type_text = "videolar";
+                        $limitation_text = "(Sadece pdf, doc veya docx seçiniz.)";
+                    }
+
+                    else{
+                        $type_text = "videolar";
+                        $limitation_text = "";
+                    }
+
                     ?>
 
                     <strong><?php echo $item->title; ?></strong> kaydına ait <?php echo $type_text; ?>
@@ -20,10 +29,13 @@
 
             <div class="widget-body">
 
-                <form data-url="<?php echo base_url("galleries/refresh_file_list/$item->id"); ?>" action="<?php echo base_url("galleries/file_upload/$item->id") ?>" id="dropzone" class="dropzone dz-clickable" data-plugin="dropzone" data-options="{ url: '<?php echo base_url("galleries/file_upload/$item->id"); ?>'}">
+                <form data-url="<?php echo base_url("galleries/refresh_file_list/$item->id/$item->gallery_type"); ?>"
+                      action="<?php echo base_url("galleries/file_upload/$item->id/$item->gallery_type/$item->folder_name") ?>"
+                      id="dropzone" class="dropzone dz-clickable" data-plugin="dropzone"
+                      data-options="{ url: '<?php echo base_url("galleries/file_upload/$item->id/$item->gallery_type/$item->folder_name"); ?>'}">
                     <div class="dz-message">
                         <h3 class="m-h-lg"><?php echo ucfirst($type_text); ?> sürükleyin veya yüklemek için tıklayın.</h3>
-                        <p class="m-b-lg text-muted">(Sadece img, jpg veya jpeg seçiniz. )</p>
+                        <p class="m-b-lg text-muted"><?php echo $limitation_text; ?></p>
                     </div>
                 </form>
 
