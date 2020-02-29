@@ -22,7 +22,7 @@ else if($type == "file")
         <th>İşlem</th>
         </thead>
 
-        <tbody class="sortable" data-url="<?php echo base_url("galleries/fileRankSetter/$gallery_type");?>">
+        <tbody class="sortable" data-url="<?php echo base_url("galleries/file_rankSetter/$gallery_type");?>">
         <?php foreach ($item_images as $image) { ?>
             <tr id="ord-<?php echo $image->id;?>">
                 <td class="order"  ><i class="fa fa-reorder"></i></td>

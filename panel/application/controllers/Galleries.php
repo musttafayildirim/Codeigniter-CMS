@@ -394,7 +394,7 @@ class Galleries extends CI_Controller
         }
     }
 
-    public function fileRankSetter($gallery_type){
+    public function file_rankSetter($gallery_type){
         $data = $this->input->post("data");
 
         parse_str($data, $order);
@@ -618,5 +618,162 @@ class Galleries extends CI_Controller
             unset($_SESSION['alert']);
         }
     }
+
+    public function gallery_video_isActiveSetter($id){
+
+            $isActive = ($this->input->post("data") === "true") ? 1 : 0;
+
+            $this->video_model->update(
+                array(
+                    "id" => $id,
+                ),
+                array(
+                    "isActive" => $isActive
+                )
+            );
+        }
+
+    public function gallery_video_delete($id, $parent_id){
+
+        $delete = $this->video_model->delete(
+            array(
+                "id" => $id
+            )
+        );
+
+        if($delete){
+
+            $alert = array(
+                "title"   => "Tebrikler",
+                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                "type"    => "success"
+            );
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("galleries/gallery_video_list/$parent_id"));
+        }
+        else{
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "type"    => "error"
+            );
+
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("galleries/gallery_video_list/$parent_id"));
+            unset($_SESSION['alert']);
+        }
+
+    }
+
+    public function gallery_video_rankSetter(){
+        $data = $this->input->post("data");
+
+        parse_str($data, $order);
+        $items = $order["ord"];
+
+        foreach ($items as $rank => $id){
+
+            $this->video_model->update(
+                array(
+                    "id"        =>  $id,
+                    "rank !="   =>  $rank
+                ),
+                array(
+                    "rank" => $rank
+                )
+            );
+        }
+    }
+
+    public function update_gallery_video_form($id){
+        $viewData = new stdClass();
+
+        $item = $this->video_model->get(
+            array(
+                "id" => $id
+            )
+        );
+
+        $viewData-> viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "video/update";
+        $viewData->item = $item;
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+
+    public function update_galleries_video($id, $gallery_id){
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules("url", "Video URL", "required|trim");
+        $this->form_validation->set_message(
+
+            array(
+                "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
+            )
+        );
+        $validate = $this->form_validation->run();
+
+        if ($validate){
+
+            $update = $this->video_model->update(
+                array(
+                    "id" => $id,
+                ),
+                array(
+                    "url"         => $this->input->post("url"),
+                )
+            );
+
+            if($update){
+                $alert = array(
+                    "title"   => "Tebrikler",
+                    "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                    "type"    => "success"
+                );
+
+            }
+            else{
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                    "type"    => "error"
+                );
+            }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("galleries/gallery_video_list/$gallery_id"));
+
+        }
+        else{
+            $viewData = new stdClass();
+
+            $item = $this->video_model->get(
+                array(
+                    "id" => $id
+                )
+            );
+
+            $viewData-> viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "video/update";
+            $viewData->form_error = "true";
+            $viewData->item = $item;
+
+
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "type"    => "error"
+            );
+            $this->session->set_flashdata("alert", $alert);
+            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+            unset($_SESSION['alert']);
+        }
+    }
+
+
+
+
+
+
+
 
 }

@@ -29,7 +29,7 @@
                             <th>İşlem</th>
                         </tr>
                         </thead>
-                        <tbody class="sortable text-center" data-url="<?php echo base_url("galleries/rankSetter");?>">
+                        <tbody class="sortable text-center" data-url="<?php echo base_url("galleries/gallery_video_rankSetter");?>">
 
 
                         <?php foreach ($items as $item){ ?>
@@ -51,7 +51,7 @@
                             </td>
                             <td class="w50">
                                 <input
-                                        data-url = "<?php echo base_url("news/isActiveSetter/$item->id"); ?>";
+                                        data-url = "<?php echo base_url("galleries/gallery_video_isActiveSetter/$item->id"); ?>";
                                         type="checkbox"
                                         class="isActive"
                                         data-switchery="true"
@@ -61,10 +61,10 @@
                             </td>
                             <td class="w150">
                                 <button
-                                        data-url="<?php echo base_url("news/delete/$item->id")?>"
+                                        data-url="<?php echo base_url("galleries/gallery_video_delete/$item->id/$gallery->id")?>"
                                         class="btn btn-danger mw-xs remove-btn">
                                         <i class="fa fa-trash-o"></i></button>
-                                <a href="<?php echo base_url("news/update_news/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                <a href="<?php echo base_url("galleries/update_gallery_video_form/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
                             </td>
                         </tr>
 
