@@ -25,7 +25,10 @@ th{
 }
 
 .w150{
-    width: 125px;
+    width: 150px;
+}
+.w300{
+    width: 300px;
 }
 
 .sortable{
