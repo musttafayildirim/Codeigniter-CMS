@@ -11,3 +11,12 @@ function converToSEO($text){
 function get_readable_date($time){
     return strftime('%e %B %Y', strtotime($time));
 }
+
+function get_active_user(){
+    $t = &get_instance();
+    $user = $t->session->userdata("user");
+    if($user)
+        return $user;
+    else
+        return false;
+}

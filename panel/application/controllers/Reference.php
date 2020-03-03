@@ -9,8 +9,10 @@ class Reference extends CI_Controller
     {
         parent::__construct();
         $this->viewFolder = "reference_v";
-
         $this->load->model("reference_model");
+
+        if(!get_active_user())
+            redirect(base_url("login"));
     }
 
     public function index()

@@ -12,6 +12,9 @@ class Product extends CI_Controller
 
         $this->load->model("product_model");
         $this->load->model("product_image_model");
+
+        if(!get_active_user())
+            redirect(base_url("login"));
     }
 
     public function index()

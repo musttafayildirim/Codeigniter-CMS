@@ -14,8 +14,10 @@ class UserOperation extends CI_Controller
 
     public function login()
     {
+        if(get_active_user())
+            redirect(base_url());
+        
         $viewData = new stdClass();
-
         $viewData-> viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "login";
 
@@ -23,8 +25,11 @@ class UserOperation extends CI_Controller
     }
 
     public function do_login(){
-        $this->load->library("form_validation");
 
+        if(get_active_user())
+            redirect(base_url());
+
+        $this->load->library("form_validation");
         $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim");
         $this->form_validation->set_rules("password", "Şifre", "required|trim");
 
@@ -65,37 +70,37 @@ class UserOperation extends CI_Controller
                 )
             );
 
-                if($username) {
-                        if ($user) {
-                            $alert = array(
-                                "title" => "İşlem başarılı",
-                                "text" => "$user->full_name hoşgeldiniz",
-                                "type" => "success"
-                            );
-                            $this->session->set_userdata("user", $user);
-                            $this->session->set_flashdata("alert", $alert);
-                            redirect(base_url());
-                        } else {
-                            $alert = array(
-                                "title" => "İşlem başarısız",
-                                "text" => "Lütfen şifrenizi kontrol ediniz!",
-                                "type" => "error"
-                            );
-                            $this->session->set_flashdata("alert", $alert);
-                            redirect(base_url("login"));
-                            unset($_SESSION['alert']);
-                        }
-                }
-                else{
-                    $alert = array(
-                        "title"   => "İşlem başarısız",
-                        "text"    => "Böyle bir kullanıcı bulunamadı!",
-                        "type"    => "error"
-                    );
-                    $this->session->set_flashdata("alert", $alert);
-                    redirect(base_url("login"));
-                    unset($_SESSION['alert']);
-                }
+            if($username) {
+                    if ($user) {
+                        $alert = array(
+                            "title" => "İşlem başarılı",
+                            "text" => "$user->full_name hoşgeldiniz",
+                            "type" => "success"
+                        );
+                        $this->session->set_userdata("user", $user);
+                        $this->session->set_flashdata("alert", $alert);
+                        redirect(base_url());
+                    } else {
+                        $alert = array(
+                            "title" => "İşlem başarısız",
+                            "text" => "Lütfen şifrenizi kontrol ediniz!",
+                            "type" => "error"
+                        );
+                        $this->session->set_flashdata("alert", $alert);
+                        redirect(base_url("login"));
+                        unset($_SESSION['alert']);
+                    }
+            }
+            else{
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Böyle bir kullanıcı bulunamadı!",
+                    "type"    => "error"
+                );
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("login"));
+                unset($_SESSION['alert']);
+            }
         }
     }
 
