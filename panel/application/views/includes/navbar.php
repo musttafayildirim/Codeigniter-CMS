@@ -17,7 +17,7 @@
             <span class="zmdi zmdi-hc-lg zmdi-search"></span>
         </button>
 
-        <a href="../index.html" class="navbar-brand">
+        <a href="<?php echo base_url(); ?>" class="navbar-brand">
             <span class="brand-icon"><i class="fa fa-gg"></i></span>
             <span class="brand-name">Infinity</span>
         </a>
