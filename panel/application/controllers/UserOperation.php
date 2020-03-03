@@ -16,7 +16,7 @@ class UserOperation extends CI_Controller
     {
         if(get_active_user())
             redirect(base_url());
-        
+
         $viewData = new stdClass();
         $viewData-> viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "login";
@@ -102,6 +102,11 @@ class UserOperation extends CI_Controller
                 unset($_SESSION['alert']);
             }
         }
+    }
+
+    public function logout(){
+        $this->session->unset_userdata('user');
+        redirect(base_url('login'));
     }
 
 
