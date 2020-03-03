@@ -49,5 +49,4 @@
             </div><!-- .widget-body -->
         </div><!-- .widget -->
     </div><!-- END column -->
-
 </div>

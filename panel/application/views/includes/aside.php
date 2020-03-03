@@ -33,7 +33,7 @@
                                 <li>
                                     <a class="text-color" href="<?php echo base_url("logout");?>">
                                         <span class="m-r-xs"><i class="fa fa-power-off"></i></span>
-                                        <span>Home</span>
+                                        <span>Çıkış</span>
                                     </a>
                                 </li>
                             </ul>

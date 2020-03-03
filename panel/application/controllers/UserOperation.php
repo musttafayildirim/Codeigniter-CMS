@@ -66,20 +66,40 @@ class UserOperation extends CI_Controller
             $user =  $this->user_model->get(
                 array(
                     "user_name" =>  $this->input->post("user_name"),
-                    "password"  => md5($this->input->post("password"))
+                    "password"  => md5($this->input->post("password")),
+                )
+            );
+            $isActive =  $this->user_model->get(
+                array(
+                    "user_name" =>  $this->input->post("user_name"),
+                    "password"  => md5($this->input->post("password")),
+                    "isActive"  => 1
                 )
             );
 
             if($username) {
                     if ($user) {
-                        $alert = array(
-                            "title" => "İşlem başarılı",
-                            "text" => "$user->full_name hoşgeldiniz",
-                            "type" => "success"
-                        );
-                        $this->session->set_userdata("user", $user);
-                        $this->session->set_flashdata("alert", $alert);
-                        redirect(base_url());
+                        if ($isActive){
+                            $alert = array(
+                                "title" => "İşlem başarılı",
+                                "text" => "$user->full_name hoşgeldiniz",
+                                "type" => "success"
+                            );
+                            $this->session->set_userdata("user", $user);
+                            $this->session->set_flashdata("alert", $alert);
+                            redirect(base_url());
+                        }
+                        else{
+                            $alert = array(
+                                "title" => "İşlem başarısız",
+                                "text" => "Lütfen yöneticinizle irtibata geçiniz!",
+                                "type" => "error"
+                            );
+                            $this->session->set_flashdata("alert", $alert);
+                            redirect(base_url("login"));
+                            unset($_SESSION['alert']);
+                        }
+
                     } else {
                         $alert = array(
                             "title" => "İşlem başarısız",
