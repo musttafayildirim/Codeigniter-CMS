@@ -60,18 +60,18 @@ class UserOperation extends CI_Controller
         else{
             $username = $this->user_model->get(
                 array(
-                    "user_name" =>  $this->input->post("user_name"),
+                    "user_name" => $this->input->post("user_name"),
                 )
             );
             $user =  $this->user_model->get(
                 array(
-                    "user_name" =>  $this->input->post("user_name"),
+                    "user_name" => $this->input->post("user_name"),
                     "password"  => md5($this->input->post("password")),
                 )
             );
             $isActive =  $this->user_model->get(
                 array(
-                    "user_name" =>  $this->input->post("user_name"),
+                    "user_name" => $this->input->post("user_name"),
                     "password"  => md5($this->input->post("password")),
                     "isActive"  => 1
                 )
