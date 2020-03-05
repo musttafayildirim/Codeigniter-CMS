@@ -129,6 +129,35 @@ class UserOperation extends CI_Controller
         redirect(base_url('login'));
     }
 
+    public function send_email(){
+        $config = array(
+            'protocol'      => "smtp",
+            "smtp_host"     => "ssl://smtp.gmail.com",
+            "smtp_port"     => "465",
+            "smtp_user"     => "mailmusttafayildirim@gmail.com",
+            "smtp_pass"     => "mustafa1997.",
+            "starttls"      => true,
+            "charset"       => "utf-8",
+            "mailtype"      => "html",
+            "wordwrap"      => true,
+            "newline"       => "\r\n"
+        );
+
+
+        $this->load->library('email', $config);
+
+        $this->email->from("mailmusttafayildirim@gmail.com");
+        $this->email->to("mustafa.yildirim1997@gmail.com");
+        $this->email->subject("deneme");
+        $this->email->message("deneme içeririk");
+
+        $send = $this->email->send();
+
+        if($send)
+            echo "başarılı";
+        else
+            echo "başarısızız";
+    }
 
 
 }
