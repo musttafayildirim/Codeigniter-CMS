@@ -56,12 +56,16 @@
                     </a>
                 </li>
 
-
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
-                        <span class="menu-text">Site Ayarları</span>
+                <li class="has-submenu active">
+                    <a href="javascript:void(0)" class="submenu-toggle">
+                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
+                        <span class="menu-text">Ayarlar</span>
+                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
+                    <ul class="submenu" style="display: none;">
+                        <li class="active"><a href="index.html"><span class="menu-text">Site Ayarları</span></a></li>
+                        <li><a href="<?php echo base_url("email") ?>"><span class="menu-text">Email Ayarları</span></a></li>
+                    </ul>
                 </li>
 
                 <li>
