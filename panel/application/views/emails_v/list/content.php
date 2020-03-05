@@ -28,7 +28,6 @@
                             <th>Port</th>
                             <th>Kullanıcının Mail Adresi</th>
                             <th>Kime</th>
-                            <th>Kimden</th>
                             <th>Durum</th>
                             <th>İşlem</th>
                         </tr>
@@ -38,13 +37,12 @@
                         <?php foreach ($items as $item){ ?>
                         <tr>
                             <td class="w50 text-center">#<?php echo $item->id; ?></td>
-                            <td><?php echo $item->user_name; ?></td>
-                            <td><?php echo $item->protocol; ?></td>
-                            <td><?php echo $item->host; ?></td>
-                            <td class="text-center"><?php echo $item->port; ?></td>
+                            <td class="text-center w100"><?php echo $item->user_name; ?></td>
+                            <td class="text-center w50"><?php echo $item->protocol; ?></td>
+                            <td class="text-center w100"><?php echo $item->host; ?></td>
+                            <td class="text-center w50"><?php echo $item->port; ?></td>
                             <td class="text-center"><?php echo $item->user; ?></td>
                             <td class="text-center"><?php echo $item->to; ?></td>
-                            <td class="text-center"><?php echo $item->from; ?></td>
                             <td class="w50">
                                 <input
                                         data-url = "<?php echo base_url("email/isActiveSetter/$item->id"); ?>";

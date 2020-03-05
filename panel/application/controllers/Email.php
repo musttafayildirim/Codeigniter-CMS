@@ -32,7 +32,7 @@ class Email extends CI_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
 
-    public function new_user()
+    public function new_email()
     {
         $viewData = new stdClass();
 
@@ -46,17 +46,19 @@ class Email extends CI_Controller
     public function save(){
       $this->load->library("form_validation");
 
-      $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[email.user_name]");
-      $this->form_validation->set_rules("email", "E-Posta Adresi", "required|trim|valid_email|is_unique[email.email]");
-      $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[12]");
+      $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim");
+      $this->form_validation->set_rules("protocol", "Protokol", "required|trim");
+      $this->form_validation->set_rules("host", "Host", "required|trim");
+      $this->form_validation->set_rules("port", "Port", "required|trim");
+      $this->form_validation->set_rules("user", "Kullanıcı Adı", "required|trim");
+      $this->form_validation->set_rules("password", "E-Posta Adresi", "required|trim");
+      $this->form_validation->set_rules("from", "E-Posta Adresi (from)", "required|trim");
+      $this->form_validation->set_rules("to", "E-Posta Adresi (to)", "required|trim");
 
       $this->form_validation->set_message(
           array(
               "required" => "<strong>{field}</strong> alanı doldurulmalıdır.",
-              "is_unique" => "<strong>{field}</strong> bu alan benzersiz olmalıdır.",
               "valid_email" => "Lütfen geçerli bir mail adresi giriniz.",
-              "min_length" => "Şifreniz en az 6 karakter ile oluşturulabilir.",
-              "max_length" => "Şifreniz en fazla 12 karakter ile oluşturulabilir."
           )
       );
 
@@ -65,12 +67,16 @@ class Email extends CI_Controller
       if ($validate){
           $insert = $this->email_model->add(
               array(
-                  "user_name" => $this->input->post("user_name"),
-                  "full_name" => $this->input->post("full_name"),
-                  "email"     => $this->input->post("email"),
-                  "password"  => md5($this->input->post("password")),
-                  "isActive"  => true,
-                  "createdAt" => date("Y-m-d H:i:s")
+                  "user_name"   => $this->input->post("user_name"),
+                  "to"          => $this->input->post("to"),
+                  "from"        => $this->input->post("from"),
+                  "user"        => $this->input->post("user"),
+                  "port"        => $this->input->post("port"),
+                  "host"        => $this->input->post("host"),
+                  "protocol"    => $this->input->post("protocol"),
+                  "password"    => $this->input->post("password"),
+                  "isActive"    => true,
+                  "createdAt"   => date("Y-m-d H:i:s")
               )
           );
           if ($insert) {
@@ -110,7 +116,7 @@ class Email extends CI_Controller
     }
 
     //düzenlenecek sayfaya gitmek
-    public function update_user($id){
+    public function update_email($id){
         $viewData = new stdClass();
 
         $item = $this->email_model->get(
@@ -128,23 +134,18 @@ class Email extends CI_Controller
     public function update($id){
         $this->load->library("form_validation");
 
-        $oldUser = $this->email_model->get(
-            array(
-                "id" => $id
-            )
-        );
-
-        if ($oldUser->user_name != $this->input->post("user_name")){
-            $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[email.user_name]");
-        }
-        if ($oldUser->email != $this->input->post("email")){
-            $this->form_validation->set_rules("email", "E-Posta Adresi", "required|trim|valid_email|is_unique[email.email]");
-        }
+        $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim");
+        $this->form_validation->set_rules("protocol", "Protokol", "required|trim");
+        $this->form_validation->set_rules("host", "Host", "required|trim");
+        $this->form_validation->set_rules("port", "Port", "required|trim");
+        $this->form_validation->set_rules("user", "Kullanıcı Adı", "required|trim");
+        $this->form_validation->set_rules("password", "E-Posta Adresi", "required|trim");
+        $this->form_validation->set_rules("from", "E-Posta Adresi (from)", "required|trim");
+        $this->form_validation->set_rules("to", "E-Posta Adresi (to)", "required|trim");
 
         $this->form_validation->set_message(
             array(
                 "required" => "<strong>{field}</strong> alanı doldurulmalıdır.",
-                "is_unique" => "<strong>{field}</strong> bu alan benzersiz olmalıdır.",
                 "valid_email" => "Lütfen geçerli bir mail adresi giriniz.",
             )
         );
@@ -158,9 +159,14 @@ class Email extends CI_Controller
                     "id" => $id
                 ),
                 array(
-                    "user_name" => $this->input->post("user_name"),
-                    "full_name" => $this->input->post("full_name"),
-                    "email"     => $this->input->post("email")
+                    "user_name"   => $this->input->post("user_name"),
+                    "to"          => $this->input->post("to"),
+                    "from"        => $this->input->post("from"),
+                    "user"        => $this->input->post("user"),
+                    "port"        => $this->input->post("port"),
+                    "host"        => $this->input->post("host"),
+                    "protocol"    => $this->input->post("protocol"),
+                    "password"    => $this->input->post("password"),
                 )
             );
 
@@ -205,89 +211,6 @@ class Email extends CI_Controller
         }
     }
 
-    public function update_password_form($id){
-        $viewData = new stdClass();
-
-        $item = $this->email_model->get(
-            array(
-                "id" => $id
-            )
-        );
-
-        $viewData-> viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "password";
-        $viewData->item = $item;
-
-        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-    }
-    public function update_password($id){
-        $this->load->library("form_validation");
-
-        $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[12]");
-        $this->form_validation->set_rules("re-password", "Şifre Doğrulama", "required|trim|min_length[6]|max_length[12]|matches[password]");
-
-        $this->form_validation->set_message(
-            array(
-                "required"      => "<strong>{field}</strong> alanı doldurulmalıdır.",
-                "min_length"    => "Şifreniz en az 6 karakter ile oluşturulabilir.",
-                "max_length"    => "Şifreniz en fazla 12 karakter ile oluşturulabilir.",
-                "matches"       => "Şifreler birbirleri ile uyuşmuyor."
-            )
-        );
-
-        $validate = $this->form_validation->run();
-
-        if ($validate) {
-
-            $update = $this->email_model->update(
-                array(
-                    "id" => $id
-                ),
-                array(
-                   "password" => md5($this->input->post("password"))
-                )
-            );
-
-            if ($update) {
-                $alert = array(
-                    "title" => "Tebrikler",
-                    "text" => "Şifre başarılı bir şekilde değiştirildi.",
-                    "type" => "success"
-                );
-            } else {
-                $alert = array(
-                    "title" => "İşlem başarısız",
-                    "text" => "Lütfen verilen uyarılara göre şifrenizi tekrar giriniz.",
-                    "type" => "error"
-                );
-            }
-            $this->session->set_flashdata("alert", $alert);
-            redirect(base_url("email"));
-        }
-        else{
-            $viewData = new stdClass();
-
-            $viewData-> viewFolder = $this->viewFolder;
-            $viewData->subViewFolder = "password";
-            $viewData->form_error = "true";
-
-            $viewData->item = $this->email_model->get(
-                array(
-                    "id" => $id
-                )
-            );
-
-            $alert = array(
-                "title"   => "İşlem başarısız",
-                "text"    => "Lütfen verilen uyarılara göre şifrenizi tekrar giriniz.",
-                "type"    => "error"
-            );
-
-            $this->session->set_flashdata("alert", $alert);
-            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-            unset($_SESSION['alert']);
-        }
-    }
 
     public function delete($id){
         
