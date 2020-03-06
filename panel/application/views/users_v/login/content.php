@@ -26,5 +26,5 @@
 </div><!-- #login-form -->
 
 <div class="simple-page-footer">
-    <p><a href="password-forget.html">Şifreni mi unuttun?</a></p>
+    <p><a href="<?php echo base_url('forget_password'); ?>">Şifreni mi unuttun?</a></p>
 </div><!-- .simple-page-footer -->

@@ -159,5 +159,21 @@ class UserOperation extends CI_Controller
             echo "başarısızız";
     }
 
+    public function forget_password()
+    {
+        if(get_active_user())
+            redirect(base_url());
+
+        $viewData = new stdClass();
+        $viewData-> viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "forget_password";
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+
+    public function reset_password(){
+        echo "başarılı";
+    }
+
 
 }
