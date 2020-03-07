@@ -2,16 +2,21 @@
     <div class="simple-page-logo animated swing">
         <a href="index.html">
             <span><i class="fa fa-gg"></i></span>
-            <span>Infinity</span>
+            <span>CMS</span>
         </a>
     </div><!-- logo -->
     <div class="simple-page-form animated flipInY" id="reset-password-form">
-        <h4 class="form-title m-b-xl text-center">Forgot Your Password ?</h4>
+        <h4 class="form-title m-b-xl text-center">Şifreni mi Unuttun ?</h4>
 
-        <form action="<?php echo base_url('useroperation/reset_password'); ?>">
+        <form action="<?php echo base_url('reset-password'); ?>" method="post">
             <div class="form-group">
-                <input id="reset-password-email" type="email" class="form-control" placeholder="email">
+                <input id="reset-password-email" type="email" class="form-control" placeholder="E-posta" name="email"
+                       value = "<?php echo isset($form_error) ? set_value("email") : ""?>">
+                <?php if(isset($form_error)){ ?>
+                    <small class="pull-right input-form-error"><?php echo form_error( "email");?></small>
+                <?php } ?>
             </div>
-            <input type="submit" class="btn btn-primary" value="RESET YOUR PASSWORD">
+
+            <button class="btn btn-primary">ŞİFREMİ SIFIRLA </button>
         </form>
     </div><!-- #reset-password-form -->

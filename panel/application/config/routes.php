@@ -54,4 +54,4 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'useroperation/login';
 $route['logout'] = 'useroperation/logout';
-$route['forget_password'] = 'useroperation/forget_password';
+$route['reset-password'] = 'useroperation/reset_password';
