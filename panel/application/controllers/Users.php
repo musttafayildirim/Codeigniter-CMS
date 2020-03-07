@@ -141,6 +141,8 @@ class Users extends CI_Controller
             $this->form_validation->set_rules("email", "E-Posta Adresi", "required|trim|valid_email|is_unique[users.email]");
         }
 
+        $this->form_validation->set_rules("full_name", "Ad Soyad", "trim");
+
         $this->form_validation->set_message(
             array(
                 "required" => "<strong>{field}</strong> alanı doldurulmalıdır.",
