@@ -200,6 +200,10 @@ class UserOperation extends CI_Controller
            if($user){
                $this->load->model("email_model");
 
+               //Random şifre oluşturma işlemi
+               $this->load->helper("string");
+               $temp_password = random_string();
+
                $email = $this->email_model->get(
                    array(
                        "isActive" =>1
@@ -219,20 +223,47 @@ class UserOperation extends CI_Controller
                    "newline"       => "\r\n"
                );
 
-
                $this->load->library('email', $config);
 
                $this->email->from($email->from);
                $this->email->to($user->email);
-               $this->email->subject("deneme");
-               $this->email->message("deneme içeririk");
+               $this->email->subject("Şifremi Unuttum");
+               $this->email->message("Sisteme tekrar giriş yapabilmek için kullanmanız gereken şifre : <strong>{$temp_password}</strong>");
 
                $send = $this->email->send();
 
-               if($send)
-                   echo "başarılı";
-               else
-                   echo "başarısızız";
+               if($send){
+                    $this->user_model->update(
+                        array(
+                            'id' => $user->id
+                        ),
+                        array(
+                            'password' => md5($temp_password)
+                        )
+                    );
+
+                   $alert = array(
+                       "title"   => "Tebrikler",
+                       "text"    => "Şifreniz başarılı bir şekilde sıfırlanmıştır. Lütfen <strong>E-Posta</strong> adresinizi kontrol ediniz.",
+                       "type"    => "success"
+                   );
+
+                   $this->session->set_flashdata("alert", $alert);
+                   redirect(base_url("login"));
+                   unset($_SESSION['alert']);
+               }
+
+               else{
+                   $alert = array(
+                       "title"   => "OPSSS!!!!!",
+                       "text"    => "E-posta gönderme sırasında bir hata oluştu.",
+                       "type"    => "error"
+                   );
+
+                   $this->session->set_flashdata("alert", $alert);
+                   redirect(base_url("reset-password"));
+                   unset($_SESSION['alert']);
+               }
 
            }
            else{
