@@ -129,36 +129,6 @@ class UserOperation extends CI_Controller
         redirect(base_url('login'));
     }
 
-    public function send_email(){
-        $config = array(
-            'protocol'      => "smtp",
-            "smtp_host"     => "ssl://smtp.gmail.com",
-            "smtp_port"     => "465",
-            "smtp_user"     => "mailmusttafayildirim@gmail.com",
-            "smtp_pass"     => "mustafa1997.",
-            "starttls"      => true,
-            "charset"       => "utf-8",
-            "mailtype"      => "html",
-            "wordwrap"      => true,
-            "newline"       => "\r\n"
-        );
-
-
-        $this->load->library('email', $config);
-
-        $this->email->from("mailmusttafayildirim@gmail.com");
-        $this->email->to("mustafa.yildirim1997@gmail.com");
-        $this->email->subject("deneme");
-        $this->email->message("deneme içeririk");
-
-        $send = $this->email->send();
-
-        if($send)
-            echo "başarılı";
-        else
-            echo "başarısızız";
-    }
-
     public function forget_password()
     {
         if(get_active_user())
@@ -198,39 +168,11 @@ class UserOperation extends CI_Controller
            );
 
            if($user){
-               $this->load->model("email_model");
-
                //Random şifre oluşturma işlemi
                $this->load->helper("string");
                $temp_password = random_string();
-
-               $email = $this->email_model->get(
-                   array(
-                       "isActive" =>1
-                   )
-               );
-
-               $config = array(
-                   'protocol'      => $email->protocol,
-                   "smtp_host"     => $email->host,
-                   "smtp_port"     => $email->port,
-                   "smtp_user"     => $email->user,
-                   "smtp_pass"     => $email->password,
-                   "starttls"      => true,
-                   "charset"       => "utf-8",
-                   "mailtype"      => "html",
-                   "wordwrap"      => true,
-                   "newline"       => "\r\n"
-               );
-
-               $this->load->library('email', $config);
-
-               $this->email->from($email->from);
-               $this->email->to($user->email);
-               $this->email->subject("Şifremi Unuttum");
-               $this->email->message("Sisteme tekrar giriş yapabilmek için kullanmanız gereken şifre : <strong>{$temp_password}</strong>");
-
-               $send = $this->email->send();
+               //mail gönderme helperını kullanarak mailimizi gönderiyoruz...
+               $send = send_email($user->email, "Şifremi Unuttum", "Sisteme tekrar giriş yapabilmek için kullanmanız gereken şifre : <strong>{$temp_password}</strong>");
 
                if($send){
                     $this->user_model->update(

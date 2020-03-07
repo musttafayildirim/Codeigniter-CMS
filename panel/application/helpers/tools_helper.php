@@ -20,3 +20,31 @@ function get_active_user(){
     else
         return false;
 }
+
+function send_email($toEmail="", $subject="", $message=""){
+    $t = get_instance();
+    $t->load->model("email_model");
+    $email = $t->email_model->get(
+        array(
+            "isActive" =>1
+        )
+    );
+    $config = array(
+        'protocol'      => $email->protocol,
+        "smtp_host"     => $email->host,
+        "smtp_port"     => $email->port,
+        "smtp_user"     => $email->user,
+        "smtp_pass"     => $email->password,
+        "starttls"      => true,
+        "charset"       => "utf-8",
+        "mailtype"      => "html",
+        "wordwrap"      => true,
+        "newline"       => "\r\n"
+    );
+    $t->load->library('email', $config);
+    $t->email->from($email->from);
+    $t->email->to($toEmail);
+    $t->email->subject($subject);
+    $t->email->message($message);
+    return $t->email->send();
+}
