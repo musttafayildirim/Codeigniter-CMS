@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="<?php echo base_url("settings/save"); ?>" method="post">
+                <form action="<?php echo base_url("settings/save"); ?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="widget">
@@ -20,12 +20,14 @@
                                     <!-- Tab panes -->
                                     <div class="tab-content p-md">
                                         <div role="tabpanel" class="tab-pane fade active in" id="tab-1">
-                                            <h4 class="m-b-md">Şirket Adı</h4>
-                                            <div class="form-group">
-                                                <input type="text" class="form-control"  placeholder="Şirket Adı" name="company_name" value="<?php echo isset($form_error) ? set_value("company_name") : "";?>">
-                                                <?php if(isset($form_error)){ ?>
-                                                    <small class="pull-right input-form-error"><?php echo form_error( "company_name");?></small>
-                                                <?php } ?>
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <h4 class="m-b-md">Şirket Adı</h4>
+                                                    <input type="text" class="form-control"  placeholder="Şirket Adı" name="company_name" value="<?php echo isset($form_error) ? set_value("company_name") : "";?>">
+                                                    <?php if(isset($form_error)){ ?>
+                                                        <small class="pull-right input-form-error"><?php echo form_error( "company_name");?></small>
+                                                    <?php } ?>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="form-group col-md-6">
@@ -85,24 +87,27 @@
                                             </div>
                                         </div><!-- .tab-pane  -->
                                         <div role="tabpanel" class="tab-pane fade" id="tab-5">
-                                            <h4 class="m-b-md">E-Posta</h4>
-                                            <div class="form-group">
-                                                <input type="email" class="form-control"  placeholder="E-Posta adresinizi giriniz." name="email" value="<?php echo isset($form_error) ? set_value("email") : "";?>">
-                                                <?php if(isset($form_error)){ ?>
-                                                    <small class="pull-right input-form-error"><?php echo form_error( "email");?></small>
-                                                <?php } ?>
+                                            <div class="row">
+                                                <div class="form-group col-md-12">
+                                                    <h4 class="m-b-md">E-Posta</h4>
+                                                    <input type="email" class="form-control"  placeholder="E-Posta adresinizi giriniz." name="email" value="<?php echo isset($form_error) ? set_value("email") : "";?>">
+                                                    <?php if(isset($form_error)){ ?>
+                                                        <small class="pull-right input-form-error"><?php echo form_error( "email");?></small>
+                                                    <?php } ?>
+                                                </div>
                                             </div>
+
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <h4 class="m-b-md">Facebook</h4>
-                                                    <input type="url" class="form-control"  placeholder="Telefon numaranızı giriniz." name="facebook" value="<?php echo isset($form_error) ? set_value("facebook") : "";?>">
+                                                    <input type="text" class="form-control"  placeholder="Facebook hesabınızı giriniz." name="facebook" value="<?php echo isset($form_error) ? set_value("facebook") : "";?>">
                                                     <?php if(isset($form_error)){ ?>
                                                         <small class="pull-right input-form-error"><?php echo form_error( "facebook");?></small>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <h4 class="m-b-md">Twitter</h4>
-                                                    <input type="url" class="form-control"  placeholder="Twitter hesabınızı giriniz." name="twitter" value="<?php echo isset($form_error) ? set_value("twitter") : "";?>">
+                                                    <input type="text" class="form-control"  placeholder="Twitter hesabınızı giriniz." name="twitter" value="<?php echo isset($form_error) ? set_value("twitter") : "";?>">
                                                     <?php if(isset($form_error)){ ?>
                                                         <small class="pull-right input-form-error"><?php echo form_error( "twitter");?></small>
                                                     <?php } ?>
@@ -111,14 +116,14 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <h4 class="m-b-md">Instagram</h4>
-                                                    <input type="url" class="form-control"  placeholder="Instagram hesabınızı giriniz." name="instagram" value="<?php echo isset($form_error) ? set_value("instagram") : "";?>">
+                                                    <input type="text" class="form-control"  placeholder="Instagram hesabınızı giriniz." name="instagram" value="<?php echo isset($form_error) ? set_value("instagram") : "";?>">
                                                     <?php if(isset($form_error)){ ?>
                                                         <small class="pull-right input-form-error"><?php echo form_error( "instagram");?></small>
                                                     <?php } ?>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <h4 class="m-b-md">LinkedIn</h4>
-                                                    <input type="url" class="form-control"  placeholder="LinkedIn hesabınızı giriniz." name="linkedin" value="<?php echo isset($form_error) ? set_value("linkedin") : "";?>">
+                                                    <input type="text" class="form-control"  placeholder="LinkedIn hesabınızı giriniz." name="linkedin" value="<?php echo isset($form_error) ? set_value("linkedin") : "";?>">
                                                     <?php if(isset($form_error)){ ?>
                                                         <small class="pull-right input-form-error"><?php echo form_error( "linkedin");?></small>
                                                     <?php } ?>
@@ -127,9 +132,9 @@
                                         </div><!-- .tab-pane  -->
                                         <div role="tabpanel" class="tab-pane fade" id="tab-6">
                                             <div class="row">
-                                                <div class="form-group col-md-8">
-                                                    <h4 class="m-b-md">Logo</h4>
-                                                    <input type="file" name="img_url" class="form-control">
+                                                <div class="form-group col-md-7">
+                                                    <h4 class="m-b-md">Logo Yükleniyiniz</h4>
+                                                    <input type="file" name="logo" class="form-control">
                                                 </div>
                                             </div>
                                         </div><!-- .tab-pane  -->

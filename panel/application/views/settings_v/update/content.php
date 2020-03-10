@@ -1,42 +1,168 @@
 <div class="row">
-
 <div class="col-md-12">
     <div class="widget">
         <header class="widget-header">
             <h4 class="widget-title">
-                <?php echo $item->user_name;?> kayıtlı kullanıcı güncelleniyor
+                <?php echo $item->company_name;?> kayıtlı kullanıcı güncelleniyor
             </h4>
         </header><!-- .widget-header -->
         <hr class="widget-separator">
 
         <div class="widget-body">
-            <form action="<?php echo base_url("users/update/$item->id"); ?>" method="post">
-                <div class="form-group">
-                    <label >Kullanıcı Adı</label>
-                    <input type="text" class="form-control" value="<?php echo isset($form_error) ? set_value("user_name") : $item->user_name; ?>"  placeholder="Kullanıcı Adı" name="user_name">
-                    <?php if(isset($form_error)){ ?>
-                        <small class="pull-right input-form-error"><?php echo form_error( "user_name");?></small>
-                    <?php } ?>
-                </div>
+            <form action="<?php echo base_url("settings/update/$item->id"); ?>" method="post" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="widget">
+                            <div class="m-b-lg nav-tabs-horizontal">
+                                <!-- tabs list -->
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#tab-1" aria-controls="tab-3" role="tab" data-toggle="tab" aria-expanded="true">Site Bilgileri</a></li>
+                                    <li role="presentation" class=""><a href="#tab-7" aria-controls="tab-1" role="tab" data-toggle="tab" aria-expanded="false">Adres Bilgisi</a></li>
+                                    <li role="presentation" class=""><a href="#tab-2" aria-controls="tab-1" role="tab" data-toggle="tab" aria-expanded="false">Hakkımızda</a></li>
+                                    <li role="presentation" class=""><a href="#tab-3" aria-controls="tab-2" role="tab" data-toggle="tab" aria-expanded="false">Vizyonumuz</a></li>
+                                    <li role="presentation" class=""><a href="#tab-4" aria-controls="tab-4" role="tab" data-toggle="tab" aria-expanded="false">Misyonumuz</a></li>
+                                    <li role="presentation" class=""><a href="#tab-5" aria-controls="tab-5" role="tab" data-toggle="tab" aria-expanded="false">Sosyal Medya</a></li>
+                                    <li role="presentation" class=""><a href="#tab-6" aria-controls="tab-6" role="tab" data-toggle="tab" aria-expanded="false">Logo</a></li>
+                                </ul><!-- .nav-tabs -->
+                                <!-- Tab panes -->
+                                <div class="tab-content p-md">
+                                    <div role="tabpanel" class="tab-pane fade active in" id="tab-1">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <h4 class="m-b-md">Şirket Adı</h4>
+                                                <input type="text" class="form-control"  placeholder="Şirket Adı" name="company_name" value="<?php echo isset($form_error) ? set_value("company_name") : $item->company_name;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "company_name");?></small>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <h4 class="m-b-md">Telefon 1</h4>
+                                                <input type="tel" class="form-control"  placeholder="(000)-000-000-00" name="phone_1" value="<?php echo isset($form_error) ? set_value("phone_1") : $item->phone_1;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "phone_1");?></small>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <h4 class="m-b-md">Telefon 2</h4>
+                                                <input type="tel" class="form-control"  placeholder="Diğer telefon numaranızı giriniz." name="phone_2" value="<?php echo isset($form_error) ? set_value("phone_2") : $item->phone_2;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "phone_2");?></small>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <h4 class="m-b-md">Faks 1</h4>
+                                                <input type="tel" class="form-control"  placeholder="Faks numaranızı giriniz." name="fax_1" value="<?php echo isset($form_error) ? set_value("fax_1") : $item->fax_1;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "fax_1");?></small>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <h4 class="m-b-md">Faks 2</h4>
+                                                <input type="tel" class="form-control"  placeholder="Diğer faks numaranızı giriniz." name="fax_2" value="<?php echo isset($form_error) ? set_value("fax_2") : $item->fax_2;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "fax_2");?></small>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div><!-- .tab-pane  -->
+                                    <div role="tabpanel" class="tab-pane fade" id="tab-7">
+                                        <h4 class="m-b-md">Adres Bilgisi</h4>
+                                        <div class="form-group">
+                                            <textarea name="address" class="m-0" data-plugin="summernote" data-options="{height: 250}">
+                                                <?php echo isset($form_error) ? set_value("address") : $item->address;?>
+                                            </textarea>
+                                        </div>
+                                    </div><!-- .tab-pane  -->
+                                    <div role="tabpanel" class="tab-pane fade" id="tab-2">
+                                        <h4 class="m-b-md">Hakkımızda</h4>
+                                        <div class="form-group">
+                                            <textarea name="about" class="m-0" data-plugin="summernote" data-options="{height: 250}">
+                                                <?php echo isset($form_error) ? set_value("about") : $item->about_us;?>
+                                            </textarea>
+                                        </div>
+                                    </div><!-- .tab-pane  -->
+                                    <div role="tabpanel" class="tab-pane fade" id="tab-3">
+                                        <h4 class="m-b-md">Vizyonumuz</h4>
+                                        <div class="form-group">
+                                            <textarea name="vision" class="m-0" data-plugin="summernote" data-options="{height: 250}">
+                                                <?php echo isset($form_error) ? set_value("vision") : $item->vision;?>
+                                            </textarea>
+                                        </div>
+                                    </div><!-- .tab-pane  -->
+                                    <div role="tabpanel" class="tab-pane fade" id="tab-4">
+                                        <h4 class="m-b-md">Misyonumuz</h4>
+                                        <div class="form-group">
+                                            <textarea name="mission" class="m-0" data-plugin="summernote" data-options="{height: 250}">
+                                                <?php echo isset($form_error) ? set_value("mission") : $item->mission;?>
+                                            </textarea>
+                                        </div>
+                                    </div><!-- .tab-pane  -->
+                                    <div role="tabpanel" class="tab-pane fade" id="tab-5">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <h4 class="m-b-md">E-Posta</h4>
+                                                <input type="email" class="form-control"  placeholder="E-Posta adresinizi giriniz." name="email" value="<?php echo isset($form_error) ? set_value("email") : $item->email;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "email");?></small>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
 
-                <div class="form-group">
-                    <label >Ad Soyad</label>
-                    <input type="text" class="form-control" value="<?php echo isset($form_error) ? set_value("full_name") : $item->full_name; ?>"  placeholder="Ad Soyad" name="full_name">
-                    <?php if(isset($form_error)){ ?>
-                        <small class="pull-right input-form-error"><?php echo form_error( "full_name");?></small>
-                    <?php } ?>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <h4 class="m-b-md">Facebook</h4>
+                                                <input type="text" class="form-control"  placeholder="Facebook hesabınızı giriniz." name="facebook" value="<?php echo isset($form_error) ? set_value("facebook") : $item->facebook;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "facebook");?></small>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <h4 class="m-b-md">Twitter</h4>
+                                                <input type="text" class="form-control"  placeholder="Twitter hesabınızı giriniz." name="twitter" value="<?php echo isset($form_error) ? set_value("twitter") : $item->twitter;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "twitter");?></small>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <h4 class="m-b-md">Instagram</h4>
+                                                <input type="text" class="form-control"  placeholder="Instagram hesabınızı giriniz." name="instagram" value="<?php echo isset($form_error) ? set_value("instagram") : $item->instagram;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "instagram");?></small>
+                                                <?php } ?>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <h4 class="m-b-md">LinkedIn</h4>
+                                                <input type="text" class="form-control"  placeholder="LinkedIn hesabınızı giriniz." name="linkedin" value="<?php echo isset($form_error) ? set_value("linkedin") : $item->linkedIn;?>">
+                                                <?php if(isset($form_error)){ ?>
+                                                    <small class="pull-right input-form-error"><?php echo form_error( "linkedin");?></small>
+                                                <?php } ?>
+                                            </div>
+                                        </div>
+                                    </div><!-- .tab-pane  -->
+                                    <div role="tabpanel" class="tab-pane fade" id="tab-6">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img src="<?php echo base_url("uploads/$viewFolder/$item->logo");?>" alt="<?php echo $item->company_name;?>" class="img-responsive" width="150px;">
+                                            </div>
+                                            <div class="form-group col-md-9">
+                                                <h4 class="m-b-md">Logo Yükleniyiniz</h4>
+                                                <input type="file" name="logo" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div><!-- .tab-pane  -->
+                                </div><!-- .tab-content  -->
+                            </div><!-- .nav-tabs-horizontal -->
+                        </div><!-- .widget -->
+                    </div>
                 </div>
-
-                <div class="form-group">
-                    <label >E-Posta Adresi</label>
-                    <input type="email" class="form-control" value="<?php echo isset($form_error) ? set_value("email") : $item->email; ?>"  placeholder="E-Posta Adresi" name="email">
-                    <?php if(isset($form_error)){ ?>
-                        <small class="pull-right input-form-error"><?php echo form_error( "email");?></small>
-                    <?php } ?>
-                </div>
-
-                <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Güncelle</button>
-                <a href="<?php echo base_url("users"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
+                <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Kaydet</button>
+                <a href="<?php echo base_url("settings"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
             </form>
         </div><!-- .widget-body -->
     </div><!-- .widget -->
