@@ -1,3 +1,5 @@
+<?php $settings = get_settings(); ?>
+
 <nav id="app-navbar" class="navbar navbar-inverse navbar-fixed-top primary">
 
     <!-- navbar header -->
@@ -18,8 +20,11 @@
         </button>
 
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
-            <span class="brand-icon"><i class="fa fa-gg"></i></span>
-            <span class="brand-name">Infinity</span>
+            <span class="brand-icon">
+                <img
+                        src="<?php echo ($settings->logo) !== "default" ? base_url("uploads/settings_v/$settings->logo") : base_url("assets/assets/images/index/infinity-logo.png"); ?>" alt="<?php echo $settings->company_name;?>" width="37" class="img-responsive">
+            </span>
+            <span class="brand-name"><?php echo $settings->company_name;?></span>
         </a>
     </div><!-- .navbar-header -->
 

@@ -263,6 +263,9 @@ class Settings extends CI_Controller
                     "type" => "error"
                 );
             }
+
+            $settings = $this->setting_model->get();
+            $this->session->set_userdata("settings", $settings);
             $this->session->set_flashdata("alert", $alert);
             redirect(base_url("settings"));
         }
