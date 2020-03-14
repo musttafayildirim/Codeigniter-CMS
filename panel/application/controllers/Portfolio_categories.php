@@ -107,7 +107,7 @@ class Portfolio_categories extends CI_Controller
     }
 
     //düzenlenecek sayfaya gitmek
-    public function update_portfolio_categories($id){
+    public function update_portfolio_category($id){
         $viewData = new stdClass();
 
         $item = $this->portfolio_category_model->get(
@@ -138,57 +138,28 @@ class Portfolio_categories extends CI_Controller
         $validate = $this->form_validation->run();
 
         if ($validate) {
+            $update = $this->portfolio_category_model->update(array("id" => $id),
+                array(
+                "title" => $this->input->post("title"),
+                    )
+            );
 
-            if ($_FILES["img_url"]["name"] !== "") {
-                $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-                $config["allowed_types"] = "jpg|jpeg|png";
-                $config["upload_path"] = "uploads/$this->viewFolder/";
-                $config["file_name"] = $file_name;
-
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
-
-                if ($upload) {
-                    $uploaded_file = $this->upload->data("file_name");
-                    $data = array(
-                        "title" => $this->input->post("title"),
-                        "img_url" => $uploaded_file,
-                    );
-                } else {
-                    $alert = array(
-                        "title" => "Opppss",
-                        "text" => "Resim yüklenme esnasında bir problem oluştu.",
-                        "type" => "error"
-                    );
-                    $this->session->set_flashdata("alert", $alert);
-                    redirect(base_url("portfolio_categories/update_portfolio_categories/$id"));
-                }
+            if ($update) {
+                $alert = array(
+                    "title" => "Tebrikler",
+                    "text" => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                    "type" => "success"
+                );
             } else {
-                $data = array(
-                    "url" => converToSEO($this->input->post("title")),
-                    "title" => $this->input->post("title"),
-                    "description" => $this->input->post("description"),
+                $alert = array(
+                    "title" => "İşlem başarısız",
+                    "text" => "Lütfen zorunlu olan alanları doldurunuz!",
+                    "type" => "error"
                 );
             }
-
-            $update = $this->portfolio_category_model->update(array("id" => $id), $data);
-
-        if ($update) {
-            $alert = array(
-                "title" => "Tebrikler",
-                "text" => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type" => "success"
-            );
-        } else {
-            $alert = array(
-                "title" => "İşlem başarısız",
-                "text" => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type" => "error"
-            );
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("portfolio_categories"));
         }
-        $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("portfolio_categories"));
-    }
         else{
             $viewData = new stdClass();
 

@@ -50,7 +50,7 @@
                                         data-url="<?php echo base_url("portfolio_categories/delete/$item->id")?>"
                                         class="btn btn-danger mw-xs remove-btn">
                                         <i class="fa fa-trash-o"></i></button>
-                                <a href="<?php echo base_url("portfolio_categories/update_portfolio_categories/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                <a href="<?php echo base_url("portfolio_categories/update_portfolio_category/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
                             </td>
                         </tr>
 
