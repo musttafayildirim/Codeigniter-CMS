@@ -105,6 +105,21 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="<?php echo base_url("services"); ?>">
+                        <i class="menu-icon fa fa-h-square"></i>
+                        <span class="menu-text">Hizmetler</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="<?php echo base_url("portfolios"); ?>">
+                        <i class="menu-icon fa fa-briefcase"></i>
+                        <span class="menu-text">Portfolyo</span>
+                    </a>
+                </li>
+
+
 
                 <li>
                     <a href="<?php echo base_url("news"); ?>">

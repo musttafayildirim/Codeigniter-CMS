@@ -4,8 +4,8 @@
         <div class="widget">
             <header class="widget-header">
                 <h4 class="widget-title">
-                    Ürün Listesi
-                    <a href="<?php echo base_url("product/new_product"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
+                    Hizmetler Listesi
+                    <a href="<?php echo base_url("services/new_service"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
                 </h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
@@ -14,23 +14,23 @@
             <div class="widget-body">
                 <?php if (empty($items)) { ?>
                 <div class="alert alert-info alert-dismissible text-center">
-                    <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="#">tıklayınız.</a></p>
+                    <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="<?php echo base_url("services/new_service"); ?>">tıklayınız.</a></p>
                 </div>
                         <?php } else { ?>
                 <div class="table-responsive content-container">
-                    <table class="table table-striped table-bordered table-condensed">
+                    <table class="table table-bordered table-hover table-condensed">
                         <thead class="text-secondary bg-inverse">
                         <tr>
                             <th><i class="fa fa-reorder"></i></th>
                             <th>#id</th>
                             <th>URL</th>
                             <th>Başlık</th>
-                            <th>Açıklama</th>
+                            <th>Görsel</th>
                             <th>Durum</th>
                             <th>İşlem</th>
                         </tr>
                         </thead>
-                        <tbody class="sortable" data-url="<?php echo base_url("product/rankSetter");?>">
+                        <tbody class="sortable text-center" data-url="<?php echo base_url("services/rankSetter");?>">
 
                         <?php foreach ($items as $item){ ?>
                         <tr id="ord-<?php echo $item->id; ?>">
@@ -38,10 +38,15 @@
                             <td class="w50 text-center">#<?php echo $item->id; ?></td>
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
-                            <td><?php echo $item->description; ?></td>
-                            <td>
+                            <td class="text-center  style="height="150px;" "">
+                                    <img
+                                            src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
+                                            alt=""
+                                            class="img-rounded w100">
+                            </td>
+                            <td class="w100">
                                 <input
-                                        data-url = "<?php echo base_url("product/isActiveSetter/$item->id"); ?>";
+                                        data-url = "<?php echo base_url("services/isActiveSetter/$item->id"); ?>";
                                         type="checkbox"
                                         class="isActive"
                                         data-switchery="true"
@@ -49,13 +54,12 @@
                                         <?php echo ($item->isActive) ? "checked": ""  ?>
                                 >
                             </td>
-                            <td class="w175">
+                            <td class="w150">
                                 <button
-                                        data-url="<?php echo base_url("product/delete/$item->id")?>"
+                                        data-url="<?php echo base_url("services/delete/$item->id")?>"
                                         class="btn btn-danger mw-xs remove-btn">
                                         <i class="fa fa-trash-o"></i></button>
-                                <a href="<?php echo base_url("product/update_product/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                <a href="<?php echo base_url("product/image_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa fa-image"></i></a>
+                                <a href="<?php echo base_url("services/update_service/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
                             </td>
                         </tr>
 
