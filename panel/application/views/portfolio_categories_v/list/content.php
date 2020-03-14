@@ -21,18 +21,16 @@
                     <table class="table table-bordered table-hover table-condensed">
                         <thead class="text-secondary bg-inverse">
                         <tr>
-                            <th><i class="fa fa-reorder"></i></th>
                             <th>#id</th>
                             <th>Başlık</th>
                             <th>Durum</th>
                             <th>İşlem</th>
                         </tr>
                         </thead>
-                        <tbody class="sortable text-center" data-url="<?php echo base_url("portfolio_categories/rankSetter");?>">
+                        <tbody class="text-center">
 
                         <?php foreach ($items as $item){ ?>
-                        <tr id="ord-<?php echo $item->id; ?>">
-                            <td class="order"><i class="fa fa-reorder"></i></td>
+                        <tr>
                             <td class="w50 text-center">#<?php echo $item->id; ?></td>
                             <td><?php echo $item->title; ?></td>
                             <td class="w100">
