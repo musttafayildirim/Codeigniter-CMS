@@ -41,7 +41,7 @@
                             <td class="text-center"><?php echo $item->url; ?></td>
                             <td class="text-center"><?php echo $item->title; ?></td>
                             <td class="text-center"><?php echo $item->client; ?></td>
-                            <td class="text-center"><?php echo $item->category_id; ?></td>
+                            <td class="text-center"><?php echo get_category_title($item->category_id); ?></td>
                             <td class="text-center w175"><?php echo get_readable_date($item->finishedAt); ?></td>
                             <td class="text-center">
                                 <input
