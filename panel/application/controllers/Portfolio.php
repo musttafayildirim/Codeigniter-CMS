@@ -156,12 +156,15 @@ class Portfolio extends CI_Controller
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
+        $this->form_validation->set_rules("category_id", "Kategori", "required|trim");
+        $this->form_validation->set_rules("client", "Müşteri", "required|trim");
+        $this->form_validation->set_rules("finishedAt", "Proje Teslim Tarihi", "required|trim");
         $this->form_validation->set_message(
-
             array(
                 "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
             )
         );
+
         $validate = $this->form_validation->run();
 
         if ($validate){
@@ -171,9 +174,14 @@ class Portfolio extends CI_Controller
                     "id" => $id,
                 ),
                 array(
-                    "url"         => converToSEO($this->input->post("title")),
-                    "title"       => $this->input->post("title"),
-                    "description" => $this->input->post("description")
+                    "url"             => converToSEO($this->input->post("title")),
+                    "title"           => $this->input->post("title"),
+                    "description"     => $this->input->post("description"),
+                    "category_id"     => $this->input->post("category_id"),
+                    "client"          => $this->input->post("client"),
+                    "place"           => $this->input->post("place"),
+                    "portfolio_url"   => $this->input->post("portfolio_url"),
+                    "finishedAt"      => $this->input->post("finishedAt")
                 )
             );
 
@@ -205,11 +213,16 @@ class Portfolio extends CI_Controller
                 )
             );
 
+            $viewData->categories = $this->portfolio_category_model->get_all(
+                array(
+                    "isActive" => 1
+                )
+            );
+
             $viewData-> viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "update";
             $viewData->form_error = "true";
             $viewData->item = $item;
-
 
             $alert = array(
                 "title"   => "İşlem başarısız",
@@ -248,7 +261,6 @@ class Portfolio extends CI_Controller
 
         $this->session->set_flashdata("alert", $alert);
         redirect(base_url("portfolio"));
-
     }
 
     public function imageDelete($id, $parent_id){

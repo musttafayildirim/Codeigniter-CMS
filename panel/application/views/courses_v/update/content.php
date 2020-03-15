@@ -13,7 +13,7 @@
             <form action="<?php echo base_url("courses/update/$item->id"); ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label >Başlık</label>
-                    <input type="text" class="form-control"  placeholder="Başlık" name="title" value="<?php echo $item->title; ?>">
+                    <input type="text" class="form-control"  placeholder="Başlık" name="title" value="<?php echo isset($form_error) ? set_value("title") : $item->title; ?>">
                     <?php if(isset($form_error)){ ?>
                         <small class="pull-right input-form-error"><?php echo form_error( "title");?></small>
                     <?php } ?>
@@ -23,12 +23,14 @@
                 <div class="row">
                     <div class="col-md-4">
                         <label for="datetimepicker1">Eğitim Tarihi</label>
-                        <input type="hidden" name="event_date" id="datetimepicker1" data-plugin="datetimepicker" data-options="{ inline: true, viewMode: 'days', format: 'YYYY:MM:DD HH:mm:ss', defaultDate: '<?php echo $item->event_date;?>'}" />
+                        <input type="hidden" name="event_date" id="datetimepicker1" data-plugin="datetimepicker" data-options="{ inline: true, viewMode: 'days', format: 'YYYY-MM-DD HH:mm:ss'}"
+                               value="<?php echo isset($form_error) ? set_value("event_date") : $item->event_date?>"
+                        />
                     </div><!-- END column -->
                     <div class="form-group col-md-8">
                         <label >Açıklama</label>
                         <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}" style="display: none;">
-                        <?php echo $item->description; ?>
+                        <?php echo isset($form_error) ? set_value("description") : $item->description ?>
                     </textarea>
                     </div>
                 </div>
