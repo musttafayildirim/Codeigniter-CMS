@@ -123,7 +123,7 @@
                             <a href="<?php echo base_url("portfolio_categories")?>"><span class="menu-text">Portfolyo Kategorileri</span></a>
                         </li>
                         <li class="">
-                            <a href="<?php echo base_url("portfolios")?>"><span class="menu-text">Portfolyo</span></a>
+                            <a href="<?php echo base_url("portfolio")?>"><span class="menu-text">Portfolyo</span></a>
                         </li>
                     </ul>
                 </li>
