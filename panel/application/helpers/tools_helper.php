@@ -81,5 +81,5 @@ function get_category_title($category_id = 0){
     if ($category)
         return $category->title;
     else
-        return "Tanımlanmayan Kategori";
+        return "<b style='color: #681313'>Tanımlanmayan Kategori</b>";
 }
