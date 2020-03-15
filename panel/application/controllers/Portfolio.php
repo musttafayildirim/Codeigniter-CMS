@@ -40,6 +40,12 @@ class Portfolio extends CI_Controller
     {
         $viewData = new stdClass();
 
+        $viewData->categories = $this->portfolio_category_model->get_all(
+            array(
+                "isActive" => 1
+            )
+        );
+
         $viewData-> viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "add";
 
@@ -51,6 +57,9 @@ class Portfolio extends CI_Controller
       $this->load->library("form_validation");
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
+      $this->form_validation->set_rules("category_id", "Kategori", "required|trim");
+      $this->form_validation->set_rules("client", "Müşteri", "required|trim");
+      $this->form_validation->set_rules("finishedAt", "Proje Teslim Tarihi", "required|trim");
       $this->form_validation->set_message(
           array(
               "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
@@ -62,12 +71,17 @@ class Portfolio extends CI_Controller
 
           $insert = $this->portfolio_model->add(
               array(
-                  "url"         => converToSEO($this->input->post("title")),
-                  "title"       => $this->input->post("title"),
-                  "description" => $this->input->post("description"),
-                  "rank"        => 0,
-                  "isActive"    => true,
-                  "createdAt"   => date("Y-m-d H:i:s")
+                  "url"             => converToSEO($this->input->post("title")),
+                  "title"           => $this->input->post("title"),
+                  "description"     => $this->input->post("description"),
+                  "category_id"     => $this->input->post("category_id"),
+                  "client"          => $this->input->post("client"),
+                  "place"           => $this->input->post("place"),
+                  "portfolio_url"   => $this->input->post("portfolio_url"),
+                  "finishedAt"      => $this->input->post("finishedAt"),
+                  "rank"            => 0,
+                  "isActive"        => true,
+                  "createdAt"       => date("Y-m-d H:i:s")
               )
           );
 
@@ -96,6 +110,12 @@ class Portfolio extends CI_Controller
           $viewData->subViewFolder = "add";
           $viewData->form_error = "true";
 
+          $viewData->categories = $this->portfolio_category_model->get_all(
+              array(
+                  "isActive" => 1
+              )
+          );
+
           $alert = array(
               "title"   => "İşlem başarısız",
               "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
@@ -115,6 +135,12 @@ class Portfolio extends CI_Controller
         $item = $this->portfolio_model->get(
             array(
                 "id" => $id
+            )
+        );
+
+        $viewData->categories = $this->portfolio_category_model->get_all(
+            array(
+                "isActive" => 1
             )
         );
 
