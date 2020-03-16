@@ -13,7 +13,11 @@
                             <form action="<?php echo base_url("brand/save"); ?>" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label >Başlık</label>
-                                    <input type="text" class="form-control"  placeholder="Başlık" name="title">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Başlık"
+                                           name="title"
+                                           value="<?php echo isset($form_error) ? set_value("title") : ""?>">
                                     <?php if(isset($form_error)){ ?>
                                         <small class="pull-right input-form-error"><?php echo form_error( "title");?></small>
                                     <?php } ?>

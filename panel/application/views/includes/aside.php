@@ -56,14 +56,14 @@
                     </a>
                 </li>
 
-                <li class="has-submenu active">
+                <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle">
                         <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
                         <span class="menu-text">Ayarlar</span>
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
                     <ul class="submenu" style="display: none;">
-                        <li class="active"><a href="<?php echo base_url("settings")?>"><span class="menu-text">Site Ayarları</span></a></li>
+                        <li><a href="<?php echo base_url("settings")?>"><span class="menu-text">Site Ayarları</span></a></li>
                         <li><a href="<?php echo base_url("email") ?>"><span class="menu-text">Email Ayarları</span></a></li>
                     </ul>
                 </li>
@@ -112,17 +112,17 @@
                     </a>
                 </li>
 
-                <li class="has-submenu active">
+                <li class="has-submenu">
                     <a href="javascript:void(0)" class="submenu-toggle">
                         <i class="menu-icon fa fa-briefcase"></i>
                         <span class="menu-text">Portfolyo İşlemleri</span>
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
                     <ul class="submenu" style="display: none;">
-                        <li class="active">
+                        <li>
                             <a href="<?php echo base_url("portfolio_categories")?>"><span class="menu-text">Portfolyo Kategorileri</span></a>
                         </li>
-                        <li class="">
+                        <li>
                             <a href="<?php echo base_url("portfolio")?>"><span class="menu-text">Portfolyo</span></a>
                         </li>
                     </ul>

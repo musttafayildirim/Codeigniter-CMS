@@ -174,6 +174,30 @@ class Brand extends CI_Controller
         if ($validate) {
 
             if ($_FILES["img_url"]["name"] !== "") {
+
+                $brand = $this->brand_model->get(
+                    array(
+                        "id" => $id
+                    )
+                );
+
+                if($brand){
+                    $path = "uploads/$this->viewFolder/$brand->img_url";
+                    $delete_img = unlink($path);
+
+                    if(!$delete_img){
+                        $alert = array(
+                            "title"   => "İşlem başarısız",
+                            "text"    => "Klasör silme sırasında bir problem oluştu.",
+                            "type"    => "error"
+                        );
+
+                        $this->session->set_flashdata("alert", $alert);
+                        redirect(base_url("galleries"));
+
+                    }
+                }
+
                 $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["upload_path"] = "uploads/$this->viewFolder/";
@@ -199,9 +223,7 @@ class Brand extends CI_Controller
                 }
             } else {
                 $data = array(
-                    "url" => converToSEO($this->input->post("title")),
-                    "title" => $this->input->post("title"),
-                    "description" => $this->input->post("description"),
+                    "title" => $this->input->post("title")
                 );
             }
 
@@ -249,32 +271,50 @@ class Brand extends CI_Controller
     }
 
     public function delete($id){
-        
-        $delete = $this->brand_model->delete(
-          array(
-              "id" => $id
-          )
+
+        $brand = $this->brand_model->get(
+            array(
+                "id" => $id
+            )
         );
 
-        if($delete){
-            $alert = array(
-                "title"   => "Tebrikler",
-                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type"    => "success"
+        if($brand){
+            $path = "uploads/$this->viewFolder/$brand->img_url";
+            $delete_folder = unlink($path);
+            if(!$delete_folder) {
+                $alert = array(
+                    "title" => "İşlem başarısız",
+                    "text" => "Klasör silme sırasında bir problem oluştu.",
+                    "type" => "error"
+                );
+
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("brand"));
+            }
+            $delete = $this->brand_model->delete(
+                array(
+                    "id" => $id
+                )
             );
+            if($delete){
+                $alert = array(
+                    "title"   => "Tebrikler",
+                    "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                    "type"    => "success"
+                );
+
+            }
+            else{
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                    "type"    => "error"
+                );
+            }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("brand"));
 
         }
-        else{
-            $alert = array(
-                "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type"    => "error"
-            );
-        }
-
-        $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("brand"));
-
     }
 
     public function isActiveSetter($id){

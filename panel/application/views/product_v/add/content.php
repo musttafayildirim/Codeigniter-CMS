@@ -13,14 +13,16 @@
                             <form action="<?php echo base_url("product/save"); ?>" method="post">
                                 <div class="form-group">
                                     <label >Başlık</label>
-                                    <input type="text" class="form-control"  placeholder="Başlık" name="title">
+                                    <input type="text" class="form-control"  placeholder="Başlık" name="title" value="<?php echo isset($form_error) ? set_value("title") : ""?>">
                                     <?php if(isset($form_error)){ ?>
                                         <small class="pull-right input-form-error"><?php echo form_error( "title");?></small>
                                     <?php } ?>
                                 </div>
                                 <div class="form-group">
                                     <label >Açıklama</label>
-                                    <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}" style="display: none;"></textarea>
+                                    <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}" style="display: none;">
+                                        <?php echo isset($form_error) ? set_value("description") : ""?>
+                                    </textarea>
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Kaydet</button>
                                 <a href="<?php echo base_url("product"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>

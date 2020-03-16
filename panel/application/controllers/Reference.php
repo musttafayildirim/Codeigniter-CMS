@@ -47,21 +47,11 @@ class Reference extends CI_Controller
     public function save(){
       $this->load->library("form_validation");
 
-      if($_FILES["img_url"]["name"] == ""){
-
-          $alert = array(
-              "title"   => "İşlem başarısız",
-              "text"    => "Lütfen bir resim ekleyiniz!",
-              "type"    => "error"
-          );
-          $this->session->set_flashdata("alert", $alert);
-          redirect(base_url("reference/new_reference"));
-      }
-
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
+      $this->form_validation->set_rules("img_url", "Resim", "required|trim|");
       $this->form_validation->set_message(
           array(
-              "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
+              "required" => "<strong>{field}</strong> alanı zorunludur."
           )
       );
       $validate = $this->form_validation->run();
@@ -161,6 +151,7 @@ class Reference extends CI_Controller
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
+        $this->form_validation->set_rules("description", "Açıklama", "trim");
 
         $this->form_validation->set_message(
             array(

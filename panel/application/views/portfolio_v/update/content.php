@@ -109,7 +109,7 @@
                                         </textarea>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Kaydet</button>
+                    <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Güncelle</button>
                     <a href="<?php echo base_url("portfolio"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
                 </form>
             </div><!-- .widget-body -->
