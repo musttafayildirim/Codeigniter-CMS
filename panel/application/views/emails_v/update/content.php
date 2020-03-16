@@ -4,7 +4,7 @@
     <div class="widget">
         <header class="widget-header">
             <h4 class="widget-title">
-                <?php echo $item->user_name;?> kayıtlı E-Posta güncelleniyor
+                <?php echo $item->user_name;?> Kayıtlı E-Posta Güncelleniyor
             </h4>
         </header><!-- .widget-header -->
         <hr class="widget-separator">
@@ -47,7 +47,7 @@
 
                     <div class="form-group">
                         <label >E-Posta Adresi (user)</label>
-                        <input type="email" class="form-control"  placeholder="E-Posta Adresi (user)" name="user" value="<?php echo isset($form_error) ? set_value("user") : $item->user;?>">
+                        <input type="email" class="form-control"  placeholder="E-Posta Adresi (Kullanıcı)" name="user" value="<?php echo isset($form_error) ? set_value("user") : $item->user;?>">
                         <?php if(isset($form_error)){ ?>
                             <small class="pull-right input-form-error"><?php echo form_error( "user");?></small>
                         <?php } ?>
@@ -55,7 +55,7 @@
 
                     <div class="form-group">
                         <label >E-Posta Adresi (from)</label>
-                        <input type="email" class="form-control"  placeholder="E-Posta Adresi (from)" name="from" value="<?php echo isset($form_error) ? set_value("from") : $item->from;?>">
+                        <input type="email" class="form-control"  placeholder="E-Posta Adresi (Kimden)" name="from" value="<?php echo isset($form_error) ? set_value("from") : $item->from;?>">
                         <?php if(isset($form_error)){ ?>
                             <small class="pull-right input-form-error"><?php echo form_error( "from");?></small>
                         <?php } ?>
@@ -63,7 +63,7 @@
 
                     <div class="form-group">
                         <label >E-Posta Adresi (to)</label>
-                        <input type="email" class="form-control"  placeholder="E-Posta Adresi (to)" name="to" value="<?php echo isset($form_error) ? set_value("to") : $item->to;?>">
+                        <input type="email" class="form-control"  placeholder="E-Posta Adresi (Kime)" name="to" value="<?php echo isset($form_error) ? set_value("to") : $item->to;?>">
                         <?php if(isset($form_error)){ ?>
                             <small class="pull-right input-form-error"><?php echo form_error( "to");?></small>
                         <?php } ?>
