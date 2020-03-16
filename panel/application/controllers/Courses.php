@@ -55,10 +55,12 @@ class courses extends CI_Controller
               "type"    => "error"
           );
           $this->session->set_flashdata("alert", $alert);
-          redirect(base_url("courses/new_courses"));
+          redirect(base_url("courses/new_course"));
       }
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
+      $this->form_validation->set_rules("event_date", "Eğitim Tarihi", "required|trim");
+      $this->form_validation->set_rules("description", "Açıklama", "trim");
       $this->form_validation->set_message(
           array(
               "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
@@ -102,9 +104,9 @@ class courses extends CI_Controller
                   );
               } else {
                   $alert = array(
-                      "title" => "İşlem başarısız",
-                      "text" => "Lütfen zorunlu olan alanları doldurunuz!",
-                      "type" => "error"
+                      "title"   => "İşlem başarısız",
+                      "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                      "type"    => "error"
                   );
               }
 
@@ -113,12 +115,12 @@ class courses extends CI_Controller
 
           } else {
               $alert = array(
-                  "title" => "Opppss",
-                  "text" => "Resim yüklenme esnasında bir problem oluştu.",
-                  "type" => "error"
+                  "title"   => "Opppss",
+                  "text"    => "Resim yüklenme esnasında bir problem oluştu.",
+                  "type"    => "error"
               );
               $this->session->set_flashdata("alert", $alert);
-              redirect(base_url("courses/new_courses"));
+              redirect(base_url("courses/new_course"));
           }
       }
       else{
@@ -162,6 +164,7 @@ class courses extends CI_Controller
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
+        $this->form_validation->set_rules("description", "Açıklama", "trim");
         $this->form_validation->set_rules("event_date", "Eğitim Tarihi", "required|trim");
 
         $this->form_validation->set_message(
@@ -175,6 +178,30 @@ class courses extends CI_Controller
         if ($validate) {
 
             if ($_FILES["img_url"]["name"] !== "") {
+
+                $course = $this->course_model->get(
+                    array(
+                        "id" => $id
+                    )
+                );
+
+                if($course){
+                    $path = "uploads/$this->viewFolder/$course->img_url";
+                    $delete_img = unlink($path);
+
+                    if(!$delete_img){
+                        $alert = array(
+                            "title"   => "İşlem başarısız",
+                            "text"    => "Fotoğraf silinirken bir sorunla karşılaşıldı.",
+                            "type"    => "error"
+                        );
+
+                        $this->session->set_flashdata("alert", $alert);
+                        redirect(base_url("courses/update_courses/$id"));
+
+                    }
+                }
+
                 $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["upload_path"] = "uploads/$this->viewFolder/";
@@ -186,27 +213,27 @@ class courses extends CI_Controller
                 if ($upload) {
                     $uploaded_file = $this->upload->data("file_name");
                     $data = array(
-                        "url" => converToSEO($this->input->post("title")),
-                        "title" => $this->input->post("title"),
-                        "description" => $this->input->post("description"),
-                        "img_url" => $uploaded_file,
-                        "event_date"  => $this->input->post("event_date")
+                        "url"           => converToSEO($this->input->post("title")),
+                        "title"         => $this->input->post("title"),
+                        "description"   => $this->input->post("description"),
+                        "img_url"       => $uploaded_file,
+                        "event_date"    => $this->input->post("event_date")
                     );
                 } else {
                     $alert = array(
-                        "title" => "Opppss",
-                        "text" => "Resim yüklenme esnasında bir problem oluştu.",
-                        "type" => "error"
+                        "title"     => "Opppss",
+                        "text"      => "Resim yüklenme esnasında bir problem oluştu.",
+                        "type"      => "error"
                     );
                     $this->session->set_flashdata("alert", $alert);
                     redirect(base_url("courses/update_courses/$id"));
                 }
             } else {
                 $data = array(
-                    "url" => converToSEO($this->input->post("title")),
-                    "title" => $this->input->post("title"),
-                    "description" => $this->input->post("description"),
-                    "event_date"  => $this->input->post("event_date")
+                    "url"           => converToSEO($this->input->post("title")),
+                    "title"         => $this->input->post("title"),
+                    "description"   => $this->input->post("description"),
+                    "event_date"    => $this->input->post("event_date")
                 );
             }
 
@@ -214,15 +241,15 @@ class courses extends CI_Controller
 
         if ($update) {
             $alert = array(
-                "title" => "Tebrikler",
-                "text" => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type" => "success"
+                "title"     => "Tebrikler",
+                "text"      => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                "type"      => "success"
             );
         } else {
             $alert = array(
-                "title" => "İşlem başarısız",
-                "text" => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type" => "error"
+                "title"     => "İşlem başarısız",
+                "text"      => "Lütfen zorunlu olan alanları doldurunuz!",
+                "type"      => "error"
             );
         }
         $this->session->set_flashdata("alert", $alert);
@@ -231,7 +258,7 @@ class courses extends CI_Controller
         else{
             $viewData = new stdClass();
 
-            $viewData-> viewFolder = $this->viewFolder;
+            $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "update";
             $viewData->form_error = "true";
 
@@ -254,32 +281,50 @@ class courses extends CI_Controller
     }
 
     public function delete($id){
-        
-        $delete = $this->course_model->delete(
-          array(
-              "id" => $id
-          )
+
+        $course = $this->course_model->get(
+            array(
+                "id" => $id
+            )
         );
 
-        if($delete){
-            $alert = array(
-                "title"   => "Tebrikler",
-                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type"    => "success"
-            );
+        if($course){
+            $path = "uploads/$this->viewFolder/$course->img_url";
+            $delete_image = unlink($path);
+            if(!$delete_image) {
+                $alert = array(
+                    "title" => "İşlem başarısız",
+                    "text"  => "Resim silinemedi.",
+                    "type"  => "error"
+                );
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("courses"));
+            }
+            else {
+                $delete = $this->course_model->delete(
+                    array(
+                        "id" => $id
+                    )
+                );
+                if ($delete) {
+                    $alert = array(
+                        "title" => "Tebrikler",
+                        "text" => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                        "type" => "success"
+                    );
 
+                } else {
+                    $alert = array(
+                        "title" => "İşlem başarısız",
+                        "text"  => "Ürün silinirken bir sorunla karşılaşıldı.",
+                        "type"  => "error"
+                    );
+                }
+
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("courses"));
+            }
         }
-        else{
-            $alert = array(
-                "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type"    => "error"
-            );
-        }
-
-        $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("courses"));
-
     }
 
     public function isActiveSetter($id){

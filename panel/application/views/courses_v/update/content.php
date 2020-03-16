@@ -4,7 +4,7 @@
     <div class="widget">
         <header class="widget-header">
             <h4 class="widget-title">
-                <?php echo $item->title;?> kayıtlı eğitimi güncelliyorsunuz..
+                <?php echo $item->title;?> Kayıtlı Eğitim Güncelleniyor
             </h4>
         </header><!-- .widget-header -->
         <hr class="widget-separator">

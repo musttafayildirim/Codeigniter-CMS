@@ -188,12 +188,12 @@ class Brand extends CI_Controller
                     if(!$delete_img){
                         $alert = array(
                             "title"   => "İşlem başarısız",
-                            "text"    => "Klasör silme sırasında bir problem oluştu.",
+                            "text"    => "Fotoğraf silinirken bir sorunla karşılaşıldı.",
                             "type"    => "error"
                         );
 
                         $this->session->set_flashdata("alert", $alert);
-                        redirect(base_url("galleries"));
+                        redirect(base_url("brand/update_brand/$id"));
 
                     }
                 }

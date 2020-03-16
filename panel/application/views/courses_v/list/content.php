@@ -14,7 +14,7 @@
             <div class="widget-body">
                 <?php if (empty($items)) { ?>
                 <div class="alert alert-info alert-dismissible text-center">
-                    <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="#">tıklayınız.</a></p>
+                    <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="<?php echo base_url("courses/new_course"); ?>">tıklayınız.</a></p>
                 </div>
                         <?php } else { ?>
                 <div class="table-responsive content-container">
