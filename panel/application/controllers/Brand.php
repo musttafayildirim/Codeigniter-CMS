@@ -284,7 +284,7 @@ class Brand extends CI_Controller
             if(!$delete_folder) {
                 $alert = array(
                     "title" => "İşlem başarısız",
-                    "text" => "Klasör silme sırasında bir problem oluştu.",
+                    "text" => "Dosya yolu doğru değil veya böyle bir resim yok",
                     "type" => "error"
                 );
 

@@ -250,18 +250,40 @@ class Galleries extends CI_Controller
               "id" => $id
           )
         );
-
         if($gallery){
             $gallery_type = $gallery->gallery_type;
 
             if($gallery_type != "video"){
-                if($gallery_type == "image")
+                if($gallery_type == "image"){
+                    $model = "image_model";
                     $path = "uploads/$this->viewFolder/images/$gallery->folder_name";
-                else if($gallery_type == "file")
+                    $delete_other = $this->image_model->get_all(
+                        array(
+                            "gallery_id" => $id
+                        )
+                    );
+                }
+                else if($gallery_type == "file"){
+                    $model = "file_model";
                     $path = "uploads/$this->viewFolder/files/$gallery->folder_name";
+                    $delete_other = $this->file_model->get_all(
+                        array(
+                            "gallery_id" => $id
+                        )
+                    );
+                }
+                if ($delete_other){
+                   foreach ($delete_other as $delete_item){
+                       unlink($delete_item->url);
+                   }
+                    $this->$model->delete(
+                        array(
+                            "gallery_id" => $id
+                        )
+                    );
+                }
 
                 $delete_folder = rmdir($path);
-
                 if(!$delete_folder){
                     $alert = array(
                         "title"   => "İşlem başarısız",
@@ -271,7 +293,6 @@ class Galleries extends CI_Controller
 
                     $this->session->set_flashdata("alert", $alert);
                     redirect(base_url("galleries"));
-
                 }
             }
 
