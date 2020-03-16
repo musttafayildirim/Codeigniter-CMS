@@ -4,7 +4,7 @@
     <div class="widget">
         <header class="widget-header">
             <h4 class="widget-title">
-                <?php echo $item->title;?> kayıtlı haberi güncelliyorsunuz....
+                <?php echo $item->title;?> Kayıtlı Haber Güncelleniyor
             </h4>
         </header><!-- .widget-header -->
         <hr class="widget-separator">
@@ -13,7 +13,7 @@
             <form action="<?php echo base_url("news/update/$item->id"); ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label >Başlık</label>
-                    <input type="text" class="form-control"  placeholder="Başlık" name="title" value="<?php echo $item->title; ?>">
+                    <input type="text" class="form-control"  placeholder="Başlık" name="title" value="<?php echo isset($form_error) ? set_value("title") : $item->title; ?>">
                     <?php if(isset($form_error)){ ?>
                         <small class="pull-right input-form-error"><?php echo form_error( "title");?></small>
                     <?php } ?>
@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label >Açıklama</label>
                     <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}" style="display: none;">
-                        <?php echo $item->description; ?>
+                       <?php echo isset($form_error) ? set_value("description") : $item->description; ?>
                     </textarea>
                 </div>
 
@@ -59,7 +59,9 @@
                         <input type="text"
                                class="form-control"
                                placeholder="Video bağlantınızı buraya ekleyebilirsiniz."
-                               name="video_url">
+                               name="video_url"
+                               value="<?php echo isset($form_error) ? set_value("video_url") : $item->video_url; ?>"
+                        >
                         <?php if(isset($form_error)){ ?>
                             <small class="pull-right input-form-error"><?php echo form_error( "video_url");?></small>
                         <?php } ?>
@@ -91,7 +93,8 @@
                                class="form-control"
                                placeholder="Video bağlantınızı buraya ekleyebilirsiniz."
                                name="video_url"
-                               value="<?php echo $item->video_url; ?>">
+                               value="<?php echo isset($form_error) ? set_value("video_url") : $item->video_url; ?>"
+                        >
                     </div>
 
                 <?php } ?>
