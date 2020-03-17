@@ -157,6 +157,7 @@ class Portfolio extends CI_Controller
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
         $this->form_validation->set_rules("category_id", "Kategori", "required|trim");
+        $this->form_validation->set_rules("description", "Açıklama", "trim");
         $this->form_validation->set_rules("client", "Müşteri", "required|trim");
         $this->form_validation->set_rules("finishedAt", "Proje Teslim Tarihi", "required|trim");
         $this->form_validation->set_message(
@@ -237,30 +238,79 @@ class Portfolio extends CI_Controller
 
     public function delete($id){
         //ürün silindiği zaman resmi silmeyi de eklemeliyim....
-        $delete = $this->portfolio_model->delete(
-          array(
-              "id" => $id
-          )
+        $images = $this->portfolio_image_model->get_all(
+            array(
+                "portfolio_id"  => $id
+            )
         );
 
-        if($delete){
-            $alert = array(
-                "title"   => "Tebrikler",
-                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type"    => "success"
+        if ($images){
+            foreach ($images as $image) {
+               unlink("uploads/{$this->viewFolder}/$image->img_url");
+            }
+            $delete_image = $this->portfolio_image_model->delete(
+                array(
+                    "portfolio_id" => $id
+                )
             );
+            if (!$delete_image){
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Resim silme esnasında bir problem oluştu lütfen YAZILIMCI'nız ile görüşünüz.",
+                    "type"    => "error"
+                );
+            }else{
+                $delete = $this->portfolio_model->delete(
+                    array(
+                        "id" => $id
+                    )
+                );
+                if($delete){
+                    $alert = array(
+                        "title"   => "Tebrikler",
+                        "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                        "type"    => "success"
+                    );
 
+                }
+                else{
+                    $alert = array(
+                        "title"   => "İşlem başarısız",
+                        "text"    => "Portfolyo silinemedi.",
+                        "type"    => "error"
+                    );
+                }
+            }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("portfolio"));
         }
         else{
-            $alert = array(
-                "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type"    => "error"
+            $delete = $this->portfolio_model->delete(
+                array(
+                    "id" => $id
+                )
             );
+            if($delete){
+                $alert = array(
+                    "title"   => "Tebrikler",
+                    "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                    "type"    => "success"
+                );
+
+            }
+            else{
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Portfolyo silinemedi.",
+                    "type"    => "error"
+                );
+            }
+
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("portfolio"));
+            unset($_SESSION['alert']);
         }
 
-        $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("portfolio"));
     }
 
     public function imageDelete($id, $parent_id){

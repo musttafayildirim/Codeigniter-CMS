@@ -14,8 +14,6 @@ class Portfolio_categories extends CI_Controller
 
         if(!get_active_user())
             redirect(base_url("login"));
-
-
     }
 
     public function index()
@@ -186,7 +184,7 @@ class Portfolio_categories extends CI_Controller
     }
 
     public function delete($id){
-        
+
         $delete = $this->portfolio_category_model->delete(
           array(
               "id" => $id
