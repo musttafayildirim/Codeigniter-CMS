@@ -59,6 +59,7 @@ class Services extends CI_Controller
       }
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
+      $this->form_validation->set_rules("description", "Açıklama", "trim");
       $this->form_validation->set_message(
           array(
               "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
@@ -67,7 +68,6 @@ class Services extends CI_Controller
       $validate = $this->form_validation->run();
 
       if ($validate) {
-
           $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
           $config["allowed_types"] = "jpg|jpeg|png";
           $config["upload_path"] = "uploads/$this->viewFolder/";
@@ -161,6 +161,7 @@ class Services extends CI_Controller
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
+        $this->form_validation->set_rules("description", "Açıklama", "trim");
 
         $this->form_validation->set_message(
             array(
@@ -173,6 +174,17 @@ class Services extends CI_Controller
         if ($validate) {
 
             if ($_FILES["img_url"]["name"] !== "") {
+
+                $select_img = $this->service_model->get(
+                    array(
+                        "id" => $id
+                    )
+                );
+
+                if($select_img){
+                    unlink("uploads/{$this->viewFolder}/$select_img->img_url");
+                }
+
                 $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
                 $config["allowed_types"] = "jpg|jpeg|png";
                 $config["upload_path"] = "uploads/$this->viewFolder/";
@@ -250,7 +262,13 @@ class Services extends CI_Controller
     }
 
     public function delete($id){
-        
+
+        $select_img = $this->service_model->get(
+            array(
+                "id" => $id
+            )
+        );
+
         $delete = $this->service_model->delete(
           array(
               "id" => $id
@@ -258,6 +276,9 @@ class Services extends CI_Controller
         );
 
         if($delete){
+
+            unlink("uploads/{$this->viewFolder}/$select_img->img_url");
+
             $alert = array(
                 "title"   => "Tebrikler",
                 "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
