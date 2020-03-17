@@ -130,6 +130,7 @@ class Product extends CI_Controller
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
+        $this->form_validation->set_rules("description", "Açıklama", "trim");
         $this->form_validation->set_message(
 
             array(

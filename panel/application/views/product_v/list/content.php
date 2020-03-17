@@ -25,7 +25,6 @@
                             <th>#id</th>
                             <th>URL</th>
                             <th>Başlık</th>
-                            <th>Açıklama</th>
                             <th>Durum</th>
                             <th>İşlem</th>
                         </tr>
@@ -38,8 +37,7 @@
                             <td class="w50 text-center">#<?php echo $item->id; ?></td>
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
-                            <td><?php echo $item->description; ?></td>
-                            <td>
+                            <td class="w50">
                                 <input
                                         data-url = "<?php echo base_url("product/isActiveSetter/$item->id"); ?>";
                                         type="checkbox"
