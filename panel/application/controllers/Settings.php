@@ -174,6 +174,10 @@ class Settings extends CI_Controller
         $this->form_validation->set_rules("email", "E-Posta Adresi", "required|trim|valid_email");
         $this->form_validation->set_rules('phone_1', 'Birinci Telefon', 'required|trim|regex_match[/^[0-9]{10}$/]');
         $this->form_validation->set_rules("facebook", "Facebook", "trim|prep_url");
+        $this->form_validation->set_rules("about", "Hakkımızda", "trim");
+        $this->form_validation->set_rules("address", "Adres Bilgisi", "trim");
+        $this->form_validation->set_rules("mission", "Misyon Bilgisi", "trim");
+        $this->form_validation->set_rules("vision", "Vizyon Bilgisi", "trim");
         $this->form_validation->set_rules("twitter", "Twitter", "trim|prep_url");
         $this->form_validation->set_rules("linkedin", "LinkedIn", "trim|prep_url");
         $this->form_validation->set_rules("instagram", "Instagram", "trim|prep_url");
@@ -192,6 +196,14 @@ class Settings extends CI_Controller
         if ($validate) {
 
             if ($_FILES["logo"]["name"] !== "") {
+
+                $delete_image = $this->setting_model->get(
+                  array(
+                      "id" => $id
+                  )
+                );
+
+                unlink("uploads/{$this->viewFolder}/$delete_image->logo");
 
                 $file_name = converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
                 $config["allowed_types"] = "jpg|jpeg|png";
