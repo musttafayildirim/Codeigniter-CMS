@@ -14,7 +14,7 @@
             <div class="widget-body">
                 <?php if (empty($items)) { ?>
                 <div class="alert alert-info alert-dismissible text-center">
-                    <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="#">tıklayınız.</a></p>
+                    <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="<?php echo base_url("reference/new_reference"); ?>">tıklayınız.</a></p>
                 </div>
                         <?php } else { ?>
                 <div class="table-responsive content-container">
@@ -44,7 +44,7 @@
                                             alt=""
                                             class="img-rounded w100">
                             </td>
-                            <td class="w100">
+                            <td class="w50">
                                 <input
                                         data-url = "<?php echo base_url("reference/isActiveSetter/$item->id"); ?>";
                                         type="checkbox"

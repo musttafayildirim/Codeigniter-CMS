@@ -13,7 +13,7 @@
             <form action="<?php echo base_url("reference/update/$item->id"); ?>" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label >Başlık</label>
-                    <input type="text" class="form-control"  placeholder="Başlık" name="title" value="<?php echo $item->title; ?>">
+                    <input type="text" class="form-control"  placeholder="Başlık" name="title" value="<?php echo isset($form_error) ? set_value("title") : $item->title; ?>">
                     <?php if(isset($form_error)){ ?>
                         <small class="pull-right input-form-error"><?php echo form_error( "title");?></small>
                     <?php } ?>
@@ -21,7 +21,7 @@
                 <div class="form-group">
                     <label >Açıklama</label>
                     <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}" style="display: none;">
-                        <?php echo $item->description; ?>
+                        <?php echo isset($form_error) ? set_value("description") : $item->description;?>
                     </textarea>
                 </div>
 
@@ -36,7 +36,7 @@
 
                         <div class="form-group col-md-1 img-responsive img-fluid">
                             <img src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
-                                 alt="">
+                                 alt="<?php echo $item->title;?>">
                         </div>
 
                     </div>
