@@ -50,6 +50,7 @@ class Product extends CI_Controller
       $this->load->library("form_validation");
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
+      $this->form_validation->set_rules("description", "Açıklama", "trim");
       $this->form_validation->set_message(
           array(
               "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
@@ -196,7 +197,24 @@ class Product extends CI_Controller
     }
 
     public function delete($id){
-        //ürün silindiği zaman resmi silmeyi de eklemeliyim....
+        $product_images = $this->product_image_model->get_all(
+          array(
+              "product_id" => $id
+          )
+        );
+
+        $delete_image = $this->product_image_model->delete(
+            array(
+                "product_id" => $id
+            )
+        );
+
+        if ($delete_image){
+            foreach ($product_images as $product_image){
+                unlink("uploads/{$this->viewFolder}/$product_image->img_url");
+            }
+        }
+
         $delete = $this->product_model->delete(
           array(
               "id" => $id
