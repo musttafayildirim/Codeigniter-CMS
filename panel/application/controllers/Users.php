@@ -47,6 +47,7 @@ class Users extends CI_Controller
       $this->load->library("form_validation");
 
       $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[users.user_name]");
+      $this->form_validation->set_rules("full_name", "Adı Soyadı", "trim");
       $this->form_validation->set_rules("email", "E-Posta Adresi", "required|trim|valid_email|is_unique[users.email]");
       $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[12]");
 

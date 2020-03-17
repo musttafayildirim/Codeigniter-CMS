@@ -4,7 +4,7 @@
         <div class="widget">
             <header class="widget-header">
                 <h4 class="widget-title">
-                    Yeni haber ekle
+                    Yeni Kullanıcı Ekle
                 </h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">

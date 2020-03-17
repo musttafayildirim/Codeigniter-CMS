@@ -4,7 +4,7 @@
     <div class="widget">
         <header class="widget-header">
             <h4 class="widget-title">
-                <?php echo $item->user_name;?> kayıtlı kullanıcının şifresi değiştiriliyor
+                <?php echo $item->user_name;?> Kayıtlı Kullanıcının Şifresi Güncelleniyor
             </h4>
         </header><!-- .widget-header -->
         <hr class="widget-separator">
