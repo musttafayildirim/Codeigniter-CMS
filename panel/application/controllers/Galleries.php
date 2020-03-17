@@ -296,6 +296,12 @@ class Galleries extends CI_Controller
                 }
             }
 
+             $this->video_model->delete(
+                array(
+                    "gallery_id" => $id
+                )
+            );
+
             $delete = $this->gallery_model->delete(
                 array(
                     "id" => $id
