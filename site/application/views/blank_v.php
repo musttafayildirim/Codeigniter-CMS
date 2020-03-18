@@ -7,7 +7,8 @@
 <head>
 <?php $this->load->view("includes/head");?>
 </head>
-<body class="transparent-header front-page page-loader-5">
+
+<body class="front-page page-loader-5 no-trans">
 <!-- scrollToTop -->
 <!-- ================ -->
 <div class="scrollToTop circle"><i class="icon-up-open-big"></i></div>
@@ -16,7 +17,6 @@
 <div class="page-wrapper">
     <?php $this->load->view("includes/header"); ?>
     <div id="page-start"></div>
-
 
 
     <?php $this->load->view("includes/footer") ;?>
