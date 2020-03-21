@@ -6,9 +6,7 @@
                 <div class="separator-2"></div>
                 <br>
                 <div class="row">
-
-                    <?php
-                    if($products){
+                    <?php if($products){
                         foreach ($products as $product){ ?>
                         <div class="col-sm-4">
                             <div class="image-box style-2 mb-20 shadow bordered light-gray-bg text-center">
@@ -27,11 +25,11 @@
                                     <h3><?php echo $product->title;?></h3>
                                     <div class="separator"></div>
                                     <p><?php echo character_limiter(strip_tags($product->description), 33);?></p>
-                                    <a href="#" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Daha fazla ayrıntı<i class="fa fa-arrow-right pl-10"></i></a>
+                                    <a href="<?php echo base_url("urun-detay/$product->url")?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Daha fazla ayrıntı<i class="fa fa-arrow-right pl-10"></i></a>
                                 </div>
                             </div>
                         </div>
-                        <?php } ?>x
+                        <?php } ?>
                     <?php }else{?>
                         <div class="alert col-md-12  alert-icon alert-info" role="alert">
                             <i class="fa fa-info-circle"></i>
