@@ -64,12 +64,11 @@
                                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                                     <!-- main-menu -->
                                     <ul class="navbar-nav ml-xl-auto">
-
-                                        <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Anasayfa</a>
+                                        <li class="nav-item">
+                                            <a href="<?php echo base_url("ana-sayfa") ?>" class="nav-link" id="third-dropdown">Anasayfa</a>
                                         </li>
-                                        <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ürünler</a>
+                                        <li class="nav-item">
+                                            <a href="<?php echo base_url("urun-listesi") ?>" class="nav-link" id="third-dropdown" aria-haspopup="true" aria-expanded="false">Ürünler</a>
                                         </li>
                                         <li class="nav-item dropdown ">
                                             <a href="#" class="nav-link dropdown-toggle" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hakkımızda</a>
@@ -81,7 +80,7 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Eğitim</a>
+                                            <a href="#" class="nav-link" id="third-dropdown" aria-haspopup="true" aria-expanded="false">Eğitim</a>
                                         </li>
                                         <li class="nav-item dropdown ">
                                             <a href="#" class="nav-link dropdown-toggle" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Galeri</a>
@@ -92,10 +91,10 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Markalar</a>
+                                            <a href="#" class="nav-link" id="third-dropdown"  aria-haspopup="true" aria-expanded="false">Markalar</a>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">İletişim</a>
+                                            <a href="#" class="nav-link" id="third-dropdown" aria-haspopup="true" aria-expanded="false">İletişim</a>
                                         </li>
 
 
