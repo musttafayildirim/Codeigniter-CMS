@@ -74,7 +74,7 @@
                                             <a href="#" class="nav-link dropdown-toggle" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hakkımızda</a>
                                             <ul class="dropdown-menu" aria-labelledby="third-dropdown">
                                                 <li ><a href="features-dark-page.html">Hakkımızda</a></li>
-                                                <li ><a href="features-typography.html">Portfolyo</a></li>
+                                                <li ><a href="<?php echo base_url("portfolyo-listesi") ?>">Portfolyo</a></li>
                                                 <li ><a href="features-backgrounds.html">Haberler</a></li>
                                                 <li ><a href="features-grid.html">Referanslar</a></li>
                                             </ul>
