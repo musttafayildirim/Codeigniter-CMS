@@ -6,6 +6,11 @@
             <div class="col-lg-8 text-center pv-20">
                 <h2 class="title object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><strong><?php echo $course->title ?></strong></h2>
                 <div class="separator object-non-visible mt-10" data-animation-effect="fadeIn" data-effect-delay="100"></div>
+                <p><?php echo character_limiter(strip_tags($course->description), 250)  ;?> </p>
+                <div class="separator object-non-visible mt-10" data-animation-effect="fadeIn" data-effect-delay="100"></div>
+                <h2 class="title object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><i class="fa fa-calendar"></i><strong> <?php echo get_readable_date($course->event_date) ?></strong></h2>
+
+
             </div>
         </div>
     </div>
@@ -59,7 +64,7 @@
                 <?php }else{?>
                     <div class="alert col-md-12  alert-icon alert-info" role="alert">
                         <i class="fa fa-info-circle"></i>
-                        Ürün bulunamadı.
+                       Başka bir eğitim bulunmamaktadır.
                     </div>
                 <?php } ?>
             </div>
