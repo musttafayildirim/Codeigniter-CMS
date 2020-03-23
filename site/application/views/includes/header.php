@@ -80,7 +80,7 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link" id="third-dropdown" aria-haspopup="true" aria-expanded="false">Eğitim</a>
+                                            <a href="<?php echo base_url("egitim-listesi") ?>" class="nav-link" id="third-dropdown" aria-haspopup="true" aria-expanded="false">Eğitim</a>
                                         </li>
                                         <li class="nav-item dropdown ">
                                             <a href="#" class="nav-link dropdown-toggle" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Galeri</a>
