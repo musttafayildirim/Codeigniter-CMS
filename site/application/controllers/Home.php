@@ -153,6 +153,20 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
+    public function brand_list(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "brand_list_v";
+        $this->load->model("brand_model");
+
+        $viewData->brands = $this->brand_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
 
 
 

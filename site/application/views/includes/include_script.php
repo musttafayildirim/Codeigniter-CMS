@@ -23,6 +23,8 @@
 <script src="<?php echo base_url("assets")?>/plugins/jquery.parallax-1.1.3.js"></script>
 <!-- Contact form -->
 <script src="<?php echo base_url("assets")?>/plugins/jquery.validate.js"></script>
+<!-- Charts -->
+<script src="<?php echo base_url("assets")?>/plugins/charts/Chart.js"></script>
 <!-- Google Maps javascript -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=your_google_map_key"></script>
 <script type="text/javascript" src="<?php echo base_url("assets")?>/js/google.map.config.js"></script>

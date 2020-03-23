@@ -91,7 +91,7 @@
                                             </ul>
                                         </li>
                                         <li class="nav-item dropdown">
-                                            <a href="#" class="nav-link" id="third-dropdown"  aria-haspopup="true" aria-expanded="false">Markalar</a>
+                                            <a href="<?php echo base_url("beraber-calistigimiz-markalar")?>" class="nav-link" id="third-dropdown"  aria-haspopup="true" aria-expanded="false">Markalar</a>
                                         </li>
                                         <li class="nav-item dropdown">
                                             <a href="#" class="nav-link" id="third-dropdown" aria-haspopup="true" aria-expanded="false">İletişim</a>
