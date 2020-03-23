@@ -111,7 +111,7 @@
             <aside class="col-lg-4 col-xl-3 ml-xl-auto">
                 <div class="sidebar">
                     <div class="block clearfix">
-                        <h3 class="title">Project Info</h3>
+                        <h3 class="title">Proje Hakkında</h3>
                         <div class="separator-2"></div>
                         <ul class="list margin-clear">
                             <li><strong>Müşteri: </strong> <span class="text-right"><?php echo $portfolio->client?></span></li>
