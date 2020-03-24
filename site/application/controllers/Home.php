@@ -167,6 +167,45 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
+    public function about_us(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "about_v";
+        $this->load->model("setting_model");
+
+        $viewData->about = $this->setting_model->get();
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+    public function services(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "service_list_v";
+        $this->load->model("service_model");
+
+        $viewData->services = $this->service_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+    public function news_list(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "news_list_v";
+        $this->load->model("news_model");
+
+        $viewData->news = $this->news_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank ASC"
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+
 
 
 
