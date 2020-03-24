@@ -8,7 +8,7 @@
 <?php $this->load->view("includes/head");?>
 </head>
 
-<body class="">
+<body class="front-page page-loader-5 no-trans">
 <!-- scrollToTop -->
 <!-- ================ -->
 <div class="scrollToTop circle"><i class="icon-up-open-big"></i></div>
