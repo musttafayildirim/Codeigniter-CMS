@@ -25,11 +25,6 @@
 				google.maps.event.addDomListener(window, "resize", function() {
 					map.setCenter(myLatlng);
 				});
-
-				$('#collapseMap').on('shown.bs.collapse', function() {
-					google.maps.event.trigger(map, 'resize');
-					map.setCenter(myLatlng);
-				});
 			}
 			google.maps.event.addDomListener(window, "load", initialize);
 		}
