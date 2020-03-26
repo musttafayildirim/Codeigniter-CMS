@@ -1,12 +1,14 @@
 (function($){
 	$(document).ready(function(){
+		var $lat = $("#mapScriptTag").data("lat");
+		var $long = $("#mapScriptTag").data("long");
 
 		// Google Maps
 		//-----------------------------------------------
 		if ($("#map-canvas").length>0) {
 			var map, myLatlng, myZoom, marker;
 			// Set the coordinates of your location
-			myLatlng = new google.maps.LatLng(41.38791700, 2.16991870);
+			myLatlng = new google.maps.LatLng($lat, $long);
 			myZoom = 12;
 			function initialize() {
 				var mapOptions = {

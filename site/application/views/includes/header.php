@@ -70,7 +70,7 @@
 
                                             <li class="active"><a href="index.html">Anasayfa</a></li>
                                             <li class="dropdown ">
-                                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hakkımızda</a>
+                                                <a class="dropdown-toggle" data-toggle="dropdown" href="<?php echo base_url("hakkimizda");?>">Hakkımızda</a>
                                                 <ul class="dropdown-menu">
                                                     <li ><a href="<?php echo base_url("hakkimizda");?>">Hakkımızda</a></li>
                                                     <li ><a href="<?php echo base_url("portfolyo-listesi"); ?>">Portfolyo</a></li>
@@ -90,7 +90,7 @@
                                             <li><a href="<?php echo base_url("urun-listesi"); ?>">Ürünler</a></li>
                                             <li><a href="<?php echo base_url("egitim-listesi"); ?>">Eğitimler</a></li>
                                             <li><a href="<?php echo base_url("beraber-calistigimiz-markalar"); ?>">Markalar</a></li>
-                                            <li><a href="index.html">İletişim</a></li>
+                                            <li><a href="<?php echo base_url("iletisim-sayfasi");?>">İletişim</a></li>
 
                                         </ul>
                                         <!-- main-menu end -->

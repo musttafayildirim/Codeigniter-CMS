@@ -1,3 +1,4 @@
+<?php $settings = get_settings()?>
 <!-- JavaScript files placed at the end of the document so the pages load faster -->
 <!-- ================================================== -->
 <!-- Jquery and Bootstap core js files -->
@@ -20,8 +21,8 @@
 <!-- Contact form -->
 <script src="<?php echo base_url("assets"); ?>/plugins/jquery.validate.js"></script>
 <!-- Google Maps javascript -->
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=your_google_map_key"></script>
-<script type="text/javascript" src="<?php echo base_url("assets"); ?>/js/google.map.config.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=<?php echo $settings->googleMapsApi ?>"></script>
+<script id="mapScriptTag" type="text/javascript" data-lat="<?php echo $settings->mapLat?>" data-long="<?php echo $settings->mapLong?>" src="<?php echo base_url("assets"); ?>/js/google.map.config.js"></script>
 <!-- Background Video -->
 <script src="<?php echo base_url("assets"); ?>/plugins/vide/jquery.vide.js"></script>
 <!-- Owl carousel javascript -->

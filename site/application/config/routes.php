@@ -71,6 +71,12 @@ $route['hizmetlerimiz'] = "home/services";
 
 $route['haberler-listeleniyor'] = "home/news_list";
 
+$route['iletisim-sayfasi'] = "home/contact_list_v";
+$route['mesaj-gonder'] = "home/send_contact_message";
+
+$route['abone-ol'] = "home/add_member";
+
+
 
 
 

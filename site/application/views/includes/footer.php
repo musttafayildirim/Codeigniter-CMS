@@ -147,10 +147,18 @@
                             <div class="separator-2"></div>
                             <p><?php echo $settings->slogan?></p>
                             <ul class="social-links circle animated-effect-1">
+                                <?php if($settings->facebook){?>
                                 <li class="facebook"><a target="_blank" href="<?php echo $settings->facebook;?>"><i class="fa fa-facebook"></i></a></li>
+                                <?php }?>
+                                <?php if($settings->twitter){?>
                                 <li class="twitter"><a target="_blank" href="<?php echo $settings->twitter;?>"><i class="fa fa-twitter"></i></a></li>
+                                <?php }?>
+                                <?php if($settings->instagram){?>
                                 <li class="instagram"><a target="_blank" href="<?php echo $settings->instagram;?>"><i class="fa fa-instagram"></i></a></li>
+                                <?php }?>
+                                <?php if($settings->linkedIn){?>
                                 <li class="linkedin"><a target="_blank" href="<?php echo $settings->linkedIn;?>"><i class="fa fa-linkedin"></i></a></li>
+                                <?php }?>
                             </ul>
                             <div class="separator-2"></div>
                             <ul class="list-icons">

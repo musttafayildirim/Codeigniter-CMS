@@ -205,9 +205,130 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
+    public function contact_list_v(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "contact_list_v";
+
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules("name", "Ad", "trim|required");
+        $this->form_validation->set_rules("email", "E-posta", "trim|required|valid_email");
+        $this->form_validation->set_rules("subject", "Konu", "trim|required");
+        $this->form_validation->set_rules("message", "Mesaj", "trim|required");
+        $this->form_validation->set_rules("captcha", "Doğrulama Kodu", "trim|required");
+
+        $this->load->helper("captcha");
+
+        $config = array(
+            "word"          => '',
+            "img_path"      => 'captcha/',
+            "img_url"       => base_url("captcha"),
+            'font_path' 	=> 'C:\xampp\htdocs\cms\site\fonts\PTN77F.ttf',
+            "img_width"     => 150,
+            "font_size"     => 20,
+            "img_height"    => 50,
+            "expiration"    => 7200,
+            "word_length"   => 5,
+            "img_id"        => "captcha_img",
+            "pool"          => "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            "colors"        => array(
+                'background' => array(56,255,45),
+                'border'     => array(255,255,255),
+                'text'       => array(0,0,0),
+                'grid'       => array(255,40,40)
+            )
+        );
+
+        $viewData->captcha = create_captcha($config);
+
+        $this->session->set_userdata("captcha", $viewData->captcha["word"]);
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
+    }
 
 
+    public function send_contact_message(){
 
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules("name", "Ad", "trim|required");
+        $this->form_validation->set_rules("email", "E-posta", "trim|required|valid_email");
+        $this->form_validation->set_rules("subject", "Konu", "trim|required");
+        $this->form_validation->set_rules("message", "Mesaj", "trim|required");
+        $this->form_validation->set_rules("captcha", "Doğrulama Kodu", "trim|required");
+
+
+        if($this->form_validation->run() === FALSE){
+
+            // TODO Alert...
+
+            redirect(base_url("iletisim-sayfasi"));
+
+
+        } else {
+
+
+            if($this->session->userdata("captcha") == $this->input->post("captcha")){
+
+               $name    = $this->input->post("name");
+               $email   = $this->input->post("email");
+               $subject = $this->input->post("subject");
+               $message = $this->input->post("message");
+
+
+               $email_message = "{$name} İsimli Ziyaretçi <br> <b>E-Posta Adresi : </b> $email<br> <b>Mesaj : </b> $message <br> dedi.";
+
+               if (send_email("", "Site İletişim Mesajı | $subject", $email_message)){
+                   echo "işlem başarılı";
+               }
+               else{
+                   echo "başarısız";
+               }
+            } else {
+
+                // TOdO Alert..
+
+                redirect(base_url("iletisim-sayfasi"));
+
+            }
+
+        }
+
+    }
+
+    public function add_member(){
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules("subscribe_email", "E-Posta Adresi", "trim|required|valid_email");
+
+        if ($this->form_validation->run() == FALSE){
+            // TODO Alert...
+
+        }else{
+            $this->load->model("member_model");
+
+           $insert = $this->member_model->add(
+                array(
+                    "email" => $this->input->post("subscribe_email"),
+                    "ip_address" => $this->input->ip_address(),
+                    "isActive" => 1,
+                    "createdAt" => date("Y-m-d H:i:s")
+                )
+            );
+
+            if ($insert){
+                // TODO Alert...
+            }
+            else{
+                // TODO Alert...
+            }
+
+
+        }
+
+        redirect(base_url("iletisim-sayfasi"));
+    }
 
 
 }
