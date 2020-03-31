@@ -44,4 +44,22 @@
 		};
 	}); // End document ready
 
+	//Paylaş sayfalarının yeniden boyutlandırılması ve window olarak açılması
+	$(".share-button").click(function (e) {
+
+		e.stopPropagation();
+		var window_size = "width=585,height=511";
+		var url = this.href;
+		var domain = url.split("/")[2];
+
+		if (domain === "www.facebook.com"){
+			window_size = "width=585,height=511";
+		}
+		else if(domain === "www.twitter.com"){
+			window_size = "width=585,height=511";
+		}
+
+		window.open(url,'','menubar=no,toolbar=no,resizable=yes,' + window_size);
+	})
+
 })(this.jQuery);

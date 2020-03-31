@@ -68,7 +68,7 @@
                                         <ul class="nav navbar-nav ">
 
 
-                                            <li class="active"><a href="index.html">Anasayfa</a></li>
+                                            <li class="active"><a href="<?php echo base_url("anasayfa");?>">Anasayfa</a></li>
                                             <li class="dropdown ">
                                                 <a class="dropdown-toggle" data-toggle="dropdown" href="<?php echo base_url("hakkimizda");?>">Hakkımızda</a>
                                                 <ul class="dropdown-menu">

@@ -70,11 +70,16 @@ $route['hakkimizda'] = "home/about_us";
 $route['hizmetlerimiz'] = "home/services";
 
 $route['haberler-listeleniyor'] = "home/news_list";
+$route['haber-detayi/(:any)'] = "home/news_detail/$1";
 
 $route['iletisim-sayfasi'] = "home/contact_list_v";
 $route['mesaj-gonder'] = "home/send_contact_message";
 
 $route['abone-ol'] = "home/add_member";
+
+$route['anasayfa'] = "home/index";
+
+
 
 
 

@@ -5,69 +5,65 @@
 
             <!-- main start -->
             <!-- ================ -->
-            <div class="main col-md-12">
+            <div class="main col-12">
 
                 <!-- page-title start -->
                 <!-- ================ -->
-                <h1 class="page-title">Referanslarımız</h1>
+                <h1 class="page-title">Haberler Listesi</h1>
                 <div class="separator-2"></div>
-                <?php $index = 0;?>
-                <?php if($news){ ?>
-                <?php foreach ($news as $new){
-                    if (($index % 2) == 0){?>
-                        <div class="image-box style-4 light-gray-bg">
-                            <div class="row grid-space-0">
-                                <div class="col-lg-6">
-                                    <div class="overlay-container">
-                                        <img src="<?php echo base_url("panel/uploads/news_v/$new->img_url");?>" alt="<?php echo $new->title;?>">
-                                        <div class="overlay-to-top">
-                                            <p class="small margin-clear"><em><?php echo $new->title ?></em></p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="body">
-                                        <div class="pv-30 hidden-lg-down"></div>
-                                        <h3><?php echo $new->title;?></h3>
-                                        <div class="separator-2"></div>
-                                        <p class="margin-clear"><?php echo character_limiter(strip_tags($new->description), 600) ;?></p>
-                                        <br>
-                                    </div>
-                                </div>
+                <!-- page-title end -->
+
+                <!-- timeline grid start -->
+                <!-- ================ -->
+                <div class="timeline clearfix">
+                    <?php $count = 0 ;?>
+                    <?php foreach ($news as $new) { ?>
+                    <!-- timeline grid item start -->
+                    <div class="timeline-item pull-<?php echo (($count++ % 2) == 0) ? "left" : "right" ; ?>">
+                        <!-- blogpost start -->
+                        <article class="blogpost shadow-2 light-gray-bg bordered <?php echo ($new->news_type == 'video') ? "object-non-visible" : "" ?>"
+                            <?php echo ($new->news_type == 'video') ? 'data-animation-effect="fadeInUpSmall" data-effect-delay="100"' : "" ?>>
+                            <?php if($new->news_type == 'image'){ ?>
+                            <div class="overlay-container">
+                                <img src="<?php echo base_url("panel/uploads/news_v/$new->img_url")?>" alt="">
+                                <a class="overlay-link" href="<?php echo base_url("haber-detayi/$new->url") ?>"><i class="fa fa-link"></i></a>
                             </div>
-                        </div>
-                        <?php }else{ ?>
-                        <div class="image-box style-4 light-gray-bg">
-                            <div class="row grid-space-0">
-                                <div class="col-lg-6">
-                                    <div class="body">
-                                        <div class="pv-30 hidden-lg-down"></div>
-                                        <h3><?php echo $new->title;?></h3>
-                                        <div class="separator-2"></div>
-                                        <p class="margin-clear"><?php echo character_limiter(strip_tags($new->description), 600) ;?></p>
-                                        <br>
-                                    </div>
+                            <?php }else{ ?>
+                                <div class="embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" src="<?php echo $new->video_url ?>"></iframe>
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="overlay-container">
-                                        <img src="<?php echo base_url("panel/uploads/news_v/$new->img_url");?>" alt="<?php echo $new->title;?>">
-                                        <div class="overlay-to-top">
-                                            <p class="small margin-clear"><em><?php echo $new->title ?></em></p>
-                                        </div>
-                                    </div>
+                            <?php } ?>
+                            <header>
+                                <h2><a href="<?php echo base_url("haber-detayi/$new->url") ?>"><?php echo $new->title;?></a></h2>
+                                <input type="hidden" value="<?php echo $new->id;?>">
+                                <div class="post-info">
+                        <span class="post-date">
+                          <i class="icon-calendar"></i>
+                          <span class="month"><?php echo get_readable_date($new->createdAt);?></span>
+                        </span>
+                                    <span class="comments"><i class="icon-eye"></i><?php echo $new->viewCount?> Görüntülenme</span>
                                 </div>
+                            </header>
+                            <div class="blogpost-content">
+                                <p><?php echo character_limiter(strip_tags($new->description), 300);?></p>
                             </div>
-                        </div>
-                    <?php } $index++; ?>
-                <?php } }else if(empty($news)){ ?>
-                    <div class="alert col-md-12  alert-icon alert-info" role="alert">
-                        <i class="fa fa-info-circle"></i>
-                        Herhangi bir haber eklenmemiştir.
+                            <footer class="clearfix">
+                                <div class="link pull-right"><i class="icon-link"></i><a href="<?php echo base_url("haber-detayi/$new->url") ?>">Devamını oku</a></div>
+                            </footer>
+                        </article>
+                        <!-- blogpost end -->
                     </div>
-                <?php } ?>
+                    <!-- timeline grid item end -->
+
+                    <?php }?>
+
+                </div>
+                <!-- timeline grid end -->
+
             </div>
             <!-- main end -->
 
         </div>
     </div>
 </section>
+<!-- main-container end -->

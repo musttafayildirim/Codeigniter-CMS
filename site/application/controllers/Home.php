@@ -29,7 +29,7 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function product_detail($url = ""){
+    public function product_detail($url){
         $viewData = new stdClass();
         $viewData->viewFolder = "product_v";
         $this->load->model("product_model");
@@ -73,7 +73,7 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function portfolio_detail($url = ""){
+    public function portfolio_detail($url){
         $viewData = new stdClass();
         $viewData->viewFolder = "portfolio_v";
         $this->load->model("portfolio_model");
@@ -117,7 +117,7 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function course_detail($url = ""){
+    public function course_detail($url){
         $viewData = new stdClass();
         $viewData->viewFolder = "course_v";
         $this->load->model("course_model");
@@ -191,20 +191,6 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function news_list(){
-        $viewData = new stdClass();
-        $viewData->viewFolder = "news_list_v";
-        $this->load->model("news_model");
-
-        $viewData->news = $this->news_model->get_all(
-            array(
-                "isActive" => 1
-            ), "rank ASC"
-        );
-
-        $this->load->view($viewData->viewFolder, $viewData);
-    }
-
     public function contact_list_v(){
         $viewData = new stdClass();
         $viewData->viewFolder = "contact_list_v";
@@ -246,7 +232,6 @@ class Home extends CI_Controller{
         $this->load->view($viewData->viewFolder, $viewData);
 
     }
-
 
     public function send_contact_message(){
 
@@ -328,6 +313,76 @@ class Home extends CI_Controller{
         }
 
         redirect(base_url("iletisim-sayfasi"));
+    }
+
+    public function news_list(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "news_list_v";
+        $this->load->model("news_model");
+
+        $viewData->news = $this->news_model->get_all(
+            array(
+                "isActive" => 1
+            ), "rank DESC", array("start" => 0, "count" => 999999999)
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+    public function news_detail($url){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "news_v";
+        $this->load->model("news_model");
+
+        if ($url){
+            $news = $viewData->news = $this->news_model->get(
+                array(
+                    "isActive"  => 1,
+                    "url"       => $url
+                )
+            );
+            if ($news){
+
+                $other_news = $viewData->other_news = $this->news_model->get_all(
+                    array(
+                        "isActive" => 1,
+                        "id !="    => $news->id
+                    ), "rank DESC" , array("start" => 0, "count" => 5)
+                );
+
+                 #viewCount (Görüntülenme Sayısının 1 artırılması)
+                $viewCount = $news->viewCount + 1;
+
+                $this->news_model->update(
+                  array(
+                      'id' => $news->id
+                  ),
+                  array(
+                      'viewCount' => $viewCount
+                  )
+                );
+
+                if ($other_news){
+
+                    $viewData->other_news = $other_news;
+
+                }
+
+                $viewData->news->viewCount = $viewCount;
+                $viewData->opengraph = true;
+                $viewData->news = $news;
+                $this->load->view($viewData->viewFolder, $viewData);
+            }else{
+
+                //todo alert
+
+            }
+
+
+        }else{
+            //todo alert
+
+        }
     }
 
 
