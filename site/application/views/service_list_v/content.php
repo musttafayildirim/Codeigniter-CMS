@@ -9,7 +9,7 @@
 
                 <!-- page-title start -->
                 <!-- ================ -->
-                <h1 class="page-title">Referanslarımız</h1>
+                <h1 class="page-title">Hizmetlerimiz</h1>
                 <div class="separator-2"></div>
                 <?php $index = 0;?>
                 <?php if($services){ ?>

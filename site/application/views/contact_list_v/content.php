@@ -44,7 +44,7 @@
             <div class="main col-12 space-bottom">
                 <h2 class="title">Bize Yazın</h2>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <p>Bizimle iletişime geçmek için lütfen aşağıdaki alanları kullanınız.</p>
                         <div class="alert alert-success hidden-xs-up hidden" id="MessageSent">
                             We have received your message, we will contact you very soon.
@@ -88,9 +88,45 @@
                             </form>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div id="map-canvas"></div>
-                    </div>
+                    <!-- sidebar start -->
+                    <!-- ================ -->
+                    <aside class="col-lg-4 col-xl-3 ml-xl-auto">
+                        <div class="sidebar">
+                            <div class="block clearfix">
+                                <h3 class="title">Buradayız</h3>
+                                <div class="separator-2"></div>
+                                <ul class="list">
+                                    <li><i class="fa fa-home pr-10"></i><?php echo $settings->address?></li>
+                                    <li><i class="fa fa-phone pr-10"></i><abbr title="Telefon">T:</abbr> <?php echo $settings->phone_1?></li>
+                                    <?php if($settings->fax_1){?>
+                                        <li><i class="fa fa-fax pr-10 pl-1"></i><abbr title="Fax">F:</abbr> <?php echo $settings->fax_1;?></li>
+                                    <?php } ?>
+                                    <li><i class="fa fa-envelope pr-10"></i><a href="mailto:<?php echo $settings->email;?>"><?php echo $settings->email;?></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sidebar">
+                            <div class="block clearfix">
+                                <h2 class="title">Takip edin</h2>
+                                <div class="separator-2"></div>
+                                <ul class="social-links circle small margin-clear clearfix animated-effect-1">
+                                    <?php if ($settings->facebook){?>
+                                        <li class="facebook"><a target="_blank" href="<?php echo $settings->facebook?>"><i class="fa fa-facebook"></i></a></li>
+                                    <?php } ?>
+                                    <?php if ($settings->twitter){?>
+                                        <li class="twitter"><a target="_blank" href="<?php echo $settings->twitter?>"><i class="fa fa-twitter"></i></a></li>
+                                    <?php } ?>
+                                    <?php if ($settings->instagram){?>
+                                        <li class="instagram"><a target="_blank" href="<?php echo $settings->instagram?>"><i class="fa fa-instagram"></i></a></li>
+                                    <?php } ?>
+                                    <?php if ($settings->linkedIn){?>
+                                        <li class="linkedin"><a target="_blank" href="<?php echo $settings->linkedIn?>"><i class="fa fa-linkedin"></i></a></li>
+                                    <?php } ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                    <!-- sidebar end -->
                 </div>
             </div>
             <!-- main end -->

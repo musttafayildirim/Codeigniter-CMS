@@ -1,10 +1,9 @@
 (function($){
 	$(document).ready(function(){
-		var $lat = $("#mapScriptTag").data("lat");
+
+		var $lat  = $("#mapScriptTag").data("lat");
 		var $long = $("#mapScriptTag").data("long");
 
-		// Google Maps
-		//-----------------------------------------------
 		if ($("#map-canvas").length>0) {
 			var map, myLatlng, myZoom, marker;
 			// Set the coordinates of your location
@@ -30,6 +29,8 @@
 			}
 			google.maps.event.addDomListener(window, "load", initialize);
 		}
+
+
 	}); // End document ready
 
 })(this.jQuery);		

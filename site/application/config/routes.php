@@ -80,6 +80,9 @@ $route['abone-ol'] = "home/add_member";
 $route['anasayfa'] = "home/index";
 
 
+$route['deneme'] = "home/deneme";
+
+
 
 
 

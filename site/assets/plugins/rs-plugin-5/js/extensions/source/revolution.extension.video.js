@@ -1,6 +1,6 @@
 /********************************************
- * REVOLUTION 5.4.2 EXTENSION - VIDEO FUNCTIONS
- * @version: 2.1.6 (15.05.2017)
+ * REVOLUTION 5.4.6 EXTENSION - VIDEO FUNCTIONS
+ * @version: 2.1.7 (15.05.2017)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 *********************************************/
@@ -11,8 +11,8 @@ var _R = jQuery.fn.revolution,
 	_ANDROID = _R.is_android(),
 	extension = {	alias:"Video Min JS",
 					name:"revolution.extensions.video.min.js",
-					min_core: "5.4.5",
-					version:"2.1.6"
+					min_core: "5.4.6",
+					version:"2.1.7"
 			  };
 
 
@@ -490,7 +490,19 @@ jQuery.extend(true,_R, {
 					tag = "audio";
 					_nc.addClass("tp-audio-html5");
 				}
-				var _funcs = opt.fallbacks.allowHTML5AutoPlayOnAndroid ? "muted playsinline" : ""; 
+				
+				/*
+					JASON:
+					HTML5 Video Mod
+				*/
+				// var _funcs = opt.fallbacks.allowHTML5AutoPlayOnAndroid ? "muted playsinline" : ""; 
+				var _funcs = '';
+				if (_R.is_mobile()) {	
+					if(_.autoplay === 'on' || _.autoplay === 'true' || _.autoplay === true) 
+						_funcs = 'muted playsinline autoplay';
+					else if(_.videoinline == true || _.videoinline === 'true' || _.videoinline === 1) 
+						_funcs += ' playsinline';
+				}
 				
 				var apptxt = '<'+tag+' '+_funcs+' style="object-fit:cover;background-size:cover;visible:hidden;width:100%; height:100%" class="" '+videoloop+' preload="'+videopreload+'">';
 				
@@ -1146,13 +1158,14 @@ var htmlvideoevents = function(_nc,opt,startnow) {
 	// VIDEO EVENT LISTENER FOR "PLAY"
 	addEvent(video,"play",function() {
 
-		
 		_nc.data('nextslidecalled',0);
 		
 		var vol = _nc.data('volume');
 		vol = vol!=undefined && vol!="mute" ?parseFloat(vol)/100 : vol;
 		
-		if (!_ANDROID) {
+		// JASON
+		// if (!_ANDROID) {
+		if (!_R.is_mobile()) {
 			if (opt.globalmute===true) 
 				video.muted = true;
 			else

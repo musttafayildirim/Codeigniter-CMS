@@ -12,7 +12,19 @@ class Home extends CI_Controller{
     }
 
     public function index(){
-        echo $this->viewFolder;
+        $viewData = new stdClass();
+        $viewData->viewFolder = "home_v";
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
+    }
+
+    public function deneme(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "denemee_v";
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
     }
 
     public function product_list(){
@@ -265,9 +277,11 @@ class Home extends CI_Controller{
                $email_message = "{$name} İsimli Ziyaretçi <br> <b>E-Posta Adresi : </b> $email<br> <b>Mesaj : </b> $message <br> dedi.";
 
                if (send_email("", "Site İletişim Mesajı | $subject", $email_message)){
+                   // TOdO Alert..
                    echo "işlem başarılı";
                }
                else{
+                   // TOdO Alert..
                    echo "başarısız";
                }
             } else {

@@ -1,10 +1,10 @@
 /* Theme Name: The Project - Responsive Website Template
- * Author:HtmlCoder
+ * Author: HtmlCoder
  * Author URI:http://www.htmlcoder.me
  * Author e-mail:htmlcoder.me@gmail.com
- * Version: 2.0.0
- * Created:March 2015
- * License URI:http://support.wrapbootstrap.com/
+ * Version: 2.0.5
+ * Created: March 2015
+ * License URI: http://support.wrapbootstrap.com/
  * File Description: Place here your custom scripts
  */
 
@@ -44,22 +44,26 @@
 		};
 	}); // End document ready
 
-	//Paylaş sayfalarının yeniden boyutlandırılması ve window olarak açılması
-	$(".share-button").click(function (e) {
+	$(".share-button").click(function(e){
 
 		e.stopPropagation();
+
 		var window_size = "width=585,height=511";
 		var url = this.href;
 		var domain = url.split("/")[2];
 
-		if (domain === "www.facebook.com"){
-			window_size = "width=585,height=511";
-		}
-		else if(domain === "www.twitter.com"){
-			window_size = "width=585,height=511";
+		switch (domain){
+			case "www.facebook.com":
+				window_size = "width=585,height=368";
+				break;
+			case "www.twitter.com":
+				window_size = "width=585,height=261";
+				break;
 		}
 
-		window.open(url,'','menubar=no,toolbar=no,resizable=yes,' + window_size);
-	})
+		window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,' + window_size);
+		return false;
+
+	});
 
 })(this.jQuery);

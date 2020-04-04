@@ -9,7 +9,6 @@
                 <h1 class="page-title">Portfolyo Listesi</h1>
                 <div class="separator-2"></div>
                 <!-- page-title end -->
-                <p class="lead">Burada sizin için seçmiş olduğumuz portfolyoları göreceksiniz.</p>
 
                 <?php if($portfolios){
                 foreach ($portfolios as $portfolio){ ?>

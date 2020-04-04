@@ -7,7 +7,7 @@
 
     <!-- blogpost start -->
     <!-- ================ -->
-    <article class="blogpost full">
+    <article class="blogpost">
         <header>
             <div class="post-info mb-4">
                     <span class="post-date">
@@ -18,10 +18,10 @@
             </div>
         </header>
         <div class="blogpost-content">
-            <div id="carousel-blog-post" class="carousel slide mb-5" data-ride="carousel">
+            <div id="carousel-blog-post" class="carousel slide mb-4" data-ride="carousel">
                 <!-- Wrapper for slides -->
-                <div class="carousel-inner"">
-                    <div class="carousel-item">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
                         <?php if($news->news_type == 'image'){ ?>
                             <div class="overlay-container">
                                 <img src="<?php echo base_url("panel/uploads/news_v/$news->img_url")?>" alt="<?php echo $news->url;?>">
@@ -29,7 +29,7 @@
                             </div>
                         <?php }else{ ?>
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="<?php echo $news->video_url ?>"></iframe>
+                                <iframe class="embed-responsive-item" src="<?php echo $news->video_url ?>" allowfullscreen></iframe>
                             </div>
                         <?php } ?>
                     </div>
