@@ -107,3 +107,17 @@ function send_email($toEmail="", $subject="", $message=""){
     $t->email->message($message);
     return $t->email->send();
 }
+
+function get_image($path = "", $image = "", $resolution = "50x50"){
+    if ($image != ""){
+        if(file_exists(FCPATH . "panel/uploads/$path/$resolution/$image")){
+            $image = base_url("panel/uploads/$path/$resolution/$image");
+        }else{
+            $image = base_url("assets/images/default_image.png");
+        }
+
+    }else{
+        $image = base_url("assets/images/default_image.png");
+    }
+    return $image;
+}

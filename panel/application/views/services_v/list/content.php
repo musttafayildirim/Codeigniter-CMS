@@ -38,10 +38,10 @@
                             <td class="w50 text-center">#<?php echo $item->id; ?></td>
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
-                            <td class="text-center  style="height="150px;" "">
+                            <td class="text-center" style="height: 75px">
                                     <img
-                                            src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
-                                            alt=""
+                                            src="<?php echo get_image($viewFolder, $item->img_url, "70x70"); ?>"
+                                            alt="<?php echo $item->url?>"
                                             class="img-rounded w100">
                             </td>
                             <td class="w100">

@@ -69,23 +69,20 @@ class Services extends CI_Controller
 
       if ($validate) {
           $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-          $config["allowed_types"] = "jpg|jpeg|png";
-          $config["upload_path"] = "uploads/$this->viewFolder/";
-          $config["file_name"] = $file_name;
 
-          $this->load->library("upload", $config);
-          $upload = $this->upload->do_upload("img_url");
+          $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
+          $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
+          $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-          if ($upload) {
 
-              $uploaded_file = $this->upload->data("file_name");
+          if ($image555x343 && $image350x217 && $image70x70) {
 
               $insert = $this->service_model->add(
                   array(
                       "url" => converToSEO($this->input->post("title")),
                       "title" => $this->input->post("title"),
                       "description" => $this->input->post("description"),
-                      "img_url" => $uploaded_file,
+                      "img_url" => $file_name,
                       "rank" => 0,
                       "isActive" => true,
                       "createdAt" => date("Y-m-d H:i:s")

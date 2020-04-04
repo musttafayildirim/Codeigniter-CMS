@@ -83,3 +83,52 @@ function get_category_title($category_id = 0){
     else
         return "<b style='color: #681313'>Tanımlanmayan Kategori</b>";
 }
+
+function upload_image($file, $uploadPath, $width, $height, $name){
+
+    $t = get_instance();
+    $t->load->library("simpleimagelib");
+
+    if(!is_dir("{$uploadPath}/{$width}x{$height}")){
+        mkdir("{$uploadPath}/{$width}x{$height}");
+    }
+
+    $upload_error = false;
+    try {
+        // Create a new SimpleImage object
+        $simpleImage = $t->simpleimagelib->get_simple_image_instance();
+
+        // Magic! ✨
+        $simpleImage
+            ->fromFile($file)
+            ->thumbnail($width, $height, 'center')
+            ->toFile("{$uploadPath}/{$width}x{$height}/$name", 'image/png');
+
+        // And much more! 💪
+    } catch(Exception $err) {
+        // Handle errors
+        $error =  $err->getMessage();
+        $upload_error = true;
+    }
+    if ($upload_error){
+        echo $error;
+    }
+    else{
+        return true;
+    }
+}
+
+function get_image($path = "", $image = "", $resolution = "50x50"){
+    if ($image != ""){
+        if(file_exists(FCPATH . "uploads/$path/$resolution/$image")){
+            $image = base_url("uploads/$path/$resolution/$image");
+        }else{
+            $image = base_url("assets/assets/images/default_image.png");
+        }
+
+    }else{
+       $image = base_url("assets/assets/images/default_image.png");
+    }
+    return $image;
+}
+
