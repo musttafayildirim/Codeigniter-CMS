@@ -32,6 +32,10 @@ $(document).ready(function () {
         }
     });
 
+    $(".buttonAllowed_btn").change(function () {
+        $(".button-information-container").slideToggle();
+    })
+
     $(".image_list_container").on('change', '.isCover', function () {
         var $data = $(this).prop("checked");
         var $data_url = $(this).data("url");
@@ -88,7 +92,6 @@ $(document).ready(function () {
                 $(".sortable").sortable();
         })
     })
-
 
 
 });

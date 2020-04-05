@@ -24,6 +24,10 @@ th{
     width: 50px;
 }
 
+.w75{
+    width: 75px;
+}
+
 .w150{
     width: 150px;
 }
@@ -45,5 +49,13 @@ th{
 }
 
 .video_url_container{
+    display: none;
+}
+
+.button-information-container{
+    border: 1px solid #CCCCCC;
+    padding: 10px;
+    margin-bottom: 25px;
+    border-radius: 8px;
     display: none;
 }

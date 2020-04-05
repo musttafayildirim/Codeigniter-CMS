@@ -76,7 +76,7 @@
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url('slides'); ?>">
                         <i class="menu-icon fa fa-sliders"></i>
                         <span class="menu-text">Slider</span>
                     </a>
