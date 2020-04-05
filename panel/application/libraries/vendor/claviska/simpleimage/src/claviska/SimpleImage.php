@@ -327,7 +327,7 @@ class SimpleImage {
   //
   // Returns a SimpleImage object.
   //
-  public function toFile($file, $mimeType = null, $quality = 100) {
+  public function toFile($file, $mimeType = null, $quality = 80) {
     $image = $this->generate($mimeType, $quality);
 
     // Save the image to file
