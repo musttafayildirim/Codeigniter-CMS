@@ -102,7 +102,7 @@ function upload_image($file, $uploadPath, $width, $height, $name){
         $simpleImage
             ->fromFile($file)
             ->thumbnail($width, $height, 'center')
-            ->toFile("{$uploadPath}/{$width}x{$height}/$name", 'image/png');
+            ->toFile("{$uploadPath}/{$width}x{$height}/$name", null, 75);
 
         // And much more! 💪
     } catch(Exception $err) {
