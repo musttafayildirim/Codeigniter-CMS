@@ -70,17 +70,15 @@ class courses extends CI_Controller
 
       if ($validate) {
 
-          $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-          $config["allowed_types"] = "jpg|jpeg|png";
-          $config["upload_path"] = "uploads/$this->viewFolder/";
-          $config["file_name"] = $file_name;
+          $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-          $this->load->library("upload", $config);
-          $upload = $this->upload->do_upload("img_url");
+          $image255x158 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 255,158, $file_name);
+          $image140x265 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 140,265, $file_name);
+          $image271x167 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 271,167, $file_name);
+          $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-          if ($upload) {
 
-              $uploaded_file = $this->upload->data("file_name");
+          if ($image255x158 && $image140x265 && $image70x70 && $image271x167) {
 
               $insert = $this->course_model->add(
                   array(
@@ -88,7 +86,7 @@ class courses extends CI_Controller
                       "title"       => $this->input->post("title"),
                       "description" => $this->input->post("description"),
                       "event_date"  => $this->input->post("event_date"),
-                      "img_url"     => $uploaded_file,
+                      "img_url"     => $file_name,
                       "rank"        => 0,
                       "isActive"    => true,
                       "createdAt"   => date("Y-m-d H:i:s")
@@ -186,10 +184,17 @@ class courses extends CI_Controller
                 );
 
                 if($course){
-                    $path = "uploads/$this->viewFolder/$course->img_url";
-                    $delete_img = unlink($path);
+                    $paths = array(
+                        $path1 = "uploads/$this->viewFolder/255x158/$course->img_url",
+                        $path2 = "uploads/$this->viewFolder/140x265/$course->img_url",
+                        $path3 = "uploads/$this->viewFolder/271x167/$course->img_url",
+                        $path3 = "uploads/$this->viewFolder/70x70/$course->img_url"
+                    );
 
-                    if(!$delete_img){
+                    foreach ($paths as $path)
+                        $delete_folder = unlink($path);
+
+                    if(!$delete_folder){
                         $alert = array(
                             "title"   => "İşlem başarısız",
                             "text"    => "Fotoğraf silinirken bir sorunla karşılaşıldı.",
@@ -202,21 +207,20 @@ class courses extends CI_Controller
                     }
                 }
 
-                $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-                $config["allowed_types"] = "jpg|jpeg|png";
-                $config["upload_path"] = "uploads/$this->viewFolder/";
-                $config["file_name"] = $file_name;
+                $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
+                $image255x158 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 255,158, $file_name);
+                $image140x265 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 140,265, $file_name);
+                $image271x167 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 271,167, $file_name);
+                $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-                if ($upload) {
-                    $uploaded_file = $this->upload->data("file_name");
+
+                if ($image255x158 && $image140x265 && $image70x70 && $image271x167) {
                     $data = array(
                         "url"           => converToSEO($this->input->post("title")),
                         "title"         => $this->input->post("title"),
                         "description"   => $this->input->post("description"),
-                        "img_url"       => $uploaded_file,
+                        "img_url"       => $file_name,
                         "event_date"    => $this->input->post("event_date")
                     );
                 } else {
@@ -289,8 +293,15 @@ class courses extends CI_Controller
         );
 
         if($course){
-            $path = "uploads/$this->viewFolder/$course->img_url";
-            $delete_image = unlink($path);
+            $paths = array(
+                $path1 = "uploads/$this->viewFolder/255x158/$course->img_url",
+                $path2 = "uploads/$this->viewFolder/140x265/$course->img_url",
+                $path3 = "uploads/$this->viewFolder/271x167/$course->img_url",
+                $path3 = "uploads/$this->viewFolder/70x70/$course->img_url"
+            );
+
+            foreach ($paths as $path)
+                $delete_image = unlink($path);
             if(!$delete_image) {
                 $alert = array(
                     "title" => "İşlem başarısız",

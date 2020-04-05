@@ -246,7 +246,15 @@ class Portfolio extends CI_Controller
 
         if ($images){
             foreach ($images as $image) {
-               unlink("uploads/{$this->viewFolder}/$image->img_url");
+                $paths = array(
+                    $path1 = "uploads/$this->viewFolder/255x158/$image->img_url",
+                    $path2 = "uploads/$this->viewFolder/70x70/$image->img_url",
+                    $path3 = "uploads/$this->viewFolder/362x224/$image->img_url",
+                    $path4 = "uploads/$this->viewFolder/1140x450/$image->img_url"
+                );
+
+                foreach ($paths as $path)
+                    unlink($path);
             }
             $delete_image = $this->portfolio_image_model->delete(
                 array(
@@ -321,27 +329,54 @@ class Portfolio extends CI_Controller
             )
         );
 
-        $delete = $this->portfolio_image_model->delete(
-          array(
-              "id" => $id
-          )
-        );
-
-        if($delete){
-            unlink("uploads/{$this->viewFolder}/$fileName->img_url");
-
-            $alert = array(
-                "title"   => "Tebrikler",
-                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type"    => "success"
+        if ($fileName){
+            $paths = array(
+                $path1 = "uploads/$this->viewFolder/255x158/$fileName->img_url",
+                $path2 = "uploads/$this->viewFolder/70x70/$fileName->img_url",
+                $path3 = "uploads/$this->viewFolder/362x224/$fileName->img_url",
+                $path4 = "uploads/$this->viewFolder/1140x450/$fileName->img_url"
             );
-            $this->session->set_flashdata("alert", $alert);
-            redirect(base_url("portfolio/image_form/$parent_id"));
-        }
-        else{
+
+            foreach ($paths as $path)
+                $delete_img = unlink($path);
+
+            if (!$delete_img){
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Fotoğraf silinirken bir sorunla karşılaşıldı.",
+                    "type"    => "error"
+                );
+
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("portfolio/image_form/$parent_id"));
+            }else{
+                $delete = $this->portfolio_image_model->delete(
+                    array(
+                        "id" => $id
+                    )
+                );
+
+                if ($delete){
+                    $alert = array(
+                        "title"   => "Tebrikler",
+                        "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                        "type"    => "success"
+                    );
+                }else{
+                    $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                    "type"    => "error"
+                );
+                }
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("portfolio/image_form/$parent_id"));
+                unset($_SESSION['alert']);
+            }
+        }else{
             $alert = array(
                 "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "text"    => "Veritabanınızda böyle bir kayıt yok!",
                 "type"    => "error"
             );
 
@@ -349,7 +384,6 @@ class Portfolio extends CI_Controller
             redirect(base_url("portfolio/image_form/$parent_id"));
             unset($_SESSION['alert']);
         }
-
     }
 
     public function isActiveSetter($id){
@@ -453,26 +487,22 @@ class Portfolio extends CI_Controller
 
     public function image_upload($id){
 
-        $file_name = converToSEO(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
-        $config["allowed_types"] = "jpg|jpeg|png";
-        $config["upload_path"] = "uploads/$this->viewFolder/";
-        $config["file_name"] = $file_name;
+        $file_name = rand().rand().converToSEO(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
-        $this->load->library("upload", $config);
-        $upload = $this->upload->do_upload("file");
+        $image255x158   = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 255,158, $file_name);
+        $image1140x450  = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 1140,450, $file_name);
+        $image362x224   = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 362,224, $file_name);
+        $image70x70     = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-
-        if($upload){
-
-            $uploaded_file = $this->upload->data("file_name");
+        if ($image255x158 && $image1140x450 && $image70x70 && $image362x224){
 
             $this->portfolio_image_model->add(
                 array(
-                    "img_url"       => $uploaded_file,
+                    "img_url"       => $file_name,
                     "rank"          => 0,
                     "isActive"      => 1,
                     "createdAt"     => date("Y-m-d H:i:s"),
-                    "portfolio_id"    => $id
+                    "portfolio_id"  => $id
                 )
             );
         }

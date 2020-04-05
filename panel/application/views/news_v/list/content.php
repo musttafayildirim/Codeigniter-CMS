@@ -40,15 +40,16 @@
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
                             <td class="text-center"><?php echo $item->news_type; ?></td>
-                            <td class="text-center">
+                            <td class="text-center" style="width: 75px;">
                                 <?php if ($item->news_type === "image"){ ?>
                                     <img
-                                            src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
-                                            alt=""
-                                            class="img-rounded w100">
+                                            src="<?php echo get_image($viewFolder, $item->img_url, "70x70"); ?>"
+                                            alt="<?php echo $item->url;?>"
+                                            class="img-rounded">
                                 <?php } else { ?>
                                     <iframe
-                                            height="150"
+                                            width="75"
+                                            height="75"
                                             src="<?php echo $item->video_url; ?>"
                                             frameborder="0"
                                             allow="accelerometer;

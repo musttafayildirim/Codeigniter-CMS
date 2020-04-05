@@ -19,7 +19,11 @@
             <tr id="ord-<?php echo $image->id;?>">
                 <td class="order"  ><i class="fa fa-reorder"></i></td>
                 <td class="text-center w50">#<?php echo $image->id; ?></td>
-                <td class="w150"><img src="<?php echo base_url("uploads/{$viewFolder}/$image->img_url"); ?>" alt="<?php echo base_url("uploads/{$viewFolder}/$image->img_url"); ?>" class="img-responsive"></td>
+                <td class="text-center" style="width: 75px;">
+                    <img src="<?php echo get_image($viewFolder, $image->img_url, "70x70"); ?>"
+                         alt="<?php echo $image->img_url;?>"
+                         class="img-responsive">
+                </td>
                 <td><?php echo $image->img_url;?></td>
                 <td  class="w100 text-center">
                     <input

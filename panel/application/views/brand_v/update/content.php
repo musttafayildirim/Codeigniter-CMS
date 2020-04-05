@@ -33,8 +33,8 @@
                                 class="form-control">
                     </div>
                     <div class="form-group col-md-1 img-responsive img-fluid">
-                        <img src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>"
-                             alt="">
+                        <img src="<?php echo get_image($viewFolder, $item->img_url, "70x70"); ?>"
+                             alt="<?php echo $item->title?>"
                     </div>
 
                 </div>

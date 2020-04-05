@@ -168,7 +168,7 @@
                 <?php }else{?>
                     <div class="alert col-md-12  alert-icon alert-info" role="alert">
                         <i class="fa fa-info-circle"></i>
-                        Ürün bulunamadı.
+                        <strong>Portfolyo bulunamadı</strong>
                     </div>
                 <?php } ?>
             </div>

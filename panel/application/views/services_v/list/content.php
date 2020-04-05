@@ -38,11 +38,11 @@
                             <td class="w50 text-center">#<?php echo $item->id; ?></td>
                             <td><?php echo $item->url; ?></td>
                             <td><?php echo $item->title; ?></td>
-                            <td class="text-center" style="height: 75px">
+                            <td class="text-center" style="width: 75px">
                                     <img
                                             src="<?php echo get_image($viewFolder, $item->img_url, "70x70"); ?>"
                                             alt="<?php echo $item->url?>"
-                                            class="img-rounded w100">
+                                            class="img-rounded">
                             </td>
                             <td class="w100">
                                 <input

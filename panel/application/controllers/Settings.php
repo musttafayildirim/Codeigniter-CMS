@@ -74,17 +74,14 @@ class Settings extends CI_Controller
 
         if ($validate) {
 
-            $file_name = converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
-            $config["allowed_types"] = "jpg|jpeg|png";
-            $config["upload_path"] = "uploads/$this->viewFolder/";
-            $config["file_name"] = $file_name;
+            $file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
 
-            $this->load->library("upload", $config);
-            $upload = $this->upload->do_upload("logo");
+            $image150x35 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 150,35, $file_name);
+            $image27x24 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 27,24, $file_name);
+            $image70x70 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-            if ($upload) {
 
-                $uploaded_file = $this->upload->data("file_name");
+            if ($image150x35 && $image27x24 && $image70x70 ) {
 
                 $insert = $this->setting_model->add(
                     array(
@@ -102,7 +99,7 @@ class Settings extends CI_Controller
                         "twitter"       => $this->input->post("twitter"),
                         "instagram"     => $this->input->post("instagram"),
                         "linkedin"      => $this->input->post("linkedin"),
-                        "logo"          => $uploaded_file,
+                        "logo"          => $file_name,
                         "createdAt"     => date("Y-m-d H:i:s")
                     )
                 );
@@ -204,18 +201,24 @@ class Settings extends CI_Controller
                   )
                 );
 
-                unlink("uploads/{$this->viewFolder}/$delete_image->logo");
+                $paths = array(
+                    $path1 = "uploads/$this->viewFolder/150x35/$delete_image->logo",
+                    $path2 = "uploads/$this->viewFolder/27x24/$delete_image->logo",
+                    $path3 = "uploads/$this->viewFolder/70x70/$delete_image->logo",
+                );
 
-                $file_name = converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
-                $config["allowed_types"] = "jpg|jpeg|png";
-                $config["upload_path"] = "uploads/$this->viewFolder/";
-                $config["file_name"] = $file_name;
+                foreach ($paths as $path)
+                   unlink($path);
 
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("logo");
+                $file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
 
-                if ($upload) {
-                    $uploaded_file = $this->upload->data("file_name");
+                $image150x35 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 150,35, $file_name);
+                $image27x24 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 27,24, $file_name);
+                $image70x70 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
+
+
+                if ($image150x35 && $image27x24 && $image70x70 ) {
+
                     $data = array(
                         "company_name"  => $this->input->post("company_name"),
                         "about_us"      => $this->input->post("about"),
@@ -231,7 +234,7 @@ class Settings extends CI_Controller
                         "twitter"       => $this->input->post("twitter"),
                         "instagram"     => $this->input->post("instagram"),
                         "linkedin"      => $this->input->post("linkedin"),
-                        "logo"          => $uploaded_file,
+                        "logo"          => $file_name,
                         "updatedAt"     => date("Y-m-d H:i:s")
                     );
                 } else {

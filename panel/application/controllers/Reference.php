@@ -58,24 +58,21 @@ class Reference extends CI_Controller
 
       if ($validate) {
 
-          $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-          $config["allowed_types"] = "jpg|jpeg|png";
-          $config["upload_path"] = "uploads/$this->viewFolder/";
-          $config["file_name"] = $file_name;
+          $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-          $this->load->library("upload", $config);
-          $upload = $this->upload->do_upload("img_url");
+          $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
+          $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
+          $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-          if ($upload) {
 
-              $uploaded_file = $this->upload->data("file_name");
+          if ($image555x343 && $image350x217 && $image70x70) {
 
               $insert = $this->reference_model->add(
                   array(
                       "url" => converToSEO($this->input->post("title")),
                       "title" => $this->input->post("title"),
                       "description" => $this->input->post("description"),
-                      "img_url" => $uploaded_file,
+                      "img_url" => $file_name,
                       "rank" => 0,
                       "isActive" => true,
                       "createdAt" => date("Y-m-d H:i:s")
@@ -161,94 +158,113 @@ class Reference extends CI_Controller
 
         $validate = $this->form_validation->run();
 
-        if ($validate) {
+       if($validate){
+           if ($_FILES["img_url"]["name"] !== "") {
+               $select_img = $this->reference_model->get(
+                   array(
+                       "id" => $id
+                   )
+               );
+               if ($select_img){
+                   $paths = array(
+                       $path1 = "uploads/$this->viewFolder/555x343/$select_img->img_url",
+                       $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url",
+                       $path3 = "uploads/$this->viewFolder/350x217/$select_img->img_url"
+                   );
 
-            if ($_FILES["img_url"]["name"] !== "") {
+                   foreach ($paths as $path)
+                       $delete_img = unlink($path);
 
-                $select_img = $this->reference_model->get(
-                    array(
-                        "id" => $id
-                    )
-                );
+                   if (!$delete_img){
+                       $alert = array(
+                           "title"   => "İşlem başarısız",
+                           "text"    => "Fotoğraf silinirken bir sorunla karşılaşıldı.",
+                           "type"    => "error"
+                       );
 
-                if($select_img){
-                    unlink("uploads/{$this->viewFolder}/$select_img->img_url");
-                }
+                       $this->session->set_flashdata("alert", $alert);
+                       redirect(base_url("reference/update_reference/$id"));
+                   }else{
+                       $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-                $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-                $config["allowed_types"] = "jpg|jpeg|png";
-                $config["upload_path"] = "uploads/$this->viewFolder/";
-                $config["file_name"] = $file_name;
+                       $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
+                       $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
+                       $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
+                       if ($image555x343 && $image350x217 && $image70x70){
+                           $data = array(
+                               "url" => converToSEO($this->input->post("title")),
+                               "title" => $this->input->post("title"),
+                               "description" => $this->input->post("description"),
+                               "img_url" => $file_name,
+                           );
+                       }else{
+                           $alert = array(
+                               "title" => "Opppss",
+                               "text" => "Resim yüklenme esnasında bir problem oluştu.",
+                               "type" => "error"
+                           );
+                           $this->session->set_flashdata("alert", $alert);
+                           redirect(base_url("reference/update_reference/$id"));
+                       }
+                   }
+               }else{
+                   $alert = array(
+                       "title" => "İşlem başarısız",
+                       "text" => "Lütfen zorunlu olan alanları doldurunuz!",
+                       "type" => "error"
+                   );
 
-                if ($upload) {
-                    $uploaded_file = $this->upload->data("file_name");
-                    $data = array(
-                        "url" => converToSEO($this->input->post("title")),
-                        "title" => $this->input->post("title"),
-                        "description" => $this->input->post("description"),
-                        "img_url" => $uploaded_file,
-                    );
-                } else {
-                    $alert = array(
-                        "title" => "Opppss",
-                        "text" => "Resim yüklenme esnasında bir problem oluştu.",
-                        "type" => "error"
-                    );
-                    $this->session->set_flashdata("alert", $alert);
-                    redirect(base_url("reference/update_reference/$id"));
-                }
-            } else {
-                $data = array(
-                    "url" => converToSEO($this->input->post("title")),
-                    "title" => $this->input->post("title"),
-                    "description" => $this->input->post("description"),
-                );
-            }
+                   $this->session->set_flashdata("alert", $alert);
+                   redirect(base_url("reference"));
+               }
+           }else{
+               $data = array(
+                   "url" => converToSEO($this->input->post("title")),
+                   "title" => $this->input->post("title"),
+                   "description" => $this->input->post("description"),
+               );
+           }
+           $update = $this->reference_model->update(array("id" => $id), $data);
 
-            $update = $this->reference_model->update(array("id" => $id), $data);
+           if ($update){
+               $alert = array(
+                   "title" => "Tebrikler",
+                   "text" => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                   "type" => "success"
+               );
+           }else{
+               $alert = array(
+                   "title" => "İşlem başarısız",
+                   "text" => "Lütfen zorunlu olan alanları doldurunuz!",
+                   "type" => "error"
+               );
+           }
+           $this->session->set_flashdata("alert", $alert);
+           redirect(base_url("reference"));
+       }else{
+           $viewData = new stdClass();
 
-        if ($update) {
-            $alert = array(
-                "title" => "Tebrikler",
-                "text" => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type" => "success"
-            );
-        } else {
-            $alert = array(
-                "title" => "İşlem başarısız",
-                "text" => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type" => "error"
-            );
-        }
-        $this->session->set_flashdata("alert", $alert);
-        redirect(base_url("reference"));
-    }
-        else{
-            $viewData = new stdClass();
+           $viewData-> viewFolder = $this->viewFolder;
+           $viewData->subViewFolder = "update";
+           $viewData->form_error = "true";
 
-            $viewData-> viewFolder = $this->viewFolder;
-            $viewData->subViewFolder = "update";
-            $viewData->form_error = "true";
+           $viewData->item = $this->reference_model->get(
+               array(
+                   "id" => $id
+               )
+           );
 
-            $viewData->item = $this->reference_model->get(
-                array(
-                    "id" => $id
-                )
-            );
+           $alert = array(
+               "title"   => "İşlem başarısız",
+               "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+               "type"    => "error"
+           );
 
-            $alert = array(
-                "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type"    => "error"
-            );
-
-            $this->session->set_flashdata("alert", $alert);
-            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-            unset($_SESSION['alert']);
-        }
+           $this->session->set_flashdata("alert", $alert);
+           $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+           unset($_SESSION['alert']);
+       }
     }
 
     public function delete($id){
@@ -258,33 +274,61 @@ class Reference extends CI_Controller
                 "id" => $id
             )
         );
-
-        $delete = $this->reference_model->delete(
-          array(
-              "id" => $id
-          )
-        );
-
-        if($delete){
-            unlink("uploads/{$this->viewFolder}/$select_img->img_url");
-            $alert = array(
-                "title"   => "Tebrikler",
-                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type"    => "success"
+        if($select_img){
+            $paths = array(
+                $path1 = "uploads/$this->viewFolder/555x343/$select_img->img_url",
+                $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url",
+                $path3 = "uploads/$this->viewFolder/350x217/$select_img->img_url"
             );
 
+            foreach ($paths as $path)
+                $delete_img = unlink($path);
+
+            if($delete_img){
+                $delete = $this->reference_model->delete(
+                    array(
+                        "id" => $id
+                    )
+                );
+                if ($delete){
+                    $alert = array(
+                        "title"   => "Tebrikler",
+                        "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                        "type"    => "success"
+                    );
+                }
+                else{
+                    $alert = array(
+                        "title"   => "İşlem başarısız",
+                        "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                        "type"    => "error"
+                    );
+                }
+
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("reference"));
+            }
+            else{
+                $alert = array(
+                    "title"   => "İşlem başarısız",
+                    "text"    => "Silinecek bir resim yok veya veri yolu hatalı",
+                    "type"    => "error"
+                );
+            }
+
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("reference"));
         }
         else{
             $alert = array(
                 "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "text"    => "Resim bulunamadı",
                 "type"    => "error"
             );
         }
 
         $this->session->set_flashdata("alert", $alert);
         redirect(base_url("reference"));
-
     }
 
     public function isActiveSetter($id){

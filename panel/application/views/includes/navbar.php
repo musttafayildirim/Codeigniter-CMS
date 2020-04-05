@@ -22,7 +22,7 @@
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
             <span class="brand-icon">
                 <img
-                        src="<?php echo ($settings->logo) !== "default" ? base_url("uploads/settings_v/$settings->logo") : base_url("assets/assets/images/index/infinity-logo.png"); ?>" alt="<?php echo $settings->company_name;?>" width="37" class="img-responsive">
+                        src="<?php echo get_image("settings_v",$settings->logo,"27x24");?>" alt="<?php echo $settings->company_name;?>" width="37" class="img-responsive">
             </span>
             <span class="brand-name"><?php echo $settings->company_name;?></span>
         </a>

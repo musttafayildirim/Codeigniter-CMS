@@ -212,7 +212,15 @@ class Product extends CI_Controller
 
         if ($delete_image){
             foreach ($product_images as $product_image){
-                unlink("uploads/{$this->viewFolder}/$product_image->img_url");
+                $paths = array(
+                    $path1 = "uploads/$this->viewFolder/348x215/$product_image->img_url",
+                    $path2 = "uploads/$this->viewFolder/70x70/$product_image->img_url",
+                    $path3 = "uploads/$this->viewFolder/362x224/$product_image->img_url",
+                    $path4 = "uploads/$this->viewFolder/1140x450/$product_image->img_url"
+                );
+
+                foreach ($paths as $path)
+                    unlink($path);
             }
         }
 
@@ -251,27 +259,60 @@ class Product extends CI_Controller
             )
         );
 
-        $delete = $this->product_image_model->delete(
-          array(
-              "id" => $id
-          )
-        );
-
-        if($delete){
-            unlink("uploads/{$this->viewFolder}/$fileName->img_url");
-
-            $alert = array(
-                "title"   => "Tebrikler",
-                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type"    => "success"
+        if($fileName){
+            $paths = array(
+                $path1 = "uploads/$this->viewFolder/348x215/$fileName->img_url",
+                $path2 = "uploads/$this->viewFolder/70x70/$fileName->img_url",
+                $path3 = "uploads/$this->viewFolder/362x224/$fileName->img_url",
+                $path4 = "uploads/$this->viewFolder/1140x450/$fileName->img_url"
             );
-            $this->session->set_flashdata("alert", $alert);
-            redirect(base_url("product/image_form/$parent_id"));
-        }
-        else{
+
+            foreach ($paths as $path)
+                $delete_folder = unlink($path);
+
+            if (!$delete_folder){
+                $alert = array(
+                    "title" => "İşlem başarısız",
+                    "text" => "Dosya yolu doğru değil veya böyle bir resim yok",
+                    "type" => "error"
+                );
+
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("product/image_form/$parent_id"));
+
+            }else{
+
+                $delete = $this->product_image_model->delete(
+                    array(
+                        "id" => $id
+                    )
+                );
+                if ($delete){
+                    $alert = array(
+                        "title"   => "Tebrikler",
+                        "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                        "type"    => "success"
+                    );
+                    $this->session->set_flashdata("alert", $alert);
+                    redirect(base_url("product/image_form/$parent_id"));
+                }
+                else{
+                    $alert = array(
+                        "title"   => "İşlem başarısız",
+                        "text"    => "Silinecek fotoğraf veritabanında kayıtlı değil.",
+                        "type"    => "error"
+                    );
+
+                    $this->session->set_flashdata("alert", $alert);
+                    redirect(base_url("product/image_form/$parent_id"));
+                    unset($_SESSION['alert']);
+                }
+
+            }
+        }else{
             $alert = array(
                 "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                "text"    => "Silinecek fotoğraf bulunamadı....",
                 "type"    => "error"
             );
 
@@ -279,7 +320,6 @@ class Product extends CI_Controller
             redirect(base_url("product/image_form/$parent_id"));
             unset($_SESSION['alert']);
         }
-
     }
 
     public function isActiveSetter($id){
@@ -383,22 +423,20 @@ class Product extends CI_Controller
 
     public function image_upload($id){
 
-        $file_name = converToSEO(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
-        $config["allowed_types"] = "jpg|jpeg|png";
-        $config["upload_path"] = "uploads/$this->viewFolder/";
-        $config["file_name"] = $file_name;
+        $file_name = rand().rand().converToSEO(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
-        $this->load->library("upload", $config);
-        $upload = $this->upload->do_upload("file");
+        $image1140x450 = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 1140,450, $file_name);
+        $image362x224 = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 362,224, $file_name);
+        $image348x215 = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 348,215, $file_name);
+        $image70x70 = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
 
-        if($upload){
+        if ($image1140x450 && $image348x215 && $image70x70 && $image362x224) {
 
-            $uploaded_file = $this->upload->data("file_name");
 
             $this->product_image_model->add(
                 array(
-                    "img_url"       => $uploaded_file,
+                    "img_url"       => $file_name,
                     "rank"          => 0,
                     "isActive"      => 1,
                     "createdAt"     => date("Y-m-d H:i:s"),

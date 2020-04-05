@@ -81,25 +81,22 @@ class News extends CI_Controller
 
       if ($validate){
           if($news_type === "image"){
-              $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-              $config["allowed_types"] = "jpg|jpeg|png";
-              $config["upload_path"] = "uploads/$this->viewFolder/";
-              $config["file_name"] = $file_name;
+              $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-              $this->load->library("upload", $config);
-              $upload = $this->upload->do_upload("img_url");
+              $image513x317 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 513,317, $file_name);
+              $image730x451 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 730,451, $file_name);
+              $image60x37 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 60,37, $file_name);
+              $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
 
-              if($upload){
-
-                  $uploaded_file = $this->upload->data("file_name");
+              if ($image513x317 && $image730x451 && $image60x37 && $image70x70) {
 
                   $data = array(
                       "url"         => converToSEO($this->input->post("title")),
                       "title"       => $this->input->post("title"),
                       "description" => $this->input->post("description"),
                       "news_type"   => $news_type,
-                      "img_url"     => $uploaded_file,
+                      "img_url"     => $file_name,
                       "video_url"     => '#',
                       "rank"        => 0,
                       "isActive"    => true,
@@ -227,8 +224,15 @@ class News extends CI_Controller
                         redirect(base_url("news"));
                     }
                     else{
-                        $path = "uploads/$this->viewFolder/$image->img_url";
-                        $delete_folder = unlink($path);
+                       $paths = array(
+                            $path1 = "uploads/$this->viewFolder/60x37/$image->img_url",
+                            $path2 = "uploads/$this->viewFolder/70x70/$image->img_url",
+                            $path3 = "uploads/$this->viewFolder/513x317/$image->img_url",
+                            $path4 = "uploads/$this->viewFolder/730x451/$image->img_url"
+                        );
+
+                        foreach ($paths as $path)
+                            $delete_folder = unlink($path);
                         if(!$delete_folder) {
                             $alert = array(
                                 "title" => "İşlem başarısız",
@@ -241,22 +245,21 @@ class News extends CI_Controller
 
                         }
                         else{
-                            $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-                            $config["allowed_types"] = "jpg|jpeg|png";
-                            $config["upload_path"] = "uploads/$this->viewFolder/";
-                            $config["file_name"] = $file_name;
+                            $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-                            $this->load->library("upload", $config);
-                            $upload = $this->upload->do_upload("img_url");
+                            $image513x317 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 513,317, $file_name);
+                            $image730x451 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 730,451, $file_name);
+                            $image60x37 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 60,37, $file_name);
+                            $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-                            if($upload){
-                                $uploaded_file = $this->upload->data("file_name");
+
+                            if ($image513x317 && $image730x451 && $image60x37 && $image70x70) {
                                 $data = array(
                                     "url"         => converToSEO($this->input->post("title")),
                                     "title"       => $this->input->post("title"),
                                     "description" => $this->input->post("description"),
                                     "news_type"   => $news_type,
-                                    "img_url"     => $uploaded_file,
+                                    "img_url"     => $file_name,
                                     "video_url"     => '#'
                                 );
                             }
@@ -345,8 +348,15 @@ class News extends CI_Controller
         );
         if ($news->news_type == "image"){
             if ($news){
-                $path = "uploads/$this->viewFolder/$news->img_url";
-                $delete_folder = unlink($path);
+                $paths = array(
+                    $path1 = "uploads/$this->viewFolder/60x37/$news->img_url",
+                    $path2 = "uploads/$this->viewFolder/70x70/$news->img_url",
+                    $path3 = "uploads/$this->viewFolder/513x317/$news->img_url",
+                    $path4 = "uploads/$this->viewFolder/730x451/$news->img_url"
+                );
+
+                foreach ($paths as $path)
+                    $delete_folder = unlink($path);
                 if(!$delete_folder) {
                     $alert = array(
                         "title" => "İşlem başarısız",

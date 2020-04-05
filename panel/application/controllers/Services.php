@@ -68,7 +68,7 @@ class Services extends CI_Controller
       $validate = $this->form_validation->run();
 
       if ($validate) {
-          $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
+          $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
           $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
           $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
@@ -179,24 +179,29 @@ class Services extends CI_Controller
                 );
 
                 if($select_img){
-                    unlink("uploads/{$this->viewFolder}/$select_img->img_url");
+                    $paths = array(
+                        $path1 = "uploads/$this->viewFolder/350x217/$select_img->img_url",
+                        $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url",
+                        $path3 = "uploads/$this->viewFolder/555x343/$select_img->img_url"
+                    );
+
+                    foreach ($paths as $path)
+                        $delete_folder = unlink($path);
                 }
 
-                $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-                $config["allowed_types"] = "jpg|jpeg|png";
-                $config["upload_path"] = "uploads/$this->viewFolder/";
-                $config["file_name"] = $file_name;
+                $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
+                $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
+                $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
+                $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-                if ($upload) {
-                    $uploaded_file = $this->upload->data("file_name");
+
+                if ($image555x343 && $image350x217 && $image70x70) {
                     $data = array(
                         "url" => converToSEO($this->input->post("title")),
                         "title" => $this->input->post("title"),
                         "description" => $this->input->post("description"),
-                        "img_url" => $uploaded_file,
+                        "img_url" => $file_name,
                     );
                 } else {
                     $alert = array(
@@ -272,15 +277,40 @@ class Services extends CI_Controller
           )
         );
 
-        if($delete){
+        if($select_img){
 
-            unlink("uploads/{$this->viewFolder}/$select_img->img_url");
-
-            $alert = array(
-                "title"   => "Tebrikler",
-                "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                "type"    => "success"
+            $paths = array(
+                $path1 = "uploads/$this->viewFolder/350x217/$select_img->img_url",
+                $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url",
+                $path3 = "uploads/$this->viewFolder/555x343/$select_img->img_url"
             );
+
+            foreach ($paths as $path)
+                unlink($path);
+
+            $delete = $this->service_model->delete(
+                array(
+                    "id" => $id
+                )
+            );
+
+                if ($delete) {
+                    $alert = array(
+                        "title" => "Tebrikler",
+                        "text" => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                        "type" => "success"
+                    );
+                }
+                else{
+                    $alert = array(
+                        "title"   => "İşlem başarısız",
+                        "text"    => "Veritabanı hatası",
+                        "type"    => "error"
+                    );
+                }
+
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("services"));
 
         }
         else{

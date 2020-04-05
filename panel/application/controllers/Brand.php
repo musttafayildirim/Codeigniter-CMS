@@ -71,22 +71,19 @@ class Brand extends CI_Controller
 
       if ($validate) {
 
-          $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-          $config["allowed_types"] = "jpg|jpeg|png";
-          $config["upload_path"] = "uploads/$this->viewFolder/";
-          $config["file_name"] = $file_name;
+          $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-          $this->load->library("upload", $config);
-          $upload = $this->upload->do_upload("img_url");
+          $image350x216 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,216, $file_name);
+          $image80x80 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 80,80, $file_name);
+          $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-          if ($upload) {
 
-              $uploaded_file = $this->upload->data("file_name");
+          if ($image350x216 && $image80x80 && $image70x70) {
 
               $insert = $this->brand_model->add(
                   array(
                       "title" => $this->input->post("title"),
-                      "img_url" => $uploaded_file,
+                      "img_url" => $file_name,
                       "rank" => 0,
                       "isActive" => true,
                       "createdAt" => date("Y-m-d H:i:s")
@@ -182,8 +179,14 @@ class Brand extends CI_Controller
                 );
 
                 if($brand){
-                    $path = "uploads/$this->viewFolder/$brand->img_url";
-                    $delete_img = unlink($path);
+                    $paths = array(
+                        $path1 = "uploads/$this->viewFolder/350x216/$brand->img_url",
+                        $path2 = "uploads/$this->viewFolder/70x70/$brand->img_url",
+                        $path3 = "uploads/$this->viewFolder/80x80/$brand->img_url"
+                    );
+
+                    foreach ($paths as $path)
+                        $delete_img = unlink($path);
 
                     if(!$delete_img){
                         $alert = array(
@@ -198,19 +201,18 @@ class Brand extends CI_Controller
                     }
                 }
 
-                $file_name = converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
-                $config["allowed_types"] = "jpg|jpeg|png";
-                $config["upload_path"] = "uploads/$this->viewFolder/";
-                $config["file_name"] = $file_name;
+                $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
+                $image350x216 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,216, $file_name);
+                $image80x80 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 80,80, $file_name);
+                $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-                if ($upload) {
-                    $uploaded_file = $this->upload->data("file_name");
+
+                if ($image350x216 && $image80x80 && $image70x70) {
+
                     $data = array(
                         "title" => $this->input->post("title"),
-                        "img_url" => $uploaded_file,
+                        "img_url" => $file_name,
                     );
                 } else {
                     $alert = array(
@@ -279,9 +281,16 @@ class Brand extends CI_Controller
         );
 
         if($brand){
-            $path = "uploads/$this->viewFolder/$brand->img_url";
-            $delete_folder = unlink($path);
-            if(!$delete_folder) {
+            $paths = array(
+                $path1 = "uploads/$this->viewFolder/350x216/$brand->img_url",
+                $path2 = "uploads/$this->viewFolder/70x70/$brand->img_url",
+                $path3 = "uploads/$this->viewFolder/80x80/$brand->img_url"
+            );
+
+            foreach ($paths as $path)
+                $delete_img = unlink($path);
+
+            if(!$delete_img) {
                 $alert = array(
                     "title" => "İşlem başarısız",
                     "text" => "Dosya yolu doğru değil veya böyle bir resim yok",
@@ -290,31 +299,40 @@ class Brand extends CI_Controller
 
                 $this->session->set_flashdata("alert", $alert);
                 redirect(base_url("brand"));
-            }
-            $delete = $this->brand_model->delete(
-                array(
-                    "id" => $id
-                )
-            );
-            if($delete){
-                $alert = array(
-                    "title"   => "Tebrikler",
-                    "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
-                    "type"    => "success"
+            }else{
+                $delete = $this->brand_model->delete(
+                    array(
+                        "id" => $id
+                    )
                 );
+                if($delete){
+                    $alert = array(
+                        "title"   => "Tebrikler",
+                        "text"    => "İşleminiz başarılı bir şekilde gerçekleştirildi.",
+                        "type"    => "success"
+                    );
 
+                }
+                else{
+                    $alert = array(
+                        "title"   => "İşlem başarısız",
+                        "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+                        "type"    => "error"
+                    );
+                }
+                $this->session->set_flashdata("alert", $alert);
+                redirect(base_url("brand"));
             }
-            else{
-                $alert = array(
-                    "title"   => "İşlem başarısız",
-                    "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
-                    "type"    => "error"
-                );
-            }
-            $this->session->set_flashdata("alert", $alert);
-            redirect(base_url("brand"));
-
         }
+        else{
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Veri tabanında bu habere ait bir resim yok",
+                "type"    => "error"
+            );
+        }
+        $this->session->set_flashdata("alert", $alert);
+        redirect(base_url("brand"));
     }
 
     public function isActiveSetter($id){

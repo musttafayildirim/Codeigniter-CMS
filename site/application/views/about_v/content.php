@@ -57,7 +57,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="separator-3"></div>
                         <div class="card">
                             <div class="card-header" role="tab" id="headingThree">
                                 <h4 class="card-title">
