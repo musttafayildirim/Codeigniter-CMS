@@ -39,3 +39,6 @@
 <!-- Custom Scripts -->
 <script type="text/javascript" src="<?php echo base_url("assets")?>/js/custom.js"></script>
 
+<!--Popup'ı jquery ile tetikleyeceğimiz için burada tanımlıyoruz...-->
+<?php $this->load->view("includes/popup"); ?>
+
