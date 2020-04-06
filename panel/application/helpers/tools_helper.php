@@ -132,3 +132,21 @@ function get_image($path = "", $image = "", $resolution = "50x50"){
     return $image;
 }
 
+function get_page_list($page = ""){
+
+    $page_list = array(
+        "home_v"            => "Anasayfa",
+        "brand_list_v"      => "Haberler",
+        "contact_list_v"    => "İletişim Sayfası",
+        "course_list_v"     => "Eğitimler Listesi",
+        "news_list_v"       => "Haberler Sayfası",
+        "portfolio_list_v"  => "Portfolyo Sayfası",
+        "product_list_v"    => "Ürünler Sayfası",
+        "reference_list_v"  => "Referanslar Sayfası",
+        "service_list_v"    => "Servisler Sayfası",
+    );
+
+    return (empty($page)) ? $page_list : $page_list[$page];
+
+}
+
