@@ -228,6 +228,9 @@ class Slides extends CI_Controller
                 $data = array(
                     "title" => $this->input->post("title"),
                     "description" => $this->input->post("description"),
+                    'button_caption' => $this->input->post("button_caption"),
+                    'button_url' => $this->input->post("button_url"),
+                    'allowButton' => $this->input->post("allowButton") ? 1 : 0,
                 );
             }
 
