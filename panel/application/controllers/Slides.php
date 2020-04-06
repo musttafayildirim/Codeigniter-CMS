@@ -60,9 +60,15 @@ class Slides extends CI_Controller
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
       $this->form_validation->set_rules("description", "Açıklama", "trim");
+
+      if ($this->input->post("allowButton")){
+          $this->form_validation->set_rules("button_caption", "Buton Başlığı", "required|trim");
+          $this->form_validation->set_rules("button_url", "URL Bilgisi", "trim|prep_url|required");
+      }
+
       $this->form_validation->set_message(
           array(
-              "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
+              "required"    => "<strong>{field}</strong> alanı doldurulmalıdır.",
           )
       );
       $validate = $this->form_validation->run();
@@ -70,17 +76,19 @@ class Slides extends CI_Controller
       if ($validate) {
           $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-          $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
-          $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
+          $image1920x650 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 1920,650, $file_name);
           $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
 
-          if ($image555x343 && $image350x217 && $image70x70) {
+          if ($image1920x650 && $image70x70 ) {
 
               $insert = $this->slide_model->add(
                   array(
                       "title" => $this->input->post("title"),
                       "description" => $this->input->post("description"),
+                      'button_caption' => $this->input->post("button_caption"),
+                      'button_url' => $this->input->post("button_url"),
+                      'allowButton' => $this->input->post("allowButton") ? 1 : 0,
                       "img_url" => $file_name,
                       "rank" => 0,
                       "isActive" => true,
@@ -159,6 +167,11 @@ class Slides extends CI_Controller
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
         $this->form_validation->set_rules("description", "Açıklama", "trim");
 
+        if ($this->input->post("allowButton")){
+            $this->form_validation->set_rules("button_caption", "Buton Başlığı", "required|trim");
+            $this->form_validation->set_rules("button_url", "URL Bilgisi", "trim|prep_url|required");
+        }
+
         $this->form_validation->set_message(
             array(
                 "required" => "<strong>{field}</strong> alanı doldurulmalıdır."
@@ -179,9 +192,8 @@ class Slides extends CI_Controller
 
                 if($select_img){
                     $paths = array(
-                        $path1 = "uploads/$this->viewFolder/350x217/$select_img->img_url",
-                        $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url",
-                        $path3 = "uploads/$this->viewFolder/555x343/$select_img->img_url"
+                        $path1 = "uploads/$this->viewFolder/1920x650/$select_img->img_url",
+                        $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url"
                     );
 
                     foreach ($paths as $path)
@@ -190,16 +202,18 @@ class Slides extends CI_Controller
 
                 $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
-                $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
-                $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
+                $image1920x650 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 1920,650, $file_name);
                 $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
 
-                if ($image555x343 && $image350x217 && $image70x70) {
+                if ($image1920x650 && $image70x70 ) {
                     $data = array(
                         "title" => $this->input->post("title"),
                         "description" => $this->input->post("description"),
                         "img_url" => $file_name,
+                        'button_caption' => $this->input->post("button_caption"),
+                        'button_url' => $this->input->post("button_url"),
+                        'allowButton' => $this->input->post("allowButton") ? 1 : 0,
                     );
                 } else {
                     $alert = array(
@@ -277,9 +291,8 @@ class Slides extends CI_Controller
         if($select_img){
 
             $paths = array(
-                $path1 = "uploads/$this->viewFolder/350x217/$select_img->img_url",
+                $path1 = "uploads/$this->viewFolder/1920x650/$select_img->img_url",
                 $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url",
-                $path3 = "uploads/$this->viewFolder/555x343/$select_img->img_url"
             );
 
             foreach ($paths as $path)

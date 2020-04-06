@@ -25,18 +25,48 @@
                     </textarea>
                 </div>
 
-                    <div class="row image_upload_container">
-                        <div class="form-group col-md-11 image_upload_container"
-                            <label>File input</label>
-                            <input
-                                    type="file"
-                                    name="img_url"
-                                    class="form-control">
+                        <div class="row">
+                            <div class="row image_upload_container">
+                                <div class="form-group col-md-11 image_upload_container"
+                                <label>File input</label>
+                                <input
+                                        type="file"
+                                        name="img_url"
+                                        class="form-control">
+                            </div>
+
+                            <div class="form-group col-md-1 img-responsive img-fluid">
+                                <img src="<?php echo get_image($viewFolder, $item->img_url, "70x70"); ?>"
+                                     alt="<?php echo $item->title?>">
+                            </div>
                         </div>
 
-                        <div class="form-group col-md-1 img-responsive img-fluid">
-                            <img src="<?php echo get_image($viewFolder, $item->img_url, "70x70"); ?>"
-                                 alt="<?php echo $item->url?>">
+                        <div class="form-group buttonAllowed_btn">
+                            <label>Buton eklensin mi?</label><br>
+                            <input
+                                    type="checkbox"
+                                    data-switchery="true"
+                                    data-color="#10c469"
+                                    name="allowButton"
+                                    <?php echo ($item->allowButton) ? "checked" : "";?>
+                            >
+                        </div>
+
+                        <div class="button-information-container" style="display:  <?php echo ($item->allowButton) ? "block" : "none";?>">
+                            <div class="form-group">
+                                <label>Buton Başlık</label>
+                                <input type="text" class="form-control"  placeholder="Butonun üzerindeki yazı" name="button_caption" value="<?php echo isset($form_error) ? set_value("button_caption") : $item->button_caption?>">
+                                <?php if(isset($form_error)){ ?>
+                                    <small class="pull-right input-form-error"><?php echo form_error( "button_caption");?></small>
+                                <?php } ?>
+                            </div>
+                            <div class="form-group">
+                                <label>URL Bilgisi</label>
+                                <input type="url" class="form-control"  placeholder="Butona tıklandığı zaman gidilmesini istediğiniz yer" name="button_url" value="<?php echo isset($form_error) ? set_value("button_url") : $item->button_url?>">
+                                <?php if(isset($form_error)){ ?>
+                                    <small class="pull-right input-form-error"><?php echo form_error( "button_url");?></small>
+                                <?php } ?>
+                            </div>
                         </div>
 
                     </div>

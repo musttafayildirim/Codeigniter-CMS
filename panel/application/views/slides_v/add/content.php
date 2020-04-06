@@ -39,10 +39,13 @@
                                             data-switchery="true"
                                             data-color="#10c469"
                                             name="allowButton"
+                                            <?php if(isset($form_error)){ ?>
+                                                <?php echo "checked";?>
+                                            <?php } ?>
                                     >
                                 </div>
 
-                                <div class="button-information-container">
+                                <div class="button-information-container" style="display: <?php echo (isset($form_error)) ? "block" : "none" ?>">
                                 <div class="form-group">
                                     <label>Buton Başlık</label>
                                     <input type="text" class="form-control"  placeholder="Butonun üzerindeki yazı" name="button_caption" value="<?php echo isset($form_error) ? set_value("button_caption") : ""?>">
@@ -52,7 +55,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>URL Bilgisi</label>
-                                    <input type="text" class="form-control"  placeholder="Butona tıklandığı zaman gidilmesini istediğiniz yer" name="button_url" value="<?php echo isset($form_error) ? set_value("button_url") : ""?>">
+                                    <input type="url" class="form-control"  placeholder="Butona tıklandığı zaman gidilmesini istediğiniz yer" name="button_url" value="<?php echo isset($form_error) ? set_value("button_url") : ""?>">
                                     <?php if(isset($form_error)){ ?>
                                         <small class="pull-right input-form-error"><?php echo form_error( "button_url");?></small>
                                     <?php } ?>
