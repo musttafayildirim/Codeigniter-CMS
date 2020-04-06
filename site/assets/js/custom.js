@@ -70,7 +70,6 @@
 
 			$data[csrf_key] = csrf_value;
 
-			alert($data[csrf_key]);
 			$.post($url, $data, function () {})
 		});
 

@@ -136,7 +136,8 @@ function get_page_list($page = ""){
 
     $page_list = array(
         "home_v"            => "Anasayfa",
-        "brand_list_v"      => "Haberler",
+        "about_v"           => "Hakkımızda Sayfası",
+        "brand_list_v"      => "Markalar Sayfası",
         "contact_list_v"    => "İletişim Sayfası",
         "course_list_v"     => "Eğitimler Listesi",
         "news_list_v"       => "Haberler Sayfası",
@@ -144,6 +145,7 @@ function get_page_list($page = ""){
         "product_list_v"    => "Ürünler Sayfası",
         "reference_list_v"  => "Referanslar Sayfası",
         "service_list_v"    => "Servisler Sayfası",
+        "gallery"           =>"galeri için yapılacak",
     );
 
     return (empty($page)) ? $page_list : $page_list[$page];

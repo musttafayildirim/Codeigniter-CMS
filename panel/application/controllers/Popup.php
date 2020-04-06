@@ -47,7 +47,7 @@ class Popup extends CI_Controller
       $this->load->library("form_validation");
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
-      $this->form_validation->set_rules("description", "Açıklama", "trim");
+      $this->form_validation->set_rules("description", "Açıklama", "trim|required");
       $this->form_validation->set_rules("page", "Hedef Sayfası", "required");
 
       $this->form_validation->set_message(
@@ -64,6 +64,7 @@ class Popup extends CI_Controller
                       "title" => $this->input->post("title"),
                       "description" => $this->input->post("description"),
                       "page" => $this->input->post("page"),
+                      "unique_id"     => rand(),
                       "isActive" => true,
                       "createdAt" => date("Y-m-d H:i:s")
                   )
@@ -129,7 +130,9 @@ class Popup extends CI_Controller
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
-        $this->form_validation->set_rules("description", "Açıklama", "trim");
+        $this->form_validation->set_rules("description", "Açıklama", "trim|required");
+        $this->form_validation->set_rules("page", "Hedef Sayfası", "required");
+
 
         $this->form_validation->set_message(
             array(
@@ -142,9 +145,10 @@ class Popup extends CI_Controller
         if ($validate) {
 
             $data = array(
-                "title" => $this->input->post("title"),
-                "description" => $this->input->post("description"),
-                "page" => $this->input->post("page")
+                "title"         => $this->input->post("title"),
+                "description"   => $this->input->post("description"),
+                "page"          => $this->input->post("page"),
+                "unique_id"     => rand()
             );
             $update = $this->popup_model->update(array("id" => $id), $data);
 
@@ -164,28 +168,28 @@ class Popup extends CI_Controller
         $this->session->set_flashdata("alert", $alert);
         redirect(base_url("popup"));
     }
-        else{
-            $viewData = new stdClass();
+    else{
+        $viewData = new stdClass();
 
-            $viewData-> viewFolder = $this->viewFolder;
-            $viewData->subViewFolder = "update";
-            $viewData->form_error = "true";
+        $viewData-> viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "update";
+        $viewData->form_error = "true";
 
-            $viewData->item = $this->popup_model->get(
-                array(
-                    "id" => $id
-                )
-            );
+        $viewData->item = $this->popup_model->get(
+            array(
+                "id" => $id
+            )
+        );
 
-            $alert = array(
-                "title"   => "İşlem başarısız",
-                "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
-                "type"    => "error"
-            );
+        $alert = array(
+            "title"   => "İşlem başarısız",
+            "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
+            "type"    => "error"
+        );
 
-            $this->session->set_flashdata("alert", $alert);
-            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-            unset($_SESSION['alert']);
+        $this->session->set_flashdata("alert", $alert);
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+        unset($_SESSION['alert']);
         }
     }
 

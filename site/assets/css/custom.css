@@ -7,3 +7,10 @@ Created:December 2014
 License URI:http://support.wrapbootstrap.com/
 File Description: Place here your custom CSS styles
 */
+
+@media (min-width: 668px) {
+    .modal-dialog {
+        max-width: 668px;
+        margin: 30px auto;
+    }
+}
