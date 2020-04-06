@@ -17,7 +17,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-dark" data-dismiss="modal">Kapat</button>
-                    <button type="button" class="btn btn-sm btn-default">Tekrar Gösterme</button>
+                    <button
+                            data-popup-id="<?php echo $popup->unique_id;?>"
+                            data-url="<?php echo base_url("bir-data-gosterme");?>"
+                            data-csrf-key="<?php echo $this->security->get_csrf_token_name();?>"
+                            data-csrf-value="<?php echo $this->security->get_csrf_hash();?>"
+                            type="button"
+                            class="btn btn-sm btn-default neverShowAgainBtn"
+                            data-dismiss="modal">Tekrar Gösterme</button>
                 </div>
             </div>
         </div>

@@ -1,13 +1,3 @@
-/* Theme Name: The Project - Responsive Website Template
- * Author: HtmlCoder
- * Author URI:http://www.htmlcoder.me
- * Author e-mail:htmlcoder.me@gmail.com
- * Version: 2.0.5
- * Created: March 2015
- * License URI: http://support.wrapbootstrap.com/
- * File Description: Place here your custom scripts
- */
-
 (function($){
 	$(document).ready(function(){
 
@@ -42,28 +32,47 @@
 			}); // End Notify Plugin - The above code (from line 14) is used for demonstration purposes only
 
 		};
+
+		$(".share-button").click(function(e){
+
+			e.stopPropagation();
+
+			var window_size = "width=585,height=511";
+			var url = this.href;
+			var domain = url.split("/")[2];
+
+			switch (domain){
+				case "www.facebook.com":
+					window_size = "width=585,height=368";
+					break;
+				case "www.twitter.com":
+					window_size = "width=585,height=261";
+					break;
+			}
+
+			window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,' + window_size);
+			return false;
+
+		});
+
+		$(".neverShowAgainBtn").click(function () {
+
+			var $url = $(this).data("url");
+			var $id  = $(this).data("popup-id");
+
+			var $data = {
+				url : $url,
+				popup_id : $id,
+			};
+
+			var csrf_key   	= $(this).data("csrf-key");
+			var csrf_value 	= $(this).data("csrf-value");
+
+			$data[csrf_key] = csrf_value;
+
+			alert($data[csrf_key]);
+			$.post($url, $data, function () {})
+		});
+
 	}); // End document ready
-
-	$(".share-button").click(function(e){
-
-		e.stopPropagation();
-
-		var window_size = "width=585,height=511";
-		var url = this.href;
-		var domain = url.split("/")[2];
-
-		switch (domain){
-			case "www.facebook.com":
-				window_size = "width=585,height=368";
-				break;
-			case "www.twitter.com":
-				window_size = "width=585,height=261";
-				break;
-		}
-
-		window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,' + window_size);
-		return false;
-
-	});
-
 })(this.jQuery);

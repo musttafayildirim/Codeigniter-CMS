@@ -80,6 +80,9 @@ $route['abone-ol'] = "home/add_member";
 $route['anasayfa'] = "home/index";
 
 
+$route['bir-data-gosterme'] = "home/popup_never_show_again";
+
+
 $route['deneme'] = "home/deneme";
 
 

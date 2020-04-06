@@ -424,5 +424,14 @@ class Home extends CI_Controller
         }
     }
 
+    public function popup_never_show_again(){
+
+        $popup_id = $this->input->post("popup_id");
+
+        set_cookie($popup_id, "true", 60*60*24*365);
+
+
+    }
+
 
 }
