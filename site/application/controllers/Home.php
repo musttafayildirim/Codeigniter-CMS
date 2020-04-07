@@ -433,5 +433,42 @@ class Home extends CI_Controller
 
     }
 
+    public function image_gallery_list(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "galleries_v";
+        $viewData->subViewFolder = "image_galleries_v";
+        $viewData->file = "image_list";
+
+        $this->load->model("gallery_model");
+
+        $viewData->images = $this->gallery_model->get_all(
+            array(
+                "isActive"      => 1,
+                "gallery_type"  => "image"
+            ),"rank ASC"
+        );
+
+
+        $this->load->view($viewData->viewFolder, $viewData);
+
+    }
+    public function image_gallery($gallery_url = ""){
+
+    }
+
+    public function video_gallery_list(){
+
+    }
+
+    public function video_gallery($gallery_url = ""){
+
+    }
+
+    public function file_gallery_list(){
+
+    }
+    public function file_gallery($gallery_url = ""){
+
+    }
 
 }

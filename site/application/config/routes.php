@@ -79,8 +79,16 @@ $route['abone-ol'] = "home/add_member";
 
 $route['anasayfa'] = "home/index";
 
-
 $route['bir-data-gosterme'] = "home/popup_never_show_again";
+
+$route['resim-galerilerini-goruyorsunuz'] = "home/image_gallery_list";
+$route['resim-galerisi-detay/(:any)'] = "home/image_gallery/$1";
+
+$route['video-galerilerini-goruyorsunuz'] = "home/video_gallery_list";
+$route['vide-galerisi-detay/(:any)'] = "home/video_gallery/$1";
+
+$route['dosya-galerilerini-goruyorsunuz'] = "home/file_gallery_list";
+$route['dosya-galerisi-detay/(:any)'] = "home/file_gallery/$1";
 
 
 $route['deneme'] = "home/deneme";

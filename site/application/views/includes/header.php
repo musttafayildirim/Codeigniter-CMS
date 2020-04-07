@@ -152,9 +152,9 @@
                                         <li class="nav-item dropdown ">
                                             <a href="#" class="nav-link dropdown-toggle" id="third-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Galeriler </a>
                                             <ul class="dropdown-menu" aria-labelledby="third-dropdown">
-                                                <li ><a href="<?php echo base_url("hakkimizda") ?>">Resim Galerisi</a></li>
-                                                <li ><a href="<?php echo base_url("referanslarimiz") ?>">Video Galerisi</a></li>
-                                                <li ><a href="<?php echo base_url("beraber-calistigimiz-markalar") ?>">Dosya Galerisi</a></li>
+                                                <li ><a href="<?php echo base_url("resim-galerilerini-goruyorsunuz") ?>">Resim Galerisi</a></li>
+                                                <li ><a href="<?php echo base_url("video-galerilerini-goruyorsunuz") ?>">Video Galerisi</a></li>
+                                                <li ><a href="<?php echo base_url("dosya-galerilerini-goruyorsunuz") ?>">Dosya Galerisi</a></li>
                                             </ul>
                                         </li>
 
