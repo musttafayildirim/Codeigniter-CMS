@@ -433,7 +433,11 @@ class Home extends CI_Controller
 
     }
 
+
+    //    Galeri işlemleri
+
     public function image_gallery_list(){
+
         $viewData = new stdClass();
         $viewData->viewFolder = "galleries_v";
         $viewData->subViewFolder = "image_galleries_v";
@@ -450,24 +454,127 @@ class Home extends CI_Controller
 
 
         $this->load->view($viewData->viewFolder, $viewData);
-
     }
     public function image_gallery($gallery_url = ""){
+
+        if($gallery_url){
+
+            $viewData = new stdClass();
+            $viewData->viewFolder = "galleries_v";
+            $viewData->subViewFolder = "image_galleries_v";
+            $viewData->file = "images";
+            $viewData->gallery = get_gallery_by_url($gallery_url);
+
+            $this->load->model("image_model");
+
+            $viewData->items = $this->image_model->get_all(
+                array(
+                    "isActive"      => 1,
+                    "gallery_id"  => $viewData->gallery->id
+                ),"rank ASC"
+            );
+
+            $this->load->view($viewData->viewFolder, $viewData);
+
+        }
+        else{
+
+        }
 
     }
 
     public function video_gallery_list(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "galleries_v";
+        $viewData->subViewFolder = "video_galleries_v";
+        $viewData->file = "video_list";
+
+        $this->load->model("gallery_model");
+
+        $viewData->images = $this->gallery_model->get_all(
+            array(
+                "isActive"      => 1,
+                "gallery_type"  => "image"
+            ),"rank ASC"
+        );
+
+
+        $this->load->view($viewData->viewFolder, $viewData);
 
     }
 
     public function video_gallery($gallery_url = ""){
 
+        if($gallery_url){
+
+            $viewData = new stdClass();
+            $viewData->viewFolder = "galleries_v";
+            $viewData->subViewFolder = "video_galleries_v";
+            $viewData->file = "videos";
+            $viewData->gallery = get_gallery_by_url($gallery_url);
+
+            $this->load->model("video_model");
+
+            $viewData->items = $this->video_model->get_all(
+                array(
+                    "isActive"      => 1,
+                    "gallery_id"  => $viewData->gallery->id
+                ),"rank ASC"
+            );
+
+            $this->load->view($viewData->viewFolder, $viewData);
+
+        }
+        else{
+
+        }
+
     }
 
     public function file_gallery_list(){
+        $viewData = new stdClass();
+        $viewData->viewFolder = "galleries_v";
+        $viewData->subViewFolder = "file_galleries_v";
+        $viewData->file = "file_list";
+
+        $this->load->model("gallery_model");
+
+        $viewData->images = $this->gallery_model->get_all(
+            array(
+                "isActive"      => 1,
+                "gallery_type"  => "image"
+            ),"rank ASC"
+        );
+
+
+        $this->load->view($viewData->viewFolder, $viewData);
 
     }
     public function file_gallery($gallery_url = ""){
+
+        if($gallery_url){
+
+            $viewData = new stdClass();
+            $viewData->viewFolder = "galleries_v";
+            $viewData->subViewFolder = "file_galleries_v";
+            $viewData->file = "files";
+            $viewData->gallery = get_gallery_by_url($gallery_url);
+
+            $this->load->model("file_model");
+
+            $viewData->items = $this->file_model->get_all(
+                array(
+                    "isActive"      => 1,
+                    "gallery_id"  => $viewData->gallery->id
+                ),"rank ASC"
+            );
+
+            $this->load->view($viewData->viewFolder, $viewData);
+
+        }
+        else{
+
+        }
 
     }
 

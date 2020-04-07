@@ -136,3 +136,18 @@ function get_popup_service($page){
 
     return (!empty($popup)) ? $popup : false;
 }
+
+function get_gallery_by_url($gallery_url = ""){
+    $t = &get_instance();
+
+    $t->load->model("gallery_model");
+
+    $gallery = $t->gallery_model->get(
+        array(
+            "isActive"  => 1,
+            "url"      => $gallery_url
+        )
+    );
+
+    return (!empty($gallery)) ? $gallery : false;
+}
