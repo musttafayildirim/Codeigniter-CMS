@@ -452,7 +452,6 @@ class Home extends CI_Controller
             ),"rank ASC"
         );
 
-
         $this->load->view($viewData->viewFolder, $viewData);
     }
     public function image_gallery($gallery_url = ""){
@@ -491,10 +490,10 @@ class Home extends CI_Controller
 
         $this->load->model("gallery_model");
 
-        $viewData->images = $this->gallery_model->get_all(
+        $viewData->videos = $this->gallery_model->get_all(
             array(
                 "isActive"      => 1,
-                "gallery_type"  => "image"
+                "gallery_type"  => "video"
             ),"rank ASC"
         );
 
@@ -521,7 +520,6 @@ class Home extends CI_Controller
                     "gallery_id"  => $viewData->gallery->id
                 ),"rank ASC"
             );
-
             $this->load->view($viewData->viewFolder, $viewData);
 
         }
@@ -539,10 +537,10 @@ class Home extends CI_Controller
 
         $this->load->model("gallery_model");
 
-        $viewData->images = $this->gallery_model->get_all(
+        $viewData->files = $this->gallery_model->get_all(
             array(
                 "isActive"      => 1,
-                "gallery_type"  => "image"
+                "gallery_type"  => "file"
             ),"rank ASC"
         );
 
