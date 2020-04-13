@@ -29,7 +29,7 @@
 
             <div class="widget-body">
 
-                <form data-url="<?php echo base_url("galleries/refresh_file_list/$item->id/$item->gallery_type"); ?>"
+                <form data-url="<?php echo base_url("galleries/refresh_file_list/$item->id/$item->gallery_type/$item->folder_name"); ?>"
                       action="<?php echo base_url("galleries/file_upload/$item->id/$item->gallery_type/$item->folder_name") ?>"
                       id="dropzone" class="dropzone dz-clickable" data-plugin="dropzone"
                       data-options="{ url: '<?php echo base_url("galleries/file_upload/$item->id/$item->gallery_type/$item->folder_name"); ?>'}">

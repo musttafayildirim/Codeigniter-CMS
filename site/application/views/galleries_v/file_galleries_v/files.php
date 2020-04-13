@@ -31,7 +31,7 @@
                                         <td style="width: 50px"><?php echo $item->id?></td>
                                         <td><?php echo "dosya adı gelecek" ?></td>
                                         <td style="width: 50px">
-                                            <button class="btn btn-animated btn-default-transparent">İndir <i class="fa fa-download"></i></button>
+                                            <a target="_blank" href="<?php echo base_url("panel")/$item->url;?>" class="btn btn-animated btn-default-transparent">İndir <i class="fa fa-download"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>

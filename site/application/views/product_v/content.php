@@ -17,7 +17,7 @@
                                 <li class="text-center" data-transition="slidehorizontal" data-slotamount="default" data-masterspeed="default" data-title="<?php echo $product->title ?>">
 
                                     <!-- main image -->
-                                    <img src="<?php echo base_url("panel/uploads/product_v/$product_image->img_url") ?>" alt="slidebg1" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
+                                    <img src="<?php echo get_image("product_v", $product_image->img_url,"1140x450") ?>" alt="slidebg1" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
 
                                     <!-- Transparent Background -->
                                     <div class="tp-caption dark-translucent-bg"

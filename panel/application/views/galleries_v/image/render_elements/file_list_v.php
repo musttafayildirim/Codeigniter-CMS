@@ -27,9 +27,9 @@ else if($type == "file")
             <tr id="ord-<?php echo $image->id;?>">
                 <td class="order"  ><i class="fa fa-reorder"></i></td>
                 <td class="text-center w50">#<?php echo $image->id; ?></td>
-                <td class="w150 text-center">
-                    <?php if($gallery_type == "image"){ ?>
-                        <img src="<?php echo base_url("$image->url"); ?>" alt="<?php echo base_url("$image->url"); ?>" class="img-responsive">
+                <td class="w75 text-center">
+                    <?php if($gallery_type == "image"){?>
+                        <img src="<?php echo get_image("galleries_v/images/$folder_name", $image->url, "70x70"); ?>" alt="<?php echo base_url("$image->url"); ?>" class="img-responsive">
                     <?php } else if($gallery_type == "file"){ ?>
                     <i class="fa fa-folder fa-2x"></i>
                     <?php } ?>

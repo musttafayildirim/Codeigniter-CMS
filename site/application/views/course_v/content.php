@@ -1,5 +1,5 @@
 <!-- ================ -->
-<div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url("panel/uploads/courses_v/$course->img_url");?>'); background-position: 50% 21%;">
+<div class="banner dark-translucent-bg" style="background-image:url('<?php echo get_image("courses_v", $course->img_url, "1327x285");?>'); background-position: 50% 21%;">
     <!-- breadcrumb end -->
     <div class="container">
         <div class="row justify-content-lg-center">
@@ -47,7 +47,7 @@
                             <div class="image-box style-2 mb-20 shadow bordered light-gray-bg text-center">
                                 <div class="overlay-container">
 
-                                    <img src="<?php echo base_url("panel/uploads/courses_v/$course->img_url");?>" alt="<?php echo $course->title ?>">
+                                    <img src="<?php echo get_image("courses_v", $course->img_url, "271x167");?>" alt="<?php echo $course->title ?>">
                                     <div class="overlay-to-top">
                                         <p class="small margin-clear"><em><?php echo $course->title;?></em></p>
                                     </div>
