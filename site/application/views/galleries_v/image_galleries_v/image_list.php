@@ -20,7 +20,7 @@
                             <div class="col-sm-4">
                                 <div class="image-box shadow text-center mb-20">
                                     <div class="overlay-container overlay-visible">
-                                        <img src="<?php echo base_url("assets/images");?>/portfolio-4.jpg" alt="">
+                                        <img src="<?php echo get_image("galleries_v/images/$image->folder_name", get_gallery_cover_image($image->folder_name ), "370x216");?>" alt="">
                                         <a href="<?php echo base_url("resim-galerisi-detay/$image->url") ?>" class="overlay-link"><i class="fa fa-link"></i></a>
                                         <div class="overlay-bottom hidden-xs">
                                             <div class="text">

@@ -9,8 +9,6 @@
                 <p><?php echo character_limiter(strip_tags($course->description), 250)  ;?> </p>
                 <div class="separator object-non-visible mt-10" data-animation-effect="fadeIn" data-effect-delay="100"></div>
                 <h2 class="title object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><i class="fa fa-calendar"></i><strong> <?php echo get_readable_date($course->event_date) ?></strong></h2>
-
-
             </div>
         </div>
     </div>

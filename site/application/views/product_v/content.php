@@ -143,14 +143,17 @@
                             </div>
                         </div>
                     <?php } ?>
+            </div>
+
                 <?php }else{?>
-                    <div class="alert col-md-12  alert-icon alert-info" role="alert">
-                        <i class="fa fa-info-circle"></i>
-                        Ürün bulunamadı.
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12 alert alert-primary" role="alert">
+                                Herhangi bir ürün bulunamadı.
+                            </div>
+                        </div>
                     </div>
                 <?php } ?>
-            </div>
-        </div>
     </div>
 </section>
 <!-- section end -->

@@ -122,6 +122,18 @@ function get_image($path = "", $image = "", $resolution = "50x50"){
     return $image;
 }
 
+function get_gallery_cover_image($folder_name){
+    $path = "panel/uploads/galleries_v/images/$folder_name/370x216";
+
+    if ($handle = opendir($path)){
+        while (($file = readdir($handle)) !== false){
+            if ($file != "." && $file != ".."){
+                return $file;
+            }
+        }
+    }
+}
+
 function get_popup_service($page){
     $t = &get_instance();
 
