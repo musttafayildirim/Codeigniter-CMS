@@ -21,7 +21,7 @@
                             <div class="col-sm-4">
                                 <div class="image-box shadow text-center mb-20">
                                     <div class="overlay-container overlay-visible">
-                                        <img src="<?php echo base_url("assets/images");?>/portfolio-4.jpg" alt="">
+                                        <img src="<?php echo base_url("assets/images");?>/video.jpg" alt="">
                                         <a href="<?php echo base_url("video-galerisi-detay/$video->url") ?>" class="overlay-link"><i class="fa fa-link"></i></a>
                                         <div class="overlay-bottom hidden-xs">
                                             <div class="text">

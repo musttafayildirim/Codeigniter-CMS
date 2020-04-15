@@ -1,4 +1,4 @@
-<div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url("panel/uploads/settings_v/sehrin-isiklari.jpg")?>'); background-position: 50% 70%;">
+<div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url("assets/images/sehrin-isiklari.jpg")?>'); background-position: 50% 70%;">
     <div class="container">
         <div class="row justify-content-lg-center">
             <div class="col-lg-12 text-center pv-20">

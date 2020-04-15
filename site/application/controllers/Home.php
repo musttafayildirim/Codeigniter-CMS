@@ -16,13 +16,40 @@ class Home extends CI_Controller
         $viewData = new stdClass();
 
         $this->load->model("slide_model");
+        $this->load->model("reference_model");
+        $this->load->model("service_model");
+        $this->load->model("portfolio_model");
+
         $slides = $this->slide_model->get_all(
             array(
                 'isActive' => 1
             ), "rank ASC"
         );
 
+        $references = $this->reference_model->get_all(
+                    array(
+                        'isActive' => 1
+                    ), "rand()", array("start" => 0, "count" => 30)
+        );
+
+        $services = $this->service_model->get_all(
+            array(
+                'isActive' => 1
+            ), "rand()", array("start" => 0, "count" => 3)
+        );
+
+        $portfolios = $this->portfolio_model->get_all(
+            array(
+                'isActive' => 1
+            ), "rand()", array("start" => 0, "count" => 4)
+        );
+
+
+
         $viewData->slides = $slides;
+        $viewData->references = $references;
+        $viewData->services = $services;
+        $viewData->portfolios = $portfolios;
         $viewData->viewFolder = "home_v";
 
         $this->load->view($viewData->viewFolder, $viewData);
@@ -218,7 +245,7 @@ class Home extends CI_Controller
         $viewData->services = $this->service_model->get_all(
             array(
                 "isActive" => 1
-            ), "rank ASC"
+            ), "rand()", array("start" => 0, "count" => 60)
         );
 
         $this->load->view($viewData->viewFolder, $viewData);
@@ -360,7 +387,7 @@ class Home extends CI_Controller
         $viewData->news = $this->news_model->get_all(
             array(
                 "isActive" => 1
-            ), "rank DESC", array("start" => 0, "count" => 999999999)
+            ), "createdAt DESC", array("start" => 0, "count" => 999999999)
         );
 
         $this->load->view($viewData->viewFolder, $viewData);

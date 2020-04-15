@@ -1,6 +1,5 @@
 <?php
 
-
 class courses extends CI_Controller
 {
     public $viewFolder = "";
@@ -353,7 +352,7 @@ class courses extends CI_Controller
                 )
             );
         }
-
+        
     }
 
     public function rankSetter(){

@@ -25,7 +25,7 @@
                             <?php echo ($new->news_type == 'video') ? 'data-animation-effect="fadeInUpSmall" data-effect-delay="100"' : "" ?>>
                             <?php if($new->news_type == 'image'){ ?>
                             <div class="overlay-container">
-                                <img src="<?php echo base_url("panel/uploads/news_v/$new->img_url")?>" alt="">
+                                <img src="<?php echo get_image("news_v", $new->img_url, "513x317");?>" alt="">
                                 <a class="overlay-link" href="<?php echo base_url("haber-detayi/$new->url") ?>"><i class="fa fa-link"></i></a>
                             </div>
                             <?php }else{ ?>
@@ -45,7 +45,7 @@
                                 </div>
                             </header>
                             <div class="blogpost-content">
-                                <p><?php echo character_limiter(strip_tags($new->description), 300);?></p>
+                                <p><?php echo character_limiter(strip_tags($new->description), 155);?></p>
                             </div>
                             <footer class="clearfix">
                                 <div class="link pull-right"><i class="icon-link"></i><a href="<?php echo base_url("haber-detayi/$new->url") ?>">Devamını oku</a></div>

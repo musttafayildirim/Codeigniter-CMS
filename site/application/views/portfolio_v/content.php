@@ -17,7 +17,7 @@
                                 <li class="text-center" data-transition="slidehorizontal" data-slotamount="default" data-masterspeed="default" data-title="<?php echo $portfolio->title ?>">
 
                                     <!-- main image -->
-                                    <img src="<?php echo base_url("panel/uploads/product_v/$portfolio_image->img_url") ?>" alt="slidebg1" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
+                                    <img src="<?php echo get_image("portfolio_v" , $portfolio_image->img_url, "1140x450");?>" alt="slidebg1" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
 
                                     <!-- Transparent Background -->
                                     <div class="tp-caption dark-translucent-bg"
@@ -146,12 +146,8 @@
                         <div class="col-sm-4">
                             <div class="image-box style-2 mb-20 shadow bordered light-gray-bg text-center">
                                 <div class="overlay-container">
-                                    <?php
-                                    $image = get_product_cover_image($portfolio->id);
-                                    $image = ($image) ? base_url("panel/uploads/product_v/$image") : base_url("assets/images/portfolio-1.jpg");
-                                    ?>
 
-                                    <img src="<?php echo $image ?>" alt="<?php echo $portfolio->title ?>">
+                                    <img src="<?php echo get_image("portfolio_v" , get_portfolio_cover_image($portfolio->id), "372x224");?> ?>" alt="<?php echo $portfolio->title ?>">
                                     <div class="overlay-to-top">
                                         <p class="small margin-clear"><em><?php echo $portfolio->title;?></em></p>
                                     </div>
@@ -159,7 +155,7 @@
                                 <div class="body">
                                     <h3><?php echo $portfolio->title;?></h3>
                                     <div class="separator"></div>
-                                    <p><?php echo character_limiter(strip_tags($portfolio->description), 33);?></p>
+                                    <p><?php echo character_limiter(strip_tags($portfolio->description), 155);?></p>
                                     <a href="<?php echo base_url("portfolyo-detay/$portfolio->url")?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Daha fazla ayrıntı<i class="fa fa-arrow-right pl-10"></i></a>
                                 </div>
                             </div>

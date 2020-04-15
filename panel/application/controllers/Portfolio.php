@@ -249,8 +249,9 @@ class Portfolio extends CI_Controller
                 $paths = array(
                     $path1 = "uploads/$this->viewFolder/255x158/$image->img_url",
                     $path2 = "uploads/$this->viewFolder/70x70/$image->img_url",
-                    $path3 = "uploads/$this->viewFolder/362x224/$image->img_url",
-                    $path4 = "uploads/$this->viewFolder/1140x450/$image->img_url"
+                    $path3 = "uploads/$this->viewFolder/372x224/$image->img_url",
+                    $path4 = "uploads/$this->viewFolder/1140x450/$image->img_url",
+                    $path5 = "uploads/$this->viewFolder/269x166/$image->img_url"
                 );
 
                 foreach ($paths as $path)
@@ -333,8 +334,9 @@ class Portfolio extends CI_Controller
             $paths = array(
                 $path1 = "uploads/$this->viewFolder/255x158/$fileName->img_url",
                 $path2 = "uploads/$this->viewFolder/70x70/$fileName->img_url",
-                $path3 = "uploads/$this->viewFolder/362x224/$fileName->img_url",
-                $path4 = "uploads/$this->viewFolder/1140x450/$fileName->img_url"
+                $path3 = "uploads/$this->viewFolder/372x224/$fileName->img_url",
+                $path4 = "uploads/$this->viewFolder/269x166/$fileName->img_url",
+                $path5 = "uploads/$this->viewFolder/1140x450/$fileName->img_url"
             );
 
             foreach ($paths as $path)
@@ -491,10 +493,11 @@ class Portfolio extends CI_Controller
 
         $image255x158   = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 255,158, $file_name);
         $image1140x450  = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 1140,450, $file_name);
-        $image362x224   = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 362,224, $file_name);
+        $image269x166   = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 269,166, $file_name);
+        $image372x224   = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 372,224, $file_name);
         $image70x70     = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-        if ($image255x158 && $image1140x450 && $image70x70 && $image362x224){
+        if ($image255x158 && $image1140x450 && $image70x70 && $image372x224 && $image269x166){
 
             $this->portfolio_image_model->add(
                 array(

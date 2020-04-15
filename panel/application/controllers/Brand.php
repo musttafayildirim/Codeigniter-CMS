@@ -74,11 +74,10 @@ class Brand extends CI_Controller
           $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
           $image350x216 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,216, $file_name);
-          $image80x80 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 80,80, $file_name);
           $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
 
-          if ($image350x216 && $image80x80 && $image70x70) {
+          if ($image350x216 && $image70x70) {
 
               $insert = $this->brand_model->add(
                   array(
@@ -182,7 +181,6 @@ class Brand extends CI_Controller
                     $paths = array(
                         $path1 = "uploads/$this->viewFolder/350x216/$brand->img_url",
                         $path2 = "uploads/$this->viewFolder/70x70/$brand->img_url",
-                        $path3 = "uploads/$this->viewFolder/80x80/$brand->img_url"
                     );
 
                     foreach ($paths as $path)
@@ -204,11 +202,10 @@ class Brand extends CI_Controller
                 $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
                 $image350x216 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,216, $file_name);
-                $image80x80 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 80,80, $file_name);
                 $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
 
-                if ($image350x216 && $image80x80 && $image70x70) {
+                if ($image350x216 && $image70x70) {
 
                     $data = array(
                         "title" => $this->input->post("title"),
@@ -284,7 +281,6 @@ class Brand extends CI_Controller
             $paths = array(
                 $path1 = "uploads/$this->viewFolder/350x216/$brand->img_url",
                 $path2 = "uploads/$this->viewFolder/70x70/$brand->img_url",
-                $path3 = "uploads/$this->viewFolder/80x80/$brand->img_url"
             );
 
             foreach ($paths as $path)

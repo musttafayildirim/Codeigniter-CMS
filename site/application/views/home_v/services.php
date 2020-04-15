@@ -1,65 +1,37 @@
+<?php $settings = get_settings();?>
 <section class="light-gray-bg pv-40 border-clear">
     <div class="container">
 
         <!-- page-title start -->
         <!-- ================ -->
-        <h1 class="page-title text-center">Our <strong>Services</strong></h1>
+        <h1 class="page-title text-center">Bazı <strong>Hizmetlerimiz</strong></h1>
         <div class="separator"></div>
         <br>
         <!-- page-title end -->
 
         <div class="row">
-            <div class="col-md-4">
+            <?php foreach ($services as $service){ ?>
+                <div class="col-md-4">
                 <div class="image-box style-2 mb-20">
                     <div class="overlay-container overlay-visible">
-                        <img src="<?php echo base_url("assets/images");?>/construction-service-1.jpg" alt="">
-                        <a href="#" class="overlay-link"><i class="fa fa-link"></i></a>
+                        <img
+                                src="<?php echo get_image("services_v", $service->img_url, "350x217");?>"
+                                alt="<?php echo $service->title;?>"
+                        >
+                        <a href="<?php echo base_url("hizmetlerimiz/#$service->url");?>" class="overlay-link"><i class="fa fa-link"></i></a>
                         <div class="overlay-bottom">
                             <div class="text">
-                                <p class="lead margin-clear text-left mobile-visible">Service One</p>
+                                <p class="lead margin-clear text-left mobile-visible"><?php $service->title?></p>
                             </div>
                         </div>
                     </div>
                     <div class="body padding-horizontal-clear">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam atque ipsam nihil, adipisci rem minus? Voluptatem distinctio laborum porro aspernatur.</p>
-                        <a class="link-dark" href="page-services.html">Read More</a>
+                        <p><?php echo character_limiter(strip_tags($service->description), 100);?></p>
+                        <a class="link-dark" href="<?php echo base_url("hizmetlerimiz/#$service->url");?>">Daha Fazla</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="image-box style-2 mb-20">
-                    <div class="overlay-container overlay-visible">
-                        <img src="<?php echo base_url("assets/images");?>/construction-service-2.jpg" alt="">
-                        <a href="#" class="overlay-link"><i class="fa fa-link"></i></a>
-                        <div class="overlay-bottom">
-                            <div class="text">
-                                <p class="lead margin-clear text-left mobile-visible">Service Two</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="body padding-horizontal-clear">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam atque ipsam nihil, adipisci rem minus? Voluptatem distinctio laborum porro aspernatur.</p>
-                        <a class="link-dark" href="page-services.html">Read More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="image-box style-2 mb-20">
-                    <div class="overlay-container overlay-visible">
-                        <img src="<?php echo base_url("assets/images");?>/construction-service-3.jpg" alt="">
-                        <a href="#" class="overlay-link"><i class="fa fa-link"></i></a>
-                        <div class="overlay-bottom">
-                            <div class="text">
-                                <p class="lead margin-clear text-left mobile-visible">Service Three</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="body padding-horizontal-clear">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam atque ipsam nihil, adipisci rem minus? Voluptatem distinctio laborum porro aspernatur.</p>
-                        <a class="link-dark" href="page-services.html">Read More</a>
-                    </div>
-                </div>
-            </div>
+            <?php } ?>
         </div>
 
     </div>

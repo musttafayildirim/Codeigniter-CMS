@@ -29,9 +29,9 @@
                                 <?php foreach ($items as $item){ ?>
                                     <tr>
                                         <td style="width: 50px"><?php echo $item->id?></td>
-                                        <td><?php echo "dosya adı gelecek" ?></td>
+                                        <td><?php echo $item->url?></td>
                                         <td style="width: 50px">
-                                            <a target="_blank" href="<?php echo base_url("panel")/$item->url;?>" class="btn btn-animated btn-default-transparent">İndir <i class="fa fa-download"></i></a>
+                                            <a target="_blank" href="<?php echo base_url("panel/uploads/galleries_v/files/$gallery->folder_name/$item->url");?>" class="btn btn-animated btn-default-transparent">İndir <i class="fa fa-download"></i></a>
                                         </td>
                                     </tr>
                                 <?php } ?>

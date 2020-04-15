@@ -11,18 +11,14 @@
                         <div class="col-sm-4">
                             <div class="image-box style-2 mb-20 shadow bordered light-gray-bg text-center">
                                 <div class="overlay-container">
-                                    <?php
-                                    $image = get_product_cover_image($product->id);
-                                    $image = ($image) ? base_url("panel/uploads/product_v/$image") : base_url("assets/images/portfolio-1.jpg");
-                                    ?>
 
-                                    <img src="<?php echo $image ?>" alt="<?php echo $product->title ?>">
+                                    <img src="<?php echo get_image("product_v", get_product_cover_image($product->id),"348x215") ?>" alt="<?php echo $product->title ?>">
                                     <div class="overlay-to-top">
                                         <p class="small margin-clear"><em><?php echo $product->title;?> <br> <?php echo character_limiter(strip_tags($product->description), 15);?></em></p>
                                     </div>
                                 </div>
                                 <div class="body">
-                                    <h3><?php echo $product->title;?></h3>
+                                    <h3><?php echo character_limiter(strip_tags($product->title), 15);?></h3>
                                     <div class="separator"></div>
                                     <p><?php echo character_limiter(strip_tags($product->description), 33);?></p>
                                     <a href="<?php echo base_url("urun-detay/$product->url")?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Daha fazla ayrıntı<i class="fa fa-arrow-right pl-10"></i></a>

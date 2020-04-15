@@ -61,11 +61,11 @@ class Reference extends CI_Controller
           $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
           $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
-          $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
           $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
+          $image80x80 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 80,80, $file_name);
 
 
-          if ($image555x343 && $image350x217 && $image70x70) {
+          if ($image555x343 && $image70x70 && $image80x80) {
 
               $insert = $this->reference_model->add(
                   array(
@@ -169,7 +169,7 @@ class Reference extends CI_Controller
                    $paths = array(
                        $path1 = "uploads/$this->viewFolder/555x343/$select_img->img_url",
                        $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url",
-                       $path3 = "uploads/$this->viewFolder/350x217/$select_img->img_url"
+                       $path3 = "uploads/$this->viewFolder/80x80/$select_img->img_url"
                    );
 
                    foreach ($paths as $path)
@@ -188,10 +188,10 @@ class Reference extends CI_Controller
                        $file_name = rand().rand().converToSEO(pathinfo($_FILES["img_url"]["name"], PATHINFO_FILENAME)) . "." . pathinfo($_FILES["img_url"]["name"], PATHINFO_EXTENSION);
 
                        $image555x343 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 555,343, $file_name);
-                       $image350x217 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 350,217, $file_name);
                        $image70x70 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
+                       $image80x80 = upload_image($_FILES["img_url"]["tmp_name"], "uploads/$this->viewFolder/", 80,80, $file_name);
 
-                       if ($image555x343 && $image350x217 && $image70x70){
+                       if ($image555x343 && $image70x70 && $image80x80) {
                            $data = array(
                                "url" => converToSEO($this->input->post("title")),
                                "title" => $this->input->post("title"),
@@ -278,7 +278,7 @@ class Reference extends CI_Controller
             $paths = array(
                 $path1 = "uploads/$this->viewFolder/555x343/$select_img->img_url",
                 $path2 = "uploads/$this->viewFolder/70x70/$select_img->img_url",
-                $path3 = "uploads/$this->viewFolder/350x217/$select_img->img_url"
+                $path3 = "uploads/$this->viewFolder/80x80/$select_img->img_url"
             );
 
             foreach ($paths as $path)

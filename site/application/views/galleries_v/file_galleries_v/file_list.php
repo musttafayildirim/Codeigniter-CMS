@@ -20,7 +20,7 @@
                             <div class="col-sm-4">
                                 <div class="image-box shadow text-center mb-20">
                                     <div class="overlay-container overlay-visible">
-                                        <img src="<?php echo base_url("assets/images");?>/portfolio-4.jpg" alt="">
+                                        <img src="<?php echo base_url("assets/images");?>/folder.jpg" alt="">
                                         <a href="<?php echo base_url("dosya-galerisi-detay/$file->url") ?>" class="overlay-link"><i class="fa fa-link"></i></a>
                                         <div class="overlay-bottom hidden-xs">
                                             <div class="text">

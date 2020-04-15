@@ -1,6 +1,6 @@
 <?php $settings = get_settings(); ?>
 <!-- ================ -->
-<div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url("panel/uploads/settings_v/contact-us-1.jpg")?>'); background-position: 50% 20%;">
+<div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url("assets/images/contact_header.jpg")?>'); background-position: 50% 20%;">
     <div class="container">
         <div class="row justify-content-lg-center">
             <div class="col-lg-12 text-center pv-20">
@@ -138,7 +138,7 @@
 <!-- section start -->
 <!-- ================ -->
 
-<section class="section pv-40 parallax  dark-translucent-bg" style="background-image:url('<?php echo base_url("panel/uploads/settings_v/space.jpg")?>'); background-position:50% 60%;">
+<section class="section pv-40 parallax  dark-translucent-bg" style="background-image:url('<?php echo base_url("assets/images/contact_footer.jpg")?>'); background-position:50% 60%;">
     <div class="container">
         <div class="row">
             <div class="col-12">

@@ -537,7 +537,7 @@ class Galleries extends CI_Controller
 
                 $this->$modelName->add(
                     array(
-                        "url"           => "{$config["upload_path"]}/$uploaded_file",
+                        "url"           => $uploaded_file,
                         "rank"          => 0,
                         "isActive"      => 1,
                         "createdAt"     => date("Y-m-d H:i:s"),
