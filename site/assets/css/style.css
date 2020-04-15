@@ -486,6 +486,10 @@ tbody {
   background: url("../images/background-img-10.jpg") 50% 0px no-repeat;
 }
 
+.background-img-11 {
+  background: url("../images/testimonials_banner.jpg") 50% 0px no-repeat;
+}
+
 .fullscreen-bg {
   background: url("../images/fullscreen-bg.jpg") 50% 0px no-repeat;
   position: fixed;

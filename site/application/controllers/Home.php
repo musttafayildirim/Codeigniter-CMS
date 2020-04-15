@@ -19,6 +19,7 @@ class Home extends CI_Controller
         $this->load->model("reference_model");
         $this->load->model("service_model");
         $this->load->model("portfolio_model");
+        $this->load->model("testimonial_model");
 
         $slides = $this->slide_model->get_all(
             array(
@@ -44,12 +45,19 @@ class Home extends CI_Controller
             ), "rand()", array("start" => 0, "count" => 4)
         );
 
+        $testimonials = $this->testimonial_model->get_all(
+            array(
+                'isActive' => 1
+            ), "rank DESC"
+        );
+
 
 
         $viewData->slides = $slides;
         $viewData->references = $references;
         $viewData->services = $services;
         $viewData->portfolios = $portfolios;
+        $viewData->testimonials = $testimonials;
         $viewData->viewFolder = "home_v";
 
         $this->load->view($viewData->viewFolder, $viewData);

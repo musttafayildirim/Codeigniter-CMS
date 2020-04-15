@@ -15,7 +15,7 @@
 
                 <div class="form-group">
                     <label>Ad Soyad</label>
-                    <input type="text" class="form-control"  placeholder="Adınızı ve Soyadınızı Giriniz" name="full_name" value="<?php echo isset($form_error) ? set_value("title") : $item->title?>">
+                    <input type="text" class="form-control"  placeholder="Adınızı ve Soyadınızı Giriniz" name="full_name" value="<?php echo isset($form_error) ? set_value("full_name") : $item->full_name?>">
                     <?php if(isset($form_error)){ ?>
                         <small class="pull-right input-form-error"><?php echo form_error( "full_name");?></small>
                     <?php } ?>
@@ -23,7 +23,7 @@
 
                 <div class="form-group">
                     <label>Şirket Adı</label>
-                    <input type="text" class="form-control"  placeholder="Şirket Adını Giriniz" name="company" value="<?php echo isset($form_error) ? set_value("title") : $item->title?>">
+                    <input type="text" class="form-control"  placeholder="Şirket Adını Giriniz" name="company" value="<?php echo isset($form_error) ? set_value("company") : $item->company?>">
                     <?php if(isset($form_error)){ ?>
                         <small class="pull-right input-form-error"><?php echo form_error( "company");?></small>
                     <?php } ?>
@@ -39,7 +39,7 @@
 
                 <div class="form-group">
                     <label>Mesaj</label>
-                    <textarea name="description" class="form-control">value="<?php echo isset($form_error) ? set_value("title") : $item->title?>"</textarea>
+                    <textarea name="description" class="form-control"><?php echo isset($form_error) ? set_value("description") : $item->description?></textarea>
                     <?php if(isset($form_error)){ ?>
                         <small class="pull-right input-form-error"><?php echo form_error( "description");?></small>
                     <?php } ?>
@@ -55,8 +55,8 @@
                     </div>
 
                     <div class="form-group col-md-1 img-responsive img-fluid">
-                        <img src="<?php echo get_image($viewFolder, $item->img_url, "70x70"); ?>"
-                             alt="<?php echo $item->url?>">
+                        <img src="<?php echo get_image($viewFolder, $item->img_url, "90x90"); ?>"
+                             alt="<?php echo $item->title?>">
                     </div>
 
                 </div>
