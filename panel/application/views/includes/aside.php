@@ -99,6 +99,13 @@
                 </li>
 
                 <li>
+                    <a href="<?php echo base_url('testimonials');?>">
+                        <i class="menu-icon fa fa-commenting"></i>
+                        <span class="menu-text">Ziyaretçi Notları</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="<?php echo base_url("product"); ?>">
                         <i class="menu-icon fa fa-product-hunt"></i>
                         <span class="menu-text">Ürünler</span>
