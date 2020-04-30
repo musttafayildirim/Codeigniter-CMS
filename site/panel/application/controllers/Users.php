@@ -348,7 +348,7 @@ class Users extends CI_Controller
     public function update_permissions($id){
 
         echo "deneme";
-        
+
     }
 
     public function isActiveSetter($id)
