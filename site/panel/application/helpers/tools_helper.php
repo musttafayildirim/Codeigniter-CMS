@@ -21,6 +21,15 @@ function get_active_user(){
         return false;
 }
 
+function isAdmin(){
+    $t = &get_instance();
+    $user = $t->session->userdata("user");
+    if($user->user_role == "admin")
+        return true;
+    else
+        return false;
+}
+
 function send_email($toEmail="", $subject="", $message=""){
     $t = get_instance();
     $t->load->model("email_model");

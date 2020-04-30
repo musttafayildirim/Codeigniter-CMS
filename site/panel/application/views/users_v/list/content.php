@@ -5,7 +5,9 @@
             <header class="widget-header">
                 <h4 class="widget-title">
                     Kullanıcılar Listesi
-                    <a href="<?php echo base_url("users/new_user"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
+                    <?php if(isAdmin()): ?>
+                        <a href="<?php echo base_url("users/new_user"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
+                    <?php endif; ?>
                 </h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
