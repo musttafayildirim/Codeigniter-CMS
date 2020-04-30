@@ -19,10 +19,20 @@ class Users extends CI_Controller
     {
         $viewData = new stdClass();
 
+        $user = get_active_user();
+        if (isAdmin()){
+            $where = array();
+        }else{
+            $where = array(
+                "id" => $user->id
+            );
+        }
+
         //Tablodan verilerin getirilmesi...
         $items = $this->user_model->get_all(
-            array()
+            $where
         );
+
 
         //View'e gönderilecek değişkenlerin set edilmesi...
         $viewData-> viewFolder = $this->viewFolder;
