@@ -1,7 +1,7 @@
 <?php
 
 
-class UserOperation extends CI_Controller
+class Useroperation extends CI_Controller
 {
     public $viewFolder = "";
 
