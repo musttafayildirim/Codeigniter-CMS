@@ -329,6 +329,91 @@ class Users extends CI_Controller
 
     }
 
+    public function user_permissions_form($id){
+        $viewData = new stdClass();
+
+        $item = $this->user_model->get(
+            array(
+                "id" => $id
+            )
+        );
+
+        $viewData-> viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "permission";
+        $viewData->item = $item;
+
+        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+    }
+
+    public function update_permissions($id){
+        $this->load->library("form_validation");
+
+        $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[12]");
+        $this->form_validation->set_rules("re-password", "Şifre Doğrulama", "required|trim|min_length[6]|max_length[12]|matches[password]");
+
+        $this->form_validation->set_message(
+            array(
+                "required"      => "<strong>{field}</strong> alanı doldurulmalıdır.",
+                "min_length"    => "Şifreniz en az 6 karakter ile oluşturulabilir.",
+                "max_length"    => "Şifreniz en fazla 12 karakter ile oluşturulabilir.",
+                "matches"       => "Şifreler birbirleri ile uyuşmuyor."
+            )
+        );
+
+        $validate = $this->form_validation->run();
+
+        if ($validate) {
+
+            $update = $this->user_model->update(
+                array(
+                    "id" => $id
+                ),
+                array(
+                    "password" => md5($this->input->post("password"))
+                )
+            );
+
+            if ($update) {
+                $alert = array(
+                    "title" => "Tebrikler",
+                    "text" => "Şifre başarılı bir şekilde değiştirildi.",
+                    "type" => "success"
+                );
+            } else {
+                $alert = array(
+                    "title" => "İşlem başarısız",
+                    "text" => "Lütfen verilen uyarılara göre şifrenizi tekrar giriniz.",
+                    "type" => "error"
+                );
+            }
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("users"));
+        }
+        else{
+            $viewData = new stdClass();
+
+            $viewData-> viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "password";
+            $viewData->form_error = "true";
+
+            $viewData->item = $this->user_model->get(
+                array(
+                    "id" => $id
+                )
+            );
+
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen verilen uyarılara göre şifrenizi tekrar giriniz.",
+                "type"    => "error"
+            );
+
+            $this->session->set_flashdata("alert", $alert);
+            $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
+            unset($_SESSION['alert']);
+        }
+    }
+
     public function isActiveSetter($id)
     {
 
@@ -347,5 +432,6 @@ class Users extends CI_Controller
         }
 
     }
+
 
 }

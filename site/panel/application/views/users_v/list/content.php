@@ -49,7 +49,7 @@
                                         <?php echo ($item->isActive) ? "checked": ""  ?>
                                 >
                             </td>
-                            <td style="width: 300px;">
+                            <td style="width: 350px;">
                                 <button
                                         data-url="<?php echo base_url("users/delete/$item->id")?>"
                                         class="btn btn-danger mw-xs remove-btn">
@@ -57,6 +57,7 @@
                                 </button>
                                 <a href="<?php echo base_url("users/update_user/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
                                 <a href="<?php echo base_url("users/update_password_form/$item->id"); ?>" class="btn btn-primary mw-xs"><i class="fa fa-key"> Şifreyi Değiştir </i></a>
+                                <a href="<?php echo base_url("users/user_permissions_form/$item->id"); ?>" class="btn btn-warning mw-xs"><i class="fa fa-low-vision" style="color: #000000" > Yetki </i></a>
                             </td>
                         </tr>
 
