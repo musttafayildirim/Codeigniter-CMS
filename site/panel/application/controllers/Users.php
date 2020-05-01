@@ -329,28 +329,6 @@ class Users extends CI_Controller
 
     }
 
-    public function user_permissions_form($id){
-        $viewData = new stdClass();
-
-        $item = $this->user_model->get(
-            array(
-                "id" => $id
-            )
-        );
-
-        $viewData-> viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "permission";
-        $viewData->item = $item;
-
-        $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
-    }
-
-    public function update_permissions($id){
-
-        echo "deneme";
-
-    }
-
     public function isActiveSetter($id)
     {
 

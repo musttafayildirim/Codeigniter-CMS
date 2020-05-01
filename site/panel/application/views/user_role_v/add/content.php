@@ -4,13 +4,13 @@
         <div class="widget">
             <header class="widget-header">
                 <h4 class="widget-title">
-                    Yeni marka ekle
+                    Yeni Kullanıcı Rolü Ekle
                 </h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
 
             <div class="widget-body">
-                            <form action="<?php echo base_url("brand/save"); ?>" method="post" enctype="multipart/form-data">
+                            <form action="<?php echo base_url("user_roles/save"); ?>" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label >Başlık</label>
                                     <input type="text"
@@ -23,13 +23,8 @@
                                     <?php } ?>
                                 </div>
 
-                                <div class="form-group image_upload_container">
-                                    <label>Görsel Seçiniz</label>
-                                    <input type="file" name="img_url" class="form-control">
-                                </div>
-
                                 <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Kaydet</button>
-                                <a href="<?php echo base_url("brand"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
+                                <a href="<?php echo base_url("user_roles"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
                             </form>
             </div><!-- .widget-body -->
         </div><!-- .widget -->

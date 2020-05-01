@@ -90,6 +90,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="<?php echo base_url('user_roles'); ?>">
+                        <i class="menu-icon fa fa-low-vision"></i>
+                        <span class="menu-text">Kullanıcı Rolleri</span>
+                    </a>
+                </li>
+
 
                 <li>
                     <a href="javascript:void(0)">

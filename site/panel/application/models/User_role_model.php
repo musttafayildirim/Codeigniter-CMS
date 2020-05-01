@@ -1,8 +1,8 @@
 <?php
 
-class Brand_model extends CI_Model{
+class User_role_model extends CI_Model{
 
-    public $tableName = "brands";
+    public $tableName = "user_roles";
     public function __construct()
     {
         parent::__construct();
