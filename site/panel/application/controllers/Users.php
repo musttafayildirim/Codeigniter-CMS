@@ -10,6 +10,7 @@ class Users extends CI_Controller
         parent::__construct();
         $this->viewFolder = "users_v";
         $this->load->model("user_model");
+        $this->load->model("user_role_model");
 
         if(!get_active_user())
             redirect(base_url("login"));
@@ -49,6 +50,12 @@ class Users extends CI_Controller
         $viewData-> viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "add";
 
+        $viewData->user_roles = $this->user_role_model->get_all(
+            array(
+                "isActive" => 1
+            )
+        );
+
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
     
@@ -60,6 +67,7 @@ class Users extends CI_Controller
       $this->form_validation->set_rules("full_name", "Adı Soyadı", "trim");
       $this->form_validation->set_rules("email", "E-Posta Adresi", "required|trim|valid_email|is_unique[users.email]");
       $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[12]");
+      $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
 
       $this->form_validation->set_message(
           array(
@@ -76,12 +84,13 @@ class Users extends CI_Controller
       if ($validate){
           $insert = $this->user_model->add(
               array(
-                  "user_name" => $this->input->post("user_name"),
-                  "full_name" => $this->input->post("full_name"),
-                  "email"     => $this->input->post("email"),
-                  "password"  => md5($this->input->post("password")),
-                  "isActive"  => true,
-                  "createdAt" => date("Y-m-d H:i:s")
+                  "user_name"       => $this->input->post("user_name"),
+                  "full_name"       => $this->input->post("full_name"),
+                  "email"           => $this->input->post("email"),
+                  "user_role_id"    => $this->input->post("user_role_id"),
+                  "password"        => md5($this->input->post("password")),
+                  "isActive"        => true,
+                  "createdAt"       => date("Y-m-d H:i:s")
               )
           );
           if ($insert) {
@@ -108,6 +117,13 @@ class Users extends CI_Controller
           $viewData->subViewFolder = "add";
           $viewData->form_error = "true";
 
+            $viewData->user_roles = $this->user_role_model->get_all(
+                array(
+                    "isActive" => 1
+                )
+            );
+
+
           $alert = array(
               "title"   => "İşlem başarısız",
               "text"    => "Lütfen zorunlu olan alanları doldurunuz!",
@@ -127,6 +143,12 @@ class Users extends CI_Controller
         $item = $this->user_model->get(
             array(
                 "id" => $id
+            )
+        );
+
+        $viewData->user_roles = $this->user_role_model->get_all(
+            array(
+                "isActive" => 1
             )
         );
 
@@ -153,6 +175,7 @@ class Users extends CI_Controller
         }
 
         $this->form_validation->set_rules("full_name", "Ad Soyad", "trim");
+        $this->form_validation->set_rules("user_role_id", "Kullanıcı Rolü", "required|trim");
 
         $this->form_validation->set_message(
             array(
@@ -171,9 +194,10 @@ class Users extends CI_Controller
                     "id" => $id
                 ),
                 array(
-                    "user_name" => $this->input->post("user_name"),
-                    "full_name" => $this->input->post("full_name"),
-                    "email"     => $this->input->post("email")
+                    "user_name"     => $this->input->post("user_name"),
+                    "full_name"     => $this->input->post("full_name"),
+                    "user_role_id"  => $this->input->post("user_role_id"),
+                    "email"         => $this->input->post("email")
                 )
             );
 
@@ -203,6 +227,12 @@ class Users extends CI_Controller
             $viewData->item = $this->user_model->get(
                 array(
                     "id" => $id
+                )
+            );
+
+            $viewData->user_roles = $this->user_role_model->get_all(
+                array(
+                    "isActive" => 1
                 )
             );
 

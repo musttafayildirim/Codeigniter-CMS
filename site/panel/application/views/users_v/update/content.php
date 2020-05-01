@@ -35,6 +35,24 @@
                     <?php } ?>
                 </div>
 
+                <div class="form-group">
+                    <label for="control-demo-6">Kullanıcı Rolü Seçiniz</label>
+                    <div id="control-demo-6">
+                        <select class="form-control" name="user_role_id">
+                            <?php foreach ($user_roles as $user_role){ ?>
+                                <?php $user_role_id = isset($form_error) ? set_value("user_role_id") : $item->user_role_id?>
+                                <option
+                                    <?php echo ($user_role->id === $user_role_id) ? "selected" : ""?>
+                                        value="<?php echo $user_role->id;?>"><?php echo $user_role->title;?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                        <?php if(isset($form_error)){ ?>
+                            <small class="pull-right input-form-error"><?php echo form_error( "user_role_id");?></small>
+                        <?php } ?>
+                    </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Güncelle</button>
                 <a href="<?php echo base_url("users"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
             </form>

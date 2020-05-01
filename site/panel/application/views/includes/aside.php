@@ -82,21 +82,29 @@
                     </a>
                 </li>
 
-
-                <li>
-                    <a href="<?php echo base_url('users'); ?>">
-                        <i class="menu-icon fa fa-user-secret"></i>
-                        <span class="menu-text">Kullanıcılar</span>
+                <li class="has-submenu">
+                    <a href="javascript:void(0)" class="submenu-toggle">
+                        <i class="menu-icon fa fa-user-times"></i>
+                        <span class="menu-text">Kullanıcı İşlemleri</span>
+                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
-                </li>
+                    <ul class="submenu" style="display: none;">
+                        <li>
+                            <a href="<?php echo base_url('users'); ?>">
+                                <i class="menu-icon fa fa-user-secret"></i>
+                                <span class="menu-text">Kullanıcılar</span>
+                            </a>
+                        </li>
 
-                <li>
-                    <a href="<?php echo base_url('user_roles'); ?>">
-                        <i class="menu-icon fa fa-low-vision"></i>
-                        <span class="menu-text">Kullanıcı Rolleri</span>
-                    </a>
-                </li>
+                        <li>
+                            <a href="<?php echo base_url('user_roles'); ?>">
+                                <i class="menu-icon fa fa-low-vision"></i>
+                                <span class="menu-text">Kullanıcı Rolleri</span>
+                            </a>
+                        </li>
 
+                    </ul>
+                </li>
 
                 <li>
                     <a href="javascript:void(0)">

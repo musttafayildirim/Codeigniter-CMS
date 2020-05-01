@@ -40,10 +40,8 @@ function getControllerList(){
 function isAdmin(){
     $t = &get_instance();
     $user = $t->session->userdata("user");
-    if($user->user_role == "admin")
-        return true;
-    else
-        return false;
+
+    return true;
 }
 
 function send_email($toEmail="", $subject="", $message=""){
