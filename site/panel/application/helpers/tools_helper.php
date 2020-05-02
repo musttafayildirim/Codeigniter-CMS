@@ -44,22 +44,6 @@ function isAdmin(){
     return true;
 }
 
-function isAllowedViewModule($moduleName = ""){
-    $t = &get_instance();
-    $moduleName = ($moduleName == "") ? $t->router->fetch_class() : $moduleName;
-
-    $user = get_active_user();
-    $user_roles = get_user_roles();
-
-    if(isset($user_roles[$user->user_role_id])){
-        $permissions = json_decode($user_roles[$user->user_role_id]);
-        if(isset($permissions->$moduleName) && isset($permissions->$moduleName->read)){
-            return true;
-        }
-    }
-    return false;
-}
-
 function setUserRoles(){
     $t = &get_instance();
 

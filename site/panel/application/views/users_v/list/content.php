@@ -5,7 +5,7 @@
             <header class="widget-header">
                 <h4 class="widget-title">
                     Kullanıcılar Listesi
-                    <?php if(isAdmin()): ?>
+                    <?php if(isAllowedAddModule($this->router->fetch_class())): ?>
                         <a href="<?php echo base_url("users/new_user"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle</a>
                     <?php endif; ?>
                 </h4>
@@ -16,7 +16,13 @@
             <div class="widget-body">
                 <?php if (empty($items)) { ?>
                 <div class="alert alert-info alert-dismissible text-center">
-                    <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="<?php echo base_url("users/new_user"); ?>">tıklayınız.</a></p>
+                    <p>Burada herhangi bir kayıt bulunamadı.
+                        <?php if(isAllowedAddModule($this->router->fetch_class())): ?>
+                            Eklemek için lütfen <a href="<?php echo base_url("users/new_user"); ?>">tıklayınız.</a>
+                        <?php else:?>
+                            Sistem <b>yetkilisi</b> ile görüşünüz.
+                        <?php endif;?>
+                    </p>
                 </div>
                         <?php } else { ?>
                 <div class="table-responsive content-container">

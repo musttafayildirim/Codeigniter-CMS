@@ -5,7 +5,9 @@
             <header class="widget-header">
                 <h4 class="widget-title">
                     Kullanıcı Rolleri Listesi
-                    <a href="<?php echo base_url("user_roles/new_user_role"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle </a>
+                    <?php if(isAllowedAddModule($this->router->fetch_class())): ?>
+                        <a href="<?php echo base_url("user_roles/new_user_role"); ?>" class="btn btn-info pull-right btn-xs"><i class="fa fa-plus"></i> Yeni Ekle </a>
+                    <?php endif;?>
                 </h4>
             </header><!-- .widget-header -->
             <hr class="widget-separator">
@@ -13,9 +15,15 @@
 
             <div class="widget-body">
                 <?php if (empty($items)) { ?>
-                <div class="alert alert-info alert-dismissible text-center">
-                    <p>Burada herhangi bir kayıt bulunamadı. Eklemek için lütfen <a href="<?php echo base_url("user_roles/new_user_role"); ?>">tıklayınız.</a></p>
-                </div>
+                    <div class="alert alert-info alert-dismissible text-center">
+                        <p>Burada herhangi bir kayıt bulunamadı.
+                            <?php if(isAllowedAddModule($this->router->fetch_class())): ?>
+                                Eklemek için lütfen <a href="<?php echo base_url("user_roles/new_user_role"); ?>">tıklayınız.</a>
+                            <?php else:?>
+                                Sistem <b>yetkilisi</b> ile görüşünüz.
+                            <?php endif;?>
+                        </p>
+                    </div>
                         <?php } else { ?>
                 <div class="table-responsive content-container">
                     <table class="table table-bordered table-hover table-condensed">
