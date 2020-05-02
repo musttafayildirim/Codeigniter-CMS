@@ -1,7 +1,7 @@
 <?php
 
 
-class Testimonials extends CI_Controller
+class Testimonials extends MY_Controller
 {
     public $viewFolder = "";
 

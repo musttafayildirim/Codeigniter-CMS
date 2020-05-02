@@ -1,7 +1,7 @@
 <?php
 
 
-class Portfolio extends CI_Controller
+class Portfolio extends MY_Controller
 {
     public $viewFolder = "";
 

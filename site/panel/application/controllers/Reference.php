@@ -1,7 +1,7 @@
 <?php
 
 
-class Reference extends CI_Controller
+class Reference extends MY_Controller
 {
     public $viewFolder = "";
 

@@ -1,7 +1,7 @@
 <?php
 
 
-class Popup extends CI_Controller
+class Popup extends MY_Controller
 {
     public $viewFolder = "";
 

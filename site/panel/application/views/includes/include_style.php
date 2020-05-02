@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="<?php echo base_url("assets"); ?>/libs/bower/perfect-scrollbar/css/perfect-scrollbar.css">
 <link rel="stylesheet" href="<?php echo base_url("assets"); ?>/assets/css/bootstrap.css">
 <link rel="stylesheet" href="<?php echo base_url("assets"); ?>/assets/css/core.css">
+<link rel="stylesheet" href="<?php echo base_url("assets"); ?>/assets/css/misc-pages.css">
 <link rel="stylesheet" href="<?php echo base_url("assets"); ?>/assets/css/app.css">
 <link rel="stylesheet" href="<?php echo base_url("assets"); ?>/assets/css/iziToast.min.css">
 <link rel="stylesheet" href="<?php echo base_url("assets"); ?>/assets/css/custom.css">

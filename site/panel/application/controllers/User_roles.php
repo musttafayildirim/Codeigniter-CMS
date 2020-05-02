@@ -1,7 +1,7 @@
 <?php
 
 
-class User_roles extends CI_Controller
+class User_roles extends MY_Controller
 
 {
     public $viewFolder = "";

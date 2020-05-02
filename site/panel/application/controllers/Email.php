@@ -1,7 +1,7 @@
 <?php
 
 
-class Email extends CI_Controller
+class Email extends MY_Controller
 {
     public $viewFolder = "";
     public function __construct()

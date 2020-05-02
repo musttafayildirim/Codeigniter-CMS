@@ -1,6 +1,6 @@
 <?php
 
-class courses extends CI_Controller
+class courses extends MY_Controller
 {
     public $viewFolder = "";
 

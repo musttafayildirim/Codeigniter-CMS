@@ -1,7 +1,7 @@
 <?php
 
 
-class Brand extends CI_Controller
+class Brand extends MY_Controller
 
 {
     public $viewFolder = "";

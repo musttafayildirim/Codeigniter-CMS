@@ -1,7 +1,7 @@
 <?php
 
 
-class Settings extends CI_Controller
+class Settings extends MY_Controller
 {
     public $viewFolder = "";
 

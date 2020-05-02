@@ -1,7 +1,7 @@
 <?php
 
 
-class Slides extends CI_Controller
+class Slides extends MY_Controller
 {
     public $viewFolder = "";
 
