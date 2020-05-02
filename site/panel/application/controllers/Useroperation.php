@@ -85,6 +85,9 @@ class Useroperation extends CI_Controller
                                 "text" => "$user->full_name hoşgeldiniz",
                                 "type" => "success"
                             );
+
+                            setUserRoles();
+
                             $this->session->set_userdata("user", $user);
                             $this->session->set_flashdata("alert", $alert);
                             redirect(base_url());

@@ -44,6 +44,45 @@ function isAdmin(){
     return true;
 }
 
+function isAllowedViewModule($moduleName = ""){
+    $t = &get_instance();
+    $moduleName = ($moduleName == "") ? $t->router->fetch_class() : $moduleName;
+
+    $user = get_active_user();
+    $user_roles = get_user_roles();
+
+    if(isset($user_roles[$user->user_role_id])){
+        $permissions = json_decode($user_roles[$user->user_role_id]);
+        if(isset($permissions->$moduleName) && isset($permissions->$moduleName->read)){
+            return true;
+        }
+    }
+    return false;
+}
+
+function setUserRoles(){
+    $t = &get_instance();
+
+    $t->load->model("user_role_model");
+    $user_roles = $t->user_role_model->get_all(
+        array(
+            "isActive" => 1
+        )
+    );
+
+    $roles = array();
+    foreach ($user_roles as $role){
+        $roles[$role->id] = $role->permissions;
+    }
+
+    $t->session->set_userdata("user_roles", $roles);
+}
+
+function get_user_roles(){
+    $t = &get_instance();
+    return $t->session->userdata("user_roles");
+}
+
 function send_email($toEmail="", $subject="", $message=""){
     $t = get_instance();
     $t->load->model("email_model");

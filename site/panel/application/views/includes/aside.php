@@ -49,144 +49,168 @@
             <ul class="app-menu">
 
 
-                <li>
-                    <a href="<?php echo base_url("dashboard")  ?>">
-                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
-                        <span class="menu-text">Dashboards</span>
-                    </a>
-                </li>
-
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
-                        <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
-                        <span class="menu-text">Ayarlar</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                    </a>
-                    <ul class="submenu" style="display: none;">
-                        <li><a href="<?php echo base_url("settings")?>"><span class="menu-text">Site Ayarları</span></a></li>
-                        <li><a href="<?php echo base_url("email") ?>"><span class="menu-text">Email Ayarları</span></a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="<?php echo base_url('galleries'); ?>">
-                        <i class="menu-icon zmdi zmdi-apps zmdi-hc-lg"></i>
-                        <span class="menu-text">Galeriler</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="<?php echo base_url('slides'); ?>">
-                        <i class="menu-icon fa fa-sliders"></i>
-                        <span class="menu-text">Slider</span>
-                    </a>
-                </li>
-
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
-                        <i class="menu-icon fa fa-user-times"></i>
-                        <span class="menu-text">Kullanıcı İşlemleri</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                    </a>
-                    <ul class="submenu" style="display: none;">
+                <?php if (isAllowedViewModule('dashboard')){ ?>
+                    <li>
+                        <a href="<?php echo base_url("dashboard")  ?>">
+                            <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
+                            <span class="menu-text">Dashboards</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('settings') || isAllowedViewModule('email')){ ?>
+                    <li class="has-submenu">
+                        <a href="javascript:void(0)" class="submenu-toggle">
+                            <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
+                            <span class="menu-text">Ayarlar</span>
+                            <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+                        </a>
+                        <ul class="submenu" style="display: none;">
+                            <?php if (isAllowedViewModule('settings')){ ?>
+                                <li><a href="<?php echo base_url("settings")?>"><span class="menu-text">Site Ayarları</span></a></li>
+                            <?php } ?>
+                            <?php if (isAllowedViewModule('email')){ ?>
+                                <li><a href="<?php echo base_url("email") ?>"><span class="menu-text">Email Ayarları</span></a></li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('galleries')){ ?>
                         <li>
-                            <a href="<?php echo base_url('users'); ?>">
-                                <i class="menu-icon fa fa-user-secret"></i>
-                                <span class="menu-text">Kullanıcılar</span>
+                            <a href="<?php echo base_url('galleries'); ?>">
+                                <i class="menu-icon zmdi zmdi-apps zmdi-hc-lg"></i>
+                                <span class="menu-text">Galeriler</span>
                             </a>
                         </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('slides')){ ?>
+                    <li>
+                        <a href="<?php echo base_url('slides'); ?>">
+                            <i class="menu-icon fa fa-sliders"></i>
+                            <span class="menu-text">Slider</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('users') || isAllowedViewModule('user_roles')){ ?>
+                    <li class="has-submenu">
+                        <a href="javascript:void(0)" class="submenu-toggle">
+                            <i class="menu-icon fa fa-user-times"></i>
+                            <span class="menu-text">Kullanıcı İşlemleri</span>
+                            <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+                        </a>
+                        <ul class="submenu" style="display: none;">
+                            <?php if (isAllowedViewModule('users')) { ?>
+                                <li>
+                                    <a href="<?php echo base_url('users'); ?>">
+                                        <i class="menu-icon fa fa-user-secret"></i>
+                                        <span class="menu-text">Kullanıcılar</span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <?php if (isAllowedViewModule('user_roles')) { ?>
+                                <li>
+                                    <a href="<?php echo base_url('user_roles'); ?>">
+                                        <i class="menu-icon fa fa-low-vision"></i>
+                                        <span class="menu-text">Kullanıcı Rolleri</span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('members')){ ?>
+                    <li>
+                        <a href="<?php echo base_url('members'); ?>">
+                            <i class="menu-icon fa fa-user"></i>
+                            <span class="menu-text">Aboneler</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('testimonials')){ ?>
+                    <li>
+                        <a href="<?php echo base_url('testimonials');?>">
+                            <i class="menu-icon fa fa-commenting"></i>
+                            <span class="menu-text">Ziyaretçi Notları</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('product')){ ?>
+                    <li>
+                        <a href="<?php echo base_url("product"); ?>">
+                            <i class="menu-icon fa fa-product-hunt"></i>
+                            <span class="menu-text">Ürünler</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('services')){ ?>
+                    <li>
+                        <a href="<?php echo base_url("services"); ?>">
+                            <i class="menu-icon fa fa-h-square"></i>
+                            <span class="menu-text">Hizmetler</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('portfolio') || isAllowedViewModule('portfolio_categories')){ ?>
+                    <li class="has-submenu">
+                        <a href="javascript:void(0)" class="submenu-toggle">
+                            <i class="menu-icon fa fa-briefcase"></i>
+                            <span class="menu-text">Portfolyo İşlemleri</span>
+                            <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+                        </a>
+                        <ul class="submenu" style="display: none;">
+                            <?php if (isAllowedViewModule('portfolio_categories')){ ?>
+                                <li>
+                                    <a href="<?php echo base_url("portfolio_categories")?>"><span class="menu-text">Portfolyo Kategorileri</span></a>
+                                </li>
+                            <?php } ?>
+                            <?php if (isAllowedViewModule('portfolio')){ ?>
+                                <li>
+                                        <a href="<?php echo base_url("portfolio")?>"><span class="menu-text">Portfolyo</span></a>
+                                </li>
+                            <?php } ?>
 
-                        <li>
-                            <a href="<?php echo base_url('user_roles'); ?>">
-                                <i class="menu-icon fa fa-low-vision"></i>
-                                <span class="menu-text">Kullanıcı Rolleri</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="menu-icon fa fa-user"></i>
-                        <span class="menu-text">Aboneler</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="<?php echo base_url('testimonials');?>">
-                        <i class="menu-icon fa fa-commenting"></i>
-                        <span class="menu-text">Ziyaretçi Notları</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="<?php echo base_url("product"); ?>">
-                        <i class="menu-icon fa fa-product-hunt"></i>
-                        <span class="menu-text">Ürünler</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="<?php echo base_url("services"); ?>">
-                        <i class="menu-icon fa fa-h-square"></i>
-                        <span class="menu-text">Hizmetler</span>
-                    </a>
-                </li>
-
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
-                        <i class="menu-icon fa fa-briefcase"></i>
-                        <span class="menu-text">Portfolyo İşlemleri</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
-                    </a>
-                    <ul class="submenu" style="display: none;">
-                        <li>
-                            <a href="<?php echo base_url("portfolio_categories")?>"><span class="menu-text">Portfolyo Kategorileri</span></a>
-                        </li>
-                        <li>
-                            <a href="<?php echo base_url("portfolio")?>"><span class="menu-text">Portfolyo</span></a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="<?php echo base_url("news"); ?>">
-                        <i class="menu-icon fa fa-newspaper-o"></i>
-                        <span class="menu-text">Haberler</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="<?php echo base_url("courses"); ?>">
-                        <i class="menu-icon fa fa-train"></i>
-                        <span class="menu-text">Eğitimler</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="<?php echo base_url("brand") ?>">
-                        <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
-                        <span class="menu-text">Markalar</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="<?php echo base_url("reference"); ?>">
-                        <i class="menu-icon fa fa-share"></i>
-                        <span class="menu-text">Referanslar</span>
-                    </a>
-                </li>
-
-
-                <li>
-                    <a href="<?php echo base_url("popup");?>">
-                        <i class="menu-icon fa fa-pied-piper"></i>
-                        <span class="menu-text">Popup Hizmeti</span>
-                    </a>
-                </li>
+                        </ul>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('news')){ ?>
+                    <li>
+                        <a href="<?php echo base_url("news"); ?>">
+                            <i class="menu-icon fa fa-newspaper-o"></i>
+                            <span class="menu-text">Haberler</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('courses')){ ?>
+                    <li>
+                        <a href="<?php echo base_url("courses"); ?>">
+                            <i class="menu-icon fa fa-train"></i>
+                            <span class="menu-text">Eğitimler</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('brand')){ ?>
+                    <li>
+                        <a href="<?php echo base_url("brand") ?>">
+                            <i class="menu-icon zmdi zmdi-puzzle-piece zmdi-hc-lg"></i>
+                            <span class="menu-text">Markalar</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('reference')){ ?>
+                    <li>
+                        <a href="<?php echo base_url("reference"); ?>">
+                            <i class="menu-icon fa fa-share"></i>
+                            <span class="menu-text">Referanslar</span>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if (isAllowedViewModule('popup')){ ?>
+                    <li>
+                        <a href="<?php echo base_url("popup");?>">
+                            <i class="menu-icon fa fa-pied-piper"></i>
+                            <span class="menu-text">Popup Hizmeti</span>
+                        </a>
+                    </li>
+                <?php } ?>
 
                 <li class="menu-separator"><hr></li>
 
