@@ -37,7 +37,9 @@
                                 <th>Kategori</th>
                                 <th>Bitiş Tarihi</th>
                                 <th>Durum</th>
-                                <th>İşlem</th>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                    <th>İşlem</th>
+                                <?php endif;?>
                             </tr>
                             </thead>
                             <tbody class="sortable" data-url="<?php echo base_url("portfolio/rankSetter");?>">
@@ -61,14 +63,21 @@
                                             <?php echo ($item->isActive) ? "checked": ""  ?>
                                     >
                                 </td>
-                                <td class="w175 text-center">
-                                    <button
-                                            data-url="<?php echo base_url("portfolio/delete/$item->id")?>"
-                                            class="btn btn-danger mw-xs remove-btn">
-                                            <i class="fa fa-trash-o"></i></button>
-                                    <a href="<?php echo base_url("portfolio/update_portfolio/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a href="<?php echo base_url("portfolio/image_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa fa-image"></i></a>
-                                </td>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                    <td class="w175 text-center">
+                                        <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
+                                            <button
+                                                    data-url="<?php echo base_url("portfolio/delete/$item->id")?>"
+                                                    class="btn btn-danger mw-xs remove-btn">
+                                                    <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        <?php endif;?>
+                                        <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                            <a href="<?php echo base_url("portfolio/update_portfolio/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="<?php echo base_url("portfolio/image_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa fa-image"></i></a>
+                                        <?php endif;?>
+                                    </td>
+                                <?php endif;?>
                             </tr>
 
                             <?php } ?>

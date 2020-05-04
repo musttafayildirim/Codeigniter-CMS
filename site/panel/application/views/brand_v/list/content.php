@@ -34,7 +34,9 @@
                                 <th>Başlık</th>
                                 <th>Görsel</th>
                                 <th>Durum</th>
-                                <th>İşlem</th>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())){ ?>
+                                    <th>İşlem</th>
+                                <?php }?>
                             </tr>
                             </thead>
                             <tbody class="sortable text-center" data-url="<?php echo base_url("brand/rankSetter");?>">
@@ -60,13 +62,20 @@
                                             <?php echo ($item->isActive) ? "checked": ""  ?>
                                     >
                                 </td>
-                                <td class="w150">
-                                    <button
-                                            data-url="<?php echo base_url("brand/delete/$item->id")?>"
-                                            class="btn btn-danger mw-xs remove-btn">
-                                            <i class="fa fa-trash-o"></i></button>
-                                    <a href="<?php echo base_url("brand/update_brand/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                </td>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                    <td class="w150">
+                                        <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
+                                            <button
+                                                    data-url="<?php echo base_url("brand/delete/$item->id")?>"
+                                                    class="btn btn-danger mw-xs remove-btn">
+                                                    <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        <?php endif;?>
+                                        <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                            <a href="<?php echo base_url("brand/update_brand/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                        <?php endif;?>
+                                    </td>
+                                <?php endif;?>
                             </tr>
 
                             <?php } ?>

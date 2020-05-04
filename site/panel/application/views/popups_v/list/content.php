@@ -33,7 +33,9 @@
                                 <th>Başlık</th>
                                 <th>Hedef Sayfa</th>
                                 <th>Durum</th>
-                                <th>İşlem</th>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                    <th>İşlem</th>
+                                <?php endif;?>
                             </tr>
                             </thead>
                             <tbody class="text-center">
@@ -53,13 +55,20 @@
                                             <?php echo ($item->isActive) ? "checked": ""  ?>
                                     >
                                 </td>
-                                <td class="w150">
-                                    <button
-                                            data-url="<?php echo base_url("popup/delete/$item->id")?>"
-                                            class="btn btn-danger mw-xs remove-btn">
-                                            <i class="fa fa-trash-o"></i></button>
-                                    <a href="<?php echo base_url("popup/update_popup/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                </td>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                    <td class="w150">
+                                        <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
+                                            <button
+                                                        data-url="<?php echo base_url("popup/delete/$item->id")?>"
+                                                        class="btn btn-danger mw-xs remove-btn">
+                                                        <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        <?php endif;?>
+                                        <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                            <a href="<?php echo base_url("popup/update_popup/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                        <?php endif;?>
+                                    </td>
+                                <?php endif;?>
                             </tr>
 
                             <?php } ?>

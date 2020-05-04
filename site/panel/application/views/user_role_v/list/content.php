@@ -33,7 +33,9 @@
                             <th>#id</th>
                             <th>Başlık</th>
                             <th>Durum</th>
-                            <th>İşlem</th>
+                            <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                <th>İşlem</th>
+                            <?php endif;?>
                         </tr>
                         </thead>
                         <tbody>
@@ -52,14 +54,21 @@
                                             <?php echo ($item->isActive) ? "checked": ""  ?>
                                     >
                                 </td>
-                                <td class="w200">
-                                    <button
-                                            data-url="<?php echo base_url("user_roles/delete/$item->id")?>"
-                                            class="btn btn-danger mw-xs remove-btn">
-                                            <i class="fa fa-trash-o"></i></button>
-                                    <a href="<?php echo base_url("user_roles/update_user_roles/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                    <a href="<?php echo base_url("user_roles/user_permissions_form/$item->id"); ?>" class="btn btn-warning mw-xs"><i class="fa fa-low-vision" style="color: #000000" > Yetki </i></a>
-                                </td>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                    <td class="w200 text-center">
+                                        <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
+                                            <button
+                                                    data-url="<?php echo base_url("user_roles/delete/$item->id")?>"
+                                                    class="btn btn-danger mw-xs remove-btn">
+                                                    <i class="fa fa-trash-o"></i>
+                                            </button>
+                                        <?php endif;?>
+                                        <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                            <a href="<?php echo base_url("user_roles/update_user_roles/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                            <a href="<?php echo base_url("user_roles/user_permissions_form/$item->id"); ?>" class="btn btn-warning mw-xs"><i class="fa fa-low-vision" style="color: #000000" > Yetki </i></a>
+                                        <?php endif;?>
+                                    </td>
+                                <?php endif;?>
                             </tr>
 
                             <?php } ?>

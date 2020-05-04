@@ -34,7 +34,9 @@
                             <th>Ad Soyad</th>
                             <th>E-posta Adresi</th>
                             <th>Durum</th>
-                            <th>İşlem</th>
+                            <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                <th>İşlem</th>
+                            <?php endif;?>
                         </tr>
                         </thead>
 
@@ -55,15 +57,21 @@
                                         <?php echo ($item->isActive) ? "checked": ""  ?>
                                 >
                             </td>
-                            <td class="text-center w250">
-                                <button
-                                        data-url="<?php echo base_url("users/delete/$item->id")?>"
-                                        class="btn btn-danger mw-xs remove-btn">
-                                        <i class="fa fa-trash-o"></i>
-                                </button>
-                                <a href="<?php echo base_url("users/update_user/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
-                                <a href="<?php echo base_url("users/update_password_form/$item->id"); ?>" class="btn btn-primary mw-xs"><i class="fa fa-key"> Şifreyi Değiştir </i></a>
-                            </td>
+                            <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                <td class="text-center w250">
+                                    <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
+                                        <button
+                                                data-url="<?php echo base_url("users/delete/$item->id")?>"
+                                                class="btn btn-danger mw-xs remove-btn">
+                                                <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    <?php endif;?>
+                                    <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                        <a href="<?php echo base_url("users/update_user/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a href="<?php echo base_url("users/update_password_form/$item->id"); ?>" class="btn btn-primary mw-xs"><i class="fa fa-key"> Şifreyi Değiştir </i></a>
+                                    <?php endif;?>
+                                </td>
+                            <?php endif;?>
                         </tr>
 
                         <?php } ?>

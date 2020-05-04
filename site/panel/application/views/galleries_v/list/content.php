@@ -34,7 +34,9 @@
                                 <th>Galeri Tipi</th>
                                 <th>Klasör Adı</th>
                                 <th>Durum</th>
-                                <th>İşlem</th>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                    <th>İşlem</th>
+                                <?php endif;?>
                             </tr>
                             </thead>
                             <tbody class="sortable" data-url="<?php echo base_url("galleries/rankSetter");?>">
@@ -55,34 +57,39 @@
                                             <?php echo ($item->isActive) ? "checked": ""  ?>
                                     >
                                 </td>
-                                <td style="width: 300px;" class="text-center">
-                                    <button
-                                            data-url="<?php echo base_url("galleries/delete/$item->id")?>"
-                                            class="btn btn-danger mw-xs remove-btn">
-                                            <i class="fa fa-trash-o"> Sil </i>
-                                    </button>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                    <td style="width: 300px;" class="text-center">
+                                        <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
+                                            <button
+                                                    data-url="<?php echo base_url("galleries/delete/$item->id")?>"
+                                                    class="btn btn-danger mw-xs remove-btn">
+                                                    <i class="fa fa-trash-o"> Sil </i>
+                                            </button>
+                                        <?php endif;?>
 
-                                    <?php
-                                    if($item->gallery_type == "image"){
-                                        $btn_icon = "fa-image";
-                                        $type_text = "Resim Ekle";
-                                        $type_url = "galleries/upload_form/$item->id";
-                                    }
-                                    else if($item->gallery_type == "video"){
-                                        $btn_icon = "fa-play-circle";
-                                        $type_text = "Video Ekle";
-                                        $type_url = "galleries/gallery_video_list/$item->id";
-                                    }
-                                    else{
-                                        $btn_icon = "fa-folder";
-                                        $type_text = "Dosya Ekle";
-                                        $type_url = "galleries/upload_form/$item->id";
-                                    }
-                                    ?>
-
-                                    <a href="<?php echo base_url("galleries/update_galleries/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"> Düzenle </i></a>
-                                    <a href="<?php echo base_url($type_url); ?>" class="btn btn-success mw-xs"><i class="fa <?php echo $btn_icon; ?>"> <?php echo $type_text;?> </i></a>
-                                </td>
+                                        <?php
+                                        if($item->gallery_type == "image"){
+                                            $btn_icon = "fa-image";
+                                            $type_text = "Resim Ekle";
+                                            $type_url = "galleries/upload_form/$item->id";
+                                        }
+                                        else if($item->gallery_type == "video"){
+                                            $btn_icon = "fa-play-circle";
+                                            $type_text = "Video Ekle";
+                                            $type_url = "galleries/gallery_video_list/$item->id";
+                                        }
+                                        else{
+                                            $btn_icon = "fa-folder";
+                                            $type_text = "Dosya Ekle";
+                                            $type_url = "galleries/upload_form/$item->id";
+                                        }
+                                        ?>
+                                        <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                            <a href="<?php echo base_url("galleries/update_galleries/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"> Düzenle </i></a>
+                                            <a href="<?php echo base_url($type_url); ?>" class="btn btn-success mw-xs"><i class="fa <?php echo $btn_icon; ?>"> <?php echo $type_text;?> </i></a>
+                                        <?php endif;?>
+                                    </td>
+                                <?php endif;?>
                             </tr>
 
                             <?php } ?>

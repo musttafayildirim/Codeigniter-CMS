@@ -64,6 +64,7 @@ function setUserRoles(){
 
 function get_user_roles(){
     $t = &get_instance();
+    setUserRoles();
     return $t->session->userdata("user_roles");
 }
 
