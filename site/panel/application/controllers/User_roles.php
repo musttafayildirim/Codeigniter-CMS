@@ -169,6 +169,9 @@ class User_roles extends MY_Controller
     }
 
     public function delete($id){
+        if (!isAllowedDeleteModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         $delete = $this->user_role_model->delete(
             array(

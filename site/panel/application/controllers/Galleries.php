@@ -244,7 +244,10 @@ class Galleries extends MY_Controller
     }
 
     public function delete($id){
-        //Silmeyi istediğimiz klasöre erişiyoruz....
+        if (!isAllowedDeleteModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
+
         $gallery = $this->gallery_model->get(
           array(
               "id" => $id

@@ -237,7 +237,10 @@ class Portfolio extends MY_Controller
     }
 
     public function delete($id){
-        //ürün silindiği zaman resmi silmeyi de eklemeliyim....
+        if (!isAllowedDeleteModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
+
         $images = $this->portfolio_image_model->get_all(
             array(
                 "portfolio_id"  => $id

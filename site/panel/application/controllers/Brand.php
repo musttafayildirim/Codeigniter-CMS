@@ -269,8 +269,11 @@ class Brand extends MY_Controller
         }
     }
 
-    public function delete($id){
 
+    public function delete($id){
+        if (!isAllowedDeleteModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $brand = $this->brand_model->get(
             array(
                 "id" => $id
@@ -330,6 +333,7 @@ class Brand extends MY_Controller
         $this->session->set_flashdata("alert", $alert);
         redirect(base_url("brand"));
     }
+
 
     public function isActiveSetter($id){
 

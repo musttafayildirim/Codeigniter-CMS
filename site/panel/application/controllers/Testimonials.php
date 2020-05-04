@@ -265,6 +265,9 @@ class Testimonials extends MY_Controller
     }
 
     public function delete($id){
+        if (!isAllowedDeleteModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         $select_img = $this->testimonial_model->get(
             array(

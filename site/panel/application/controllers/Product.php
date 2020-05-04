@@ -198,6 +198,9 @@ class Product extends MY_Controller
     }
 
     public function delete($id){
+        if (!isAllowedDeleteModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $product_images = $this->product_image_model->get_all(
           array(
               "product_id" => $id

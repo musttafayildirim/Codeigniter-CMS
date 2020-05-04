@@ -184,6 +184,9 @@ class Portfolio_categories extends MY_Controller
     }
 
     public function delete($id){
+        if (!isAllowedDeleteModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         $delete = $this->portfolio_category_model->delete(
           array(

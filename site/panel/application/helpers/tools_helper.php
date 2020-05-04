@@ -29,7 +29,7 @@ function getControllerList(){
     $files = get_dir_file_info(APPPATH. "controllers", FALSE);
 
     foreach (array_keys($files) as $file){
-        if($file !== "index.html"){
+        if($file !== "index.html" and $file !== "Dashboard.php" and $file !== "My404.php"){
             $controllers[] = strtolower(str_replace(".php", '', $file));
         }
     }
