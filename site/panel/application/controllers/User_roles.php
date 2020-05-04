@@ -38,6 +38,9 @@ class User_roles extends MY_Controller
     //yeni ürün sayfasına gitmek
     public function new_user_role()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
@@ -48,6 +51,9 @@ class User_roles extends MY_Controller
     
     //yeni referans eklenmesi
     public function save(){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
       $this->load->library("form_validation");
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -90,6 +96,9 @@ class User_roles extends MY_Controller
 
     //düzenlenecek sayfaya gitmek
     public function update_user_role($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->user_role_model->get(
@@ -107,6 +116,9 @@ class User_roles extends MY_Controller
 
     public function update($id)
     {
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -206,6 +218,9 @@ class User_roles extends MY_Controller
     }
 
     public function isActiveSetter($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         if($id){
 
@@ -224,6 +239,9 @@ class User_roles extends MY_Controller
     }
 
     public function user_permissions_form($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->user_role_model->get(
@@ -240,6 +258,9 @@ class User_roles extends MY_Controller
     }
 
     public function update_permissions($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         $permissions = json_encode($this->input->post("permissions"));
 

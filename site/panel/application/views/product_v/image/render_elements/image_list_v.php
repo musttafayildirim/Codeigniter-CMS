@@ -42,10 +42,14 @@
                         <?php echo ($image->isCover) ? "checked" : ""; ?>
                 </td>
                 <td class="w100 text-center">
-                    <button
-                        data-url="<?php echo base_url("product/imageDelete/$image->id/$image->product_id"); ?>"
-                        class="btn btn-danger mw-xs remove-btn btn-block">
-                        <i class="fa fa-trash-o"></i></button> </td>
+                    <?php if (isAllowedDeleteModule($this->router->fetch_class())):?>
+                        <button
+                            data-url="<?php echo base_url("product/imageDelete/$image->id/$image->product_id"); ?>"
+                            class="btn btn-danger mw-xs remove-btn btn-block">
+                            <i class="fa fa-trash-o"></i>
+                        </button>
+                    <?php endif;?>
+                </td>
             </tr>
         <?php } ?>
 

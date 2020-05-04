@@ -33,6 +33,9 @@ class Settings extends MY_Controller
     }
     public function new_setting()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
@@ -41,6 +44,9 @@ class Settings extends MY_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
     public function save(){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         if($_FILES["logo"]["name"] == ""){
@@ -150,6 +156,9 @@ class Settings extends MY_Controller
         }
     }
     public function update_setting($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->setting_model->get(
@@ -166,6 +175,9 @@ class Settings extends MY_Controller
     }
     public function update($id)
     {
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("company_name", "Şirket İsmi", "required|trim");

@@ -36,6 +36,9 @@ class News extends MY_Controller
     //yeni ürün sayfasına gitmek
     public function new_news()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
@@ -46,6 +49,9 @@ class News extends MY_Controller
     
     //yeni ürünün eklenmesi
     public function save(){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
       $this->load->library("form_validation");
 
       $news_type = $this->input->post("news_type");
@@ -169,6 +175,9 @@ class News extends MY_Controller
 
     //düzenlenecek sayfaya gitmek
     public function update_news($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->news_model->get(
@@ -185,6 +194,9 @@ class News extends MY_Controller
     }
 
     public function update($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $news_type = $this->input->post("news_type");
@@ -427,7 +439,9 @@ class News extends MY_Controller
     }
 
     public function isActiveSetter($id){
-
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         if($id){
 
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
@@ -445,6 +459,9 @@ class News extends MY_Controller
     }
 
     public function rankSetter(){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $data = $this->input->post("data");
 
         parse_str($data, $order);

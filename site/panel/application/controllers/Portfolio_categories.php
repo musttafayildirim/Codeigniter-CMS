@@ -36,6 +36,9 @@ class Portfolio_categories extends MY_Controller
     //yeni ürün sayfasına gitmek
     public function new_portfolio_category()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
@@ -46,6 +49,9 @@ class Portfolio_categories extends MY_Controller
     
     //yeni referans eklenmesi
     public function save(){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
       $this->load->library("form_validation");
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -106,6 +112,9 @@ class Portfolio_categories extends MY_Controller
 
     //düzenlenecek sayfaya gitmek
     public function update_portfolio_category($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->portfolio_category_model->get(
@@ -123,6 +132,9 @@ class Portfolio_categories extends MY_Controller
 
     public function update($id)
     {
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -216,7 +228,9 @@ class Portfolio_categories extends MY_Controller
     }
 
     public function isActiveSetter($id){
-
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         if($id){
 
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;

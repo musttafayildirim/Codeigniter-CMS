@@ -38,6 +38,9 @@ class Portfolio extends MY_Controller
     //yeni ürün sayfasına gitmek
     public function new_portfolio()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData->categories = $this->portfolio_category_model->get_all(
@@ -54,6 +57,9 @@ class Portfolio extends MY_Controller
     
     //yeni ürünün eklenmesi
     public function save(){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
       $this->load->library("form_validation");
 
       $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -130,6 +136,9 @@ class Portfolio extends MY_Controller
 
     //düzenlenecek sayfaya gitmek
     public function update_portfolio($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->portfolio_model->get(
@@ -153,6 +162,9 @@ class Portfolio extends MY_Controller
 
     //düzenlenen veriyi veri tabanına kaydetmek
     public function update($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -326,6 +338,9 @@ class Portfolio extends MY_Controller
     }
 
     public function imageDelete($id, $parent_id){
+        if (!isAllowedDeleteModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         $fileName = $this->portfolio_image_model->get(
             array(
@@ -392,6 +407,9 @@ class Portfolio extends MY_Controller
     }
 
     public function isActiveSetter($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         if($id){
 
@@ -410,6 +428,9 @@ class Portfolio extends MY_Controller
     }
 
     public function imageIsActiveSetter($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         if($id){
 
@@ -428,6 +449,9 @@ class Portfolio extends MY_Controller
     }
 
     public function rankSetter(){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $data = $this->input->post("data");
 
         parse_str($data, $order);
@@ -447,6 +471,9 @@ class Portfolio extends MY_Controller
     }
 
     public function imageRankSetter(){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $data = $this->input->post("data");
 
         parse_str($data, $order);
@@ -466,6 +493,9 @@ class Portfolio extends MY_Controller
     }
 
     public function image_form($id){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->portfolio_model->get(
@@ -491,6 +521,9 @@ class Portfolio extends MY_Controller
     }
 
     public function image_upload($id){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         $file_name = rand().rand().converToSEO(pathinfo($_FILES["file"]["name"], PATHINFO_FILENAME)). "." . pathinfo($_FILES["file"]["name"], PATHINFO_EXTENSION);
 
@@ -519,6 +552,9 @@ class Portfolio extends MY_Controller
     }
 
     public function refresh_image_list($id){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
@@ -538,6 +574,9 @@ class Portfolio extends MY_Controller
     }
 
     public function isCoverSetter($id, $parent_id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         if($id && $parent_id){
             $isCover = ($this->input->post("data") == "true") ? 1 : 0;
 

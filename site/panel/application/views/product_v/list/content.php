@@ -68,6 +68,8 @@
                                         <?php endif;?>
                                         <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
                                             <a href="<?php echo base_url("product/update_product/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                        <?php endif;?>
+                                        <?php if(isAllowedAddModule($this->router->fetch_class())): ?>
                                             <a href="<?php echo base_url("product/image_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa fa-image"></i></a>
                                         <?php endif;?>
                                     </td>

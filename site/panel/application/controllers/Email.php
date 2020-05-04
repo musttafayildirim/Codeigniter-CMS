@@ -27,6 +27,9 @@ class Email extends MY_Controller
     }
     public function new_email()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
         $viewData-> viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "add";
@@ -34,6 +37,9 @@ class Email extends MY_Controller
     }
     //yeni ürünün eklenmesi
     public function save(){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
       $this->load->library("form_validation");
       $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim");
       $this->form_validation->set_rules("protocol", "Protokol", "required|trim");
@@ -96,8 +102,10 @@ class Email extends MY_Controller
           unset($_SESSION['alert']);
       }
     }
-    //düzenlenecek sayfaya gitmek
     public function update_email($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
         $item = $this->email_model->get(
             array(
@@ -110,6 +118,9 @@ class Email extends MY_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
     public function update($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
         $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim");
         $this->form_validation->set_rules("protocol", "Protokol", "required|trim");
@@ -208,6 +219,9 @@ class Email extends MY_Controller
     }
     public function isActiveSetter($id)
     {
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         if ($id) {
 
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;

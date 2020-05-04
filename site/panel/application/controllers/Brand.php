@@ -15,7 +15,6 @@ class Brand extends MY_Controller
         if(!get_active_user())
             redirect(base_url("login"));
 
-
     }
 
     public function index()
@@ -38,6 +37,9 @@ class Brand extends MY_Controller
     //yeni ürün sayfasına gitmek
     public function new_brand()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
@@ -48,6 +50,9 @@ class Brand extends MY_Controller
     
     //yeni referans eklenmesi
     public function save(){
+      if (!isAllowedAddModule($this->router->fetch_class())):
+        redirect(base_url($this->router->fetch_class()));
+      endif;
       $this->load->library("form_validation");
 
       if($_FILES["img_url"]["name"] == ""){
@@ -136,8 +141,11 @@ class Brand extends MY_Controller
       }
     }
 
-    //düzenlenecek sayfaya gitmek
     public function update_brand($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
+
         $viewData = new stdClass();
 
         $item = $this->brand_model->get(
@@ -155,6 +163,9 @@ class Brand extends MY_Controller
 
     public function update($id)
     {
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -269,7 +280,6 @@ class Brand extends MY_Controller
         }
     }
 
-
     public function delete($id){
         if (!isAllowedDeleteModule($this->router->fetch_class())):
             redirect(base_url($this->router->fetch_class()));
@@ -334,9 +344,10 @@ class Brand extends MY_Controller
         redirect(base_url("brand"));
     }
 
-
     public function isActiveSetter($id){
-
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         if($id){
 
             $isActive = ($this->input->post("data") === "true") ? 1 : 0;
@@ -354,6 +365,9 @@ class Brand extends MY_Controller
     }
 
     public function rankSetter(){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $data = $this->input->post("data");
 
         parse_str($data, $order);

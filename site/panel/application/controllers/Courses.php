@@ -34,6 +34,9 @@ class courses extends MY_Controller
     //yeni ürün sayfasına gitmek
     public function new_course()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
@@ -44,6 +47,9 @@ class courses extends MY_Controller
     
     //yeni referans eklenmesi
     public function save(){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
       $this->load->library("form_validation");
 
       if($_FILES["img_url"]["name"] == ""){
@@ -139,8 +145,10 @@ class courses extends MY_Controller
       }
     }
 
-    //düzenlenecek sayfaya gitmek
     public function update_courses($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->course_model->get(
@@ -158,6 +166,9 @@ class courses extends MY_Controller
 
     public function update($id)
     {
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("title", "Başlık", "required|trim");
@@ -341,6 +352,9 @@ class courses extends MY_Controller
     }
 
     public function isActiveSetter($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         if($id){
 
@@ -359,6 +373,9 @@ class courses extends MY_Controller
     }
 
     public function rankSetter(){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $data = $this->input->post("data");
 
         parse_str($data, $order);

@@ -74,6 +74,8 @@
                                         <?php endif;?>
                                         <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
                                             <a href="<?php echo base_url("portfolio/update_portfolio/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"></i></a>
+                                        <?php endif;?>
+                                        <?php if(isAllowedAddModule($this->router->fetch_class())): ?>
                                             <a href="<?php echo base_url("portfolio/image_form/$item->id"); ?>" class="btn btn-success mw-xs"><i class="fa fa-image"></i></a>
                                         <?php endif;?>
                                     </td>

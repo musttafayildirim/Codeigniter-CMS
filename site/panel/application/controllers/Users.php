@@ -45,6 +45,9 @@ class Users extends MY_Controller
 
     public function new_user()
     {
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $viewData-> viewFolder = $this->viewFolder;
@@ -61,6 +64,9 @@ class Users extends MY_Controller
     
     //yeni ürünün eklenmesi
     public function save(){
+        if (!isAllowedAddModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
       $this->load->library("form_validation");
 
       $this->form_validation->set_rules("user_name", "Kullanıcı Adı", "required|trim|is_unique[users.user_name]");
@@ -138,6 +144,10 @@ class Users extends MY_Controller
 
     //düzenlenecek sayfaya gitmek
     public function update_user($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
+
         $viewData = new stdClass();
 
         $item = $this->user_model->get(
@@ -159,6 +169,9 @@ class Users extends MY_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
     public function update($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $oldUser = $this->user_model->get(
@@ -249,6 +262,9 @@ class Users extends MY_Controller
     }
 
     public function update_password_form($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $viewData = new stdClass();
 
         $item = $this->user_model->get(
@@ -264,6 +280,9 @@ class Users extends MY_Controller
         $this->load->view("{$viewData->viewFolder}/{$viewData->subViewFolder}/index", $viewData);
     }
     public function update_password($id){
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
         $this->load->library("form_validation");
 
         $this->form_validation->set_rules("password", "Şifre", "required|trim|min_length[6]|max_length[12]");
@@ -364,6 +383,9 @@ class Users extends MY_Controller
 
     public function isActiveSetter($id)
     {
+        if (!isAllowedUpdateModule($this->router->fetch_class())):
+            redirect(base_url($this->router->fetch_class()));
+        endif;
 
         if ($id) {
 
