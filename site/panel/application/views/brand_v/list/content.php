@@ -39,7 +39,7 @@
                                 <?php }?>
                             </tr>
                             </thead>
-                            <tbody class="sortable text-center" data-url="<?php echo base_url("brand/rankSetter");?>">
+                            <tbody class="<?php echo (isAllowedUpdateModule($this->router->fetch_class())) ? "sortable" : ""?> text-center" data-url="<?php echo base_url("brand/rankSetter");?>">
 
                             <?php foreach ($items as $item){ ?>
                             <tr id="ord-<?php echo $item->id; ?>">

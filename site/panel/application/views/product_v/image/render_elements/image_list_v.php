@@ -14,7 +14,7 @@
         <th>İşlem</th>
         </thead>
 
-        <tbody class="sortable" data-url="<?php echo base_url("product/imageRankSetter");?>">
+        <tbody class="<?php echo (isAllowedUpdateModule($this->router->fetch_class())) ? "sortable" : ""?>" data-url="<?php echo base_url("product/imageRankSetter");?>">
         <?php foreach ($item_images as $image) { ?>
             <tr id="ord-<?php echo $image->id;?>">
                 <td class="order"  ><i class="fa fa-reorder"></i></td>

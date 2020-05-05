@@ -42,7 +42,7 @@
                                 <?php endif;?>
                             </tr>
                             </thead>
-                            <tbody class="sortable" data-url="<?php echo base_url("portfolio/rankSetter");?>">
+                            <tbody class="<?php echo (isAllowedUpdateModule($this->router->fetch_class())) ? "sortable" : ""?>" data-url="<?php echo base_url("portfolio/rankSetter");?>">
 
                             <?php foreach ($items as $item){ ?>
                             <tr id="ord-<?php echo $item->id; ?>">

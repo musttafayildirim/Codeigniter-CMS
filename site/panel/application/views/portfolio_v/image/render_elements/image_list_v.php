@@ -14,7 +14,7 @@
         <th>İşlem</th>
         </thead>
 
-        <tbody class="sortable" data-url="<?php echo base_url("portfolio/imageRankSetter");?>">
+        <tbody class="<?php echo (isAllowedUpdateModule($this->router->fetch_class())) ? "sortable" : ""?>" data-url="<?php echo base_url("portfolio/imageRankSetter");?>">
         <?php foreach ($item_images as $image) { ?>
             <tr id="ord-<?php echo $image->id;?>">
                 <td class="order"  ><i class="fa fa-reorder"></i></td>
@@ -27,6 +27,9 @@
                 <td><?php echo $image->img_url;?></td>
                 <td  class="w100 text-center">
                     <input
+                        <?php if (!isAllowedUpdateModule($this->router->fetch_class())): ?>
+                            disabled
+                        <?php endif;?>
                         data-url = "<?php echo base_url("portfolio/imageIsActiveSetter/$image->id"); ?>";
                         type="checkbox"
                         class="isActive"
@@ -39,6 +42,9 @@
 
                 <td class="w100 text-center">
                     <input
+                        <?php if (!isAllowedUpdateModule($this->router->fetch_class())): ?>
+                            disabled
+                        <?php endif;?>
                         data-url = "<?php echo base_url("portfolio/isCoverSetter/$image->id/$image->portfolio_id"); ?>";
                         type="checkbox"
                         class="isCover"
