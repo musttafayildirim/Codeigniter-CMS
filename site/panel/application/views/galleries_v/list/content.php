@@ -34,7 +34,7 @@
                                 <th>Galeri Tipi</th>
                                 <th>Klasör Adı</th>
                                 <th>Durum</th>
-                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class()) || isAllowedAddModule($this->router->fetch_class())): ?>
                                     <th>İşlem</th>
                                 <?php endif;?>
                             </tr>

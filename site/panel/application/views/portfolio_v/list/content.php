@@ -37,7 +37,7 @@
                                 <th>Kategori</th>
                                 <th>Bitiş Tarihi</th>
                                 <th>Durum</th>
-                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class()) || isAllowedAddModule($this->router->fetch_class())): ?>
                                     <th>İşlem</th>
                                 <?php endif;?>
                             </tr>
@@ -66,7 +66,7 @@
                                             <?php echo ($item->isActive) ? "checked": ""  ?>
                                     >
                                 </td>
-                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class()) || isAllowedAddModule($this->router->fetch_class())): ?>
                                     <td class="w175 text-center">
                                         <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
                                             <button
