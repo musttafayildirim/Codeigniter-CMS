@@ -31,8 +31,10 @@
                             </div><!-- .widget -->
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Kaydet</button>
-                    <a href="<?php echo base_url("settings"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
+                    <?php if(isAllowedAddModule($this->router->fetch_class())): ?>
+                        <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Kaydet</button>
+                        <a href="<?php echo base_url("settings"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
+                    <?php endif;?>
                 </form>
             </div><!-- .widget-body -->
         </div><!-- .widget -->

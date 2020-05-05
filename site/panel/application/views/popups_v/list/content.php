@@ -47,6 +47,9 @@
                                 <td><?php echo get_page_list($item->page); ?></td>
                                 <td class="w100">
                                     <input
+                                            <?php if (!isAllowedUpdateModule($this->router->fetch_class())):?>
+                                                disabled
+                                            <?php endif;?>
                                             data-url = "<?php echo base_url("popup/isActiveSetter/$item->id"); ?>";
                                             type="checkbox"
                                             class="isActive"

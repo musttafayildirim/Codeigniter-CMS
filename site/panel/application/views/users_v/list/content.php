@@ -49,6 +49,9 @@
                             <td class="text-center"><?php echo $item->email; ?></td>
                             <td class="w50">
                                 <input
+                                        <?php if (!isAllowedUpdateModule($this->router->fetch_class())):?>
+                                            disabled
+                                        <?php endif;?>
                                         data-url = "<?php echo base_url("users/isActiveSetter/$item->id"); ?>";
                                         type="checkbox"
                                         class="isActive"

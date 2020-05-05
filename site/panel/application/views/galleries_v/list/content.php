@@ -49,6 +49,9 @@
                                 <td class="text-center"><?php echo $item->folder_name; ?></td>
                                 <td class="w50">
                                     <input
+                                            <?php if (!isAllowedUpdateModule($this->router->fetch_class())):?>
+                                                disabled
+                                            <?php endif;?>
                                             data-url = "<?php echo base_url("galleries/isActiveSetter/$item->id"); ?>";
                                             type="checkbox"
                                             class="isActive"
@@ -57,7 +60,7 @@
                                             <?php echo ($item->isActive) ? "checked": ""  ?>
                                     >
                                 </td>
-                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class())): ?>
+                                <?php if(isAllowedDeleteModule($this->router->fetch_class()) || isAllowedUpdateModule($this->router->fetch_class()) || isAllowedAddModule($this->router->fetch_class())): ?>
                                     <td style="width: 300px;" class="text-center">
                                         <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
                                             <button
@@ -86,6 +89,8 @@
                                         ?>
                                         <?php if(isAllowedUpdateModule($this->router->fetch_class())): ?>
                                             <a href="<?php echo base_url("galleries/update_galleries/$item->id"); ?>" class="btn btn-info mw-xs"><i class="fa fa-pencil-square-o"> Düzenle </i></a>
+                                        <?php endif;?>
+                                        <?php if(isAllowedAddModule($this->router->fetch_class())): ?>
                                             <a href="<?php echo base_url($type_url); ?>" class="btn btn-success mw-xs"><i class="fa <?php echo $btn_icon; ?>"> <?php echo $type_text;?> </i></a>
                                         <?php endif;?>
                                     </td>

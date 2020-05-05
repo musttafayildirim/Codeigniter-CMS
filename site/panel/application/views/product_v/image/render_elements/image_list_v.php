@@ -23,6 +23,9 @@
                 <td><?php echo $image->img_url;?></td>
                 <td  class="w100 text-center">
                     <input
+                        <?php if (!isAllowedUpdateModule($this->router->fetch_class())):?>
+                            disabled
+                        <?php endif;?>
                         data-url = "<?php echo base_url("product/imageIsActiveSetter/$image->id"); ?>";
                         type="checkbox"
                         class="isActive"
@@ -34,6 +37,9 @@
 
                 <td class="w100 text-center">
                     <input
+                        <?php if (!isAllowedUpdateModule($this->router->fetch_class())):?>
+                            disabled
+                        <?php endif;?>
                         data-url = "<?php echo base_url("product/isCoverSetter/$image->id/$image->product_id"); ?>";
                         type="checkbox"
                         class="isCover"

@@ -55,6 +55,9 @@
                                 <td class="text-center w175"><?php echo get_readable_date($item->finishedAt); ?></td>
                                 <td class="text-center">
                                     <input
+                                            <?php if (!isAllowedUpdateModule($this->router->fetch_class())):?>
+                                                disabled
+                                            <?php endif;?>
                                             data-url = "<?php echo base_url("portfolio/isActiveSetter/$item->id"); ?>";
                                             type="checkbox"
                                             class="isActive"

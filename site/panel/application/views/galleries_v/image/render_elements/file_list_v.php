@@ -22,7 +22,7 @@ else if($type == "file")
         <th>İşlem</th>
         </thead>
 
-        <tbody class="sortable" data-url="<?php echo base_url("galleries/file_rankSetter/$gallery_type");?>">
+        <tbody class="<?php echo (isAllowedUpdateModule($this->router->fetch_class())) ? "sortable" : ""?>" data-url="<?php echo base_url("galleries/file_rankSetter/$gallery_type");?>">
         <?php foreach ($item_images as $image) { ?>
             <tr id="ord-<?php echo $image->id;?>">
                 <td class="order"  ><i class="fa fa-reorder"></i></td>
@@ -37,6 +37,9 @@ else if($type == "file")
                 <td><?php echo $image->url;?></td>
                 <td  class="w100 text-center">
                     <input
+                        <?php if (!isAllowedUpdateModule($this->router->fetch_class())):?>
+                            disabled
+                        <?php endif;?>
                         data-url = "<?php echo base_url("galleries/fileIsActiveSetter/$image->id/$gallery_type"); ?>";
                         type="checkbox"
                         class="isActive"
@@ -47,10 +50,14 @@ else if($type == "file")
                 </td>
 
                 <td class="w100 text-center">
+                <?php if(isAllowedDeleteModule($this->router->fetch_class())): ?>
                     <button
-                        data-url="<?php echo base_url("galleries/fileDelete/$image->id/$image->gallery_id/$gallery_type"); ?>"
-                        class="btn btn-danger mw-xs remove-btn btn-block">
-                        <i class="fa fa-trash-o"></i></button> </td>
+                            data-url="<?php echo base_url("galleries/fileDelete/$image->id/$image->gallery_id/$gallery_type"); ?>"
+                            class="btn btn-danger mw-xs remove-btn btn-block">
+                            <i class="fa fa-trash-o"></i>
+                    </button>
+                <?php endif;?>
+                </td>
             </tr>
         <?php } ?>
 
