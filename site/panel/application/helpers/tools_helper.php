@@ -69,7 +69,6 @@ function setUserRoles(){
 
 function get_user_roles(){
     $t = &get_instance();
-    setUserRoles();
     return $t->session->userdata("user_roles");
 }
 
@@ -202,5 +201,52 @@ function get_page_list($page = ""){
 
     return (empty($page)) ? $page_list : $page_list[$page];
 
+}
+
+function controllerName($moduleName = ""){
+    $t = &get_instance();
+    $moduleName = ($moduleName == "") ? $t->router->fetch_class() : $moduleName;
+
+    if($moduleName == "dashboard") {
+        return "Kontrol Paneli";
+    }elseif ($moduleName == "settings"){
+        return "Site Ayarları";
+    }elseif ($moduleName == "email"){
+        return "Mail Ayarları";
+    }elseif ($moduleName == "galleries"){
+        return "Galeriler Sayfası";
+    }elseif ($moduleName == "slides"){
+        return "Mükemmel Slaytlar";
+    }elseif ($moduleName == "users"){
+        return "Kullanıcılar";
+    }elseif ($moduleName == "user_roles"){
+        return "Kullanıcı Yetkileri";
+    }elseif ($moduleName == "members"){
+        return "Aboneler";
+    }elseif ($moduleName == "testimonials"){
+        return "Ziyaretçi Notları";
+    }elseif ($moduleName == "product"){
+        return "Ürünler";
+    }elseif ($moduleName == "services"){
+        return "Hizmetler";
+    }elseif ($moduleName == "portfolio_categories"){
+        return "Portfolyo Kategorileri";
+    }elseif ($moduleName == "portfolio"){
+        return "Portfolyolar";
+    }elseif ($moduleName == "news"){
+        return "Haberler";
+    }elseif ($moduleName == "courses"){
+        return "Eğitimler";
+    }elseif ($moduleName == "brand"){
+        return "Markalar";
+    }elseif ($moduleName == "reference"){
+        return "Referanslar";
+    }elseif ($moduleName == "popup"){
+        return "Popup Eklentisi";
+    }elseif ($moduleName == "userdes"){
+        return "Bilgilerimi Güncelle";
+    }elseif ($moduleName == "userpass"){
+        return "Şifremi Değiştir";
+    }
 }
 

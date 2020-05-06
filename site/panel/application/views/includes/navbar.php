@@ -37,18 +37,10 @@
                     </a>
                 </li>
                 <li>
-                    <h5 class="page-title hidden-menubar-top hidden-float">Dashboard</h5>
+                    <h5 class="page-title hidden-menubar-top hidden-float"><?php echo controllerName();?></h5>
                 </li>
             </ul>
 
-            <ul class="nav navbar-toolbar navbar-toolbar-right navbar-right">
-                <li class="nav-item dropdown hidden-float">
-                    <a href="javascript:void(0)" data-toggle="collapse" data-target="#navbar-search" aria-expanded="false">
-                        <i class="zmdi zmdi-hc-lg zmdi-search"></i>
-                    </a>
-                </li>
-
-            </ul>
         </div>
     </div><!-- navbar-container -->
 </nav>
