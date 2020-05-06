@@ -55,3 +55,9 @@ $route['translate_uri_dashes'] = FALSE;
 $route['login'] = 'useroperation/login';
 $route['logout'] = 'useroperation/logout';
 $route['reset-password'] = 'useroperation/reset_password';
+
+$route['kullanici-guncelleme'] = 'userdes';
+$route['kullanici-guncellemes'] = 'userdes/update';
+
+$route['kullanici-sifre'] = 'userpass';
+$route['kullanici-sifres'] = 'userpass/update';

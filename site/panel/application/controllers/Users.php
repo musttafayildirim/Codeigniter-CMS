@@ -21,17 +21,10 @@ class Users extends MY_Controller
         $viewData = new stdClass();
 
         $user = get_active_user();
-        if (isAdmin()){
-            $where = array();
-        }else{
-            $where = array(
-                "id" => $user->id
-            );
-        }
 
         //Tablodan verilerin getirilmesi...
         $items = $this->user_model->get_all(
-            $where
+            array()
         );
 
 

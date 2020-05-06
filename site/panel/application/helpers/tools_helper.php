@@ -14,7 +14,19 @@ function get_readable_date($time){
 
 function get_active_user(){
     $t = &get_instance();
-    $user = $t->session->userdata("user");
+    $t->load->model("user_model");
+    if($t->session->userdata("user")){
+        $usersession = $t->session->userdata("user");
+
+        $user = $t->user_model->get(
+            array(
+                "id" => $usersession->id,
+            )
+        );
+    }
+    else{
+        $user = $t->session->userdata("user");
+    }
     if($user)
         return $user;
     else
@@ -35,13 +47,6 @@ function getControllerList(){
     }
 
     return $controllers;
-}
-
-function isAdmin(){
-    $t = &get_instance();
-    $user = $t->session->userdata("user");
-
-    return true;
 }
 
 function setUserRoles(){

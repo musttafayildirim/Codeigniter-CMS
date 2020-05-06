@@ -1,18 +1,24 @@
-<?php $user= get_active_user(); ?>
+<?php $user = get_active_user(); ?>
 <aside id="menubar" class="menubar light">
     <div class="app-user">
         <div class="media">
             <div class="media-left">
                 <div class="avatar avatar-md avatar-circle">
-                    <a href="javascript:void(0)"><img class="img-responsive" src="<?php echo base_url("assets"); ?>/assets/images/221.jpg" alt="avatar"/></a>
+                    <a href="javascript:void(0)">
+                        <img
+                            class="img-responsive"
+                            src="<?php echo get_image("userdes_v", $user->img_url, "70x70");?>"
+                            alt="<?php echo $user->user_name?>"
+                        />
+                    </a>
                 </div><!-- .avatar -->
             </div>
             <div class="media-body">
                 <div class="foldable">
-                    <h5><a href="javascript:void(0)" class="username"><?php echo $user->full_name; ?></a></h5>
+                    <h5><a href="<?php echo base_url("kullanici-guncelleme"); ?>" class="username"><?php echo $user->full_name; ?></a></h5>
                     <ul>
                         <li class="dropdown">
-                            <a href="javascript:void(0)" class="dropdown-toggle usertitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a href="<?php echo base_url("kullanici-guncelleme"); ?>" class="dropdown-toggle usertitle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <small>İşlemler</small>
                                 <span class="caret"></span>
                             </a>
@@ -24,9 +30,15 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="text-color" href="<?php echo base_url("users/update_user/$user->id"); ?>">
+                                    <a class="text-color" href="<?php echo base_url("kullanici-guncelleme"); ?>">
                                         <span class="m-r-xs"><i class="fa fa-user"></i></span>
                                         <span>Profil</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="text-color" href="<?php echo base_url("kullanici-sifre"); ?>">
+                                        <span class="m-r-xs"><i class="fa fa-key"></i></span>
+                                        <span>Şifre</span>
                                     </a>
                                 </li>
                                 <li role="separator" class="divider"></li>

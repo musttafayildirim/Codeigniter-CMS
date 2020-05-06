@@ -26,7 +26,7 @@
                 </div>
 
                     <div class="row image_upload_container">
-                        <div class="form-group col-md-11 image_upload_container"
+                        <div class="form-group col-md-11 image_upload_container">
                             <label>File input</label>
                             <input
                                     type="file"
