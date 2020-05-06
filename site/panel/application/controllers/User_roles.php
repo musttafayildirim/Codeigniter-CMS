@@ -121,7 +121,7 @@ class User_roles extends MY_Controller
         endif;
         $this->load->library("form_validation");
 
-        $this->form_validation->set_rules("title", "Başlık", "required|trim");
+        $this->form_validation->set_rules("title", "Kullanıcı Rolü", "required|trim");
 
         $this->form_validation->set_message(
             array(

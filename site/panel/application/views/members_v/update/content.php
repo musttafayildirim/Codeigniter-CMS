@@ -4,23 +4,23 @@
     <div class="widget">
         <header class="widget-header">
             <h4 class="widget-title">
-                <?php echo $item->title;?> kayıtlı markayı güncelliyorsunuz....
+                <?php echo $item->email;?> Kayıtlı Abone Güncelliyor
             </h4>
         </header><!-- .widget-header -->
         <hr class="widget-separator">
 
         <div class="widget-body">
-            <form action="<?php echo base_url("user_roles/update/$item->id"); ?>" method="post">
+            <form action="<?php echo base_url("members/update/$item->id"); ?>" method="post">
                 <div class="form-group">
-                    <label >Kullanıcı Rolü</label>
-                    <input type="text"
+                    <label >Email Adresi</label>
+                    <input type="email"
                            class="form-control"
-                           placeholder="Kullanıcı Rolünü Yazınız"
-                           name="title"
-                           value="<?php echo isset($form_error) ? set_value("title") : $item->title;?>">
+                           placeholder="Email Adresini Giriniz"
+                           name="email"
+                           value="<?php echo isset($form_error) ? set_value("email") : $item->email;?>">
 
                     <?php if(isset($form_error)){ ?>
-                        <small class="pull-right input-form-error"><?php echo form_error( "title");?></small>
+                        <small class="pull-right input-form-error"><?php echo form_error( "email");?></small>
                     <?php } ?>
                 </div>
 
@@ -29,7 +29,7 @@
                 <br>
                 <div class="row container-fluid">
                     <button type="submit" class="btn btn-primary btn-md btn-outline"><i class="fa fa-save"></i> Güncelle</button>
-                    <a href="<?php echo base_url("user_roles"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
+                    <a href="<?php echo base_url("members"); ?>" class="btn btn-danger btn-md"><i class="fa fa-close"></i> İptal</a>
                 </div>
 
 
