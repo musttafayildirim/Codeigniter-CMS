@@ -34,7 +34,7 @@
                     <?php }else{ ?>
                     <div class="col-md-12 alert  alert-icon alert-info" role="alert">
                         <i class="fa fa-info-circle"></i>
-                        Burada hiçbir video galerisi bulunmamaktadır.
+                        Burada hiçbir resim galerisi bulunmamaktadır.
                     </div>
                     <?php } ?>
 

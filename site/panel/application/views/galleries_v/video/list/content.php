@@ -39,7 +39,7 @@
                             <td class="text-center"><?php echo $item->url; ?></td>
                             <td class="text-center w100">
                                 <iframe
-                                        src="<?php echo $item->url; ?>"
+                                        src="https://www.youtube.com/embed/<?php echo $item->url; ?>"
                                         frameborder="0"
                                         allow="accelerometer;
                                         autoplay;

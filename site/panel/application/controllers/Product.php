@@ -227,11 +227,13 @@ class Product extends MY_Controller
 
         if ($delete_image){
             foreach ($product_images as $product_image){
+
                 $paths = array(
-                    $path1 = "uploads/$this->viewFolder/348x215/$product_image->img_url",
                     $path2 = "uploads/$this->viewFolder/70x70/$product_image->img_url",
+                    $path1 = "uploads/$this->viewFolder/348x215/$product_image->img_url",
                     $path3 = "uploads/$this->viewFolder/372x224/$product_image->img_url",
-                    $path4 = "uploads/$this->viewFolder/1140x450/$product_image->img_url"
+                    $path5 = "uploads/$this->viewFolder/540x325/$product_image->img_url",
+                    $path4 = "uploads/$this->viewFolder/1140x450/$product_image->img_url",
                 );
 
                 foreach ($paths as $path)
@@ -281,7 +283,9 @@ class Product extends MY_Controller
                 $path1 = "uploads/$this->viewFolder/348x215/$fileName->img_url",
                 $path2 = "uploads/$this->viewFolder/70x70/$fileName->img_url",
                 $path3 = "uploads/$this->viewFolder/372x224/$fileName->img_url",
-                $path4 = "uploads/$this->viewFolder/1140x450/$fileName->img_url"
+                $path4 = "uploads/$this->viewFolder/1140x450/$fileName->img_url",
+                $path5 = "uploads/$this->viewFolder/540x325/$fileName->img_url",
+
             );
 
             foreach ($paths as $path)
@@ -462,9 +466,10 @@ class Product extends MY_Controller
         $image372x224 = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 372,224, $file_name);
         $image348x215 = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 348,215, $file_name);
         $image70x70 = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
+        $image540x325 = upload_image($_FILES["file"]["tmp_name"], "uploads/$this->viewFolder/", 540,325, $file_name);
 
 
-        if ($image1140x450 && $image348x215 && $image70x70 && $image372x224) {
+        if ($image1140x450 && $image348x215 && $image70x70 && $image372x224 && $image540x325) {
 
 
             $this->product_image_model->add(

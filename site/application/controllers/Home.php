@@ -19,6 +19,7 @@ class Home extends CI_Controller
         $this->load->model("reference_model");
         $this->load->model("service_model");
         $this->load->model("portfolio_model");
+        $this->load->model("product_model");
         $this->load->model("testimonial_model");
 
         $slides = $this->slide_model->get_all(
@@ -51,15 +52,22 @@ class Home extends CI_Controller
             ), "rank DESC"
         );
 
+        $products = $this->product_model->get_all(
+            array(
+                'isActive' => 1
+            ), "rand()", array("start" => 0, "count" => 5)
+        );
+
 
 
         $viewData->slides = $slides;
-        $viewData->references = $references;
         $viewData->services = $services;
+        $viewData->products = $products;
         $viewData->portfolios = $portfolios;
+        $viewData->references = $references;
         $viewData->testimonials = $testimonials;
-        $viewData->viewFolder = "home_v";
 
+        $viewData->viewFolder = "home_v";
         $this->load->view($viewData->viewFolder, $viewData);
 
     }

@@ -270,51 +270,44 @@ class Galleries extends MY_Controller
             if($gallery_type != "video"){
                 if($gallery_type == "image"){
                     $model = "image_model";
+                    $path1 = "uploads/$this->viewFolder/images/$gallery->folder_name/70x70/";
+                    $path2 = "uploads/$this->viewFolder/images/$gallery->folder_name/253x156/";
+                    $path3 = "uploads/$this->viewFolder/images/$gallery->folder_name/370x216/";
+                    $path4 = "uploads/$this->viewFolder/images/$gallery->folder_name/897x635/";
+                    rmdir($path1);rmdir($path2);rmdir($path3);rmdir($path4);
                     $path = "uploads/$this->viewFolder/images/$gallery->folder_name";
-                    $delete_other = $this->image_model->get_all(
-                        array(
-                            "gallery_id" => $id
-                        )
-                    );
+
+
                 }
                 else if($gallery_type == "file"){
                     $model = "file_model";
                     $path = "uploads/$this->viewFolder/files/$gallery->folder_name";
-                    $delete_other = $this->file_model->get_all(
-                        array(
-                            "gallery_id" => $id
-                        )
-                    );
-                }
-                if ($delete_other){
-                   foreach ($delete_other as $delete_item){
-                       unlink($delete_item->url);
-                   }
-                    $this->$model->delete(
-                        array(
-                            "gallery_id" => $id
-                        )
-                    );
                 }
 
-                $delete_folder = rmdir($path);
-                if(!$delete_folder){
+                $path = rmdir($path);
+                if(!$path){
                     $alert = array(
                         "title"   => "İşlem başarısız",
-                        "text"    => "Klasör silme sırasında bir problem oluştu.",
+                        "text"    => "Bu klasörün içerisi dolu olduğu için silemiyorsunuz.",
                         "type"    => "error"
                     );
 
                     $this->session->set_flashdata("alert", $alert);
                     redirect(base_url("galleries"));
                 }
+
+                $this->$model->delete(
+                    array(
+                        "gallery_id" => $id
+                    )
+                );
             }
 
              $this->video_model->delete(
                 array(
                     "gallery_id" => $id
                 )
-            );
+             );
 
             $delete = $this->gallery_model->delete(
                 array(
@@ -353,6 +346,24 @@ class Galleries extends MY_Controller
                 "id"  => $id
             )
         );
+
+        $gallery = $this->gallery_model->get(
+            array(
+                "id" => $parent_id
+            )
+        );
+
+        if($fileName){
+            if($modelName == "image_model"){
+                unlink("uploads/$this->viewFolder/images/$gallery->folder_name/70x70/$fileName->url");
+                unlink("uploads/$this->viewFolder/images/$gallery->folder_name/253x156/$fileName->url");
+                unlink("uploads/$this->viewFolder/images/$gallery->folder_name/370x216/$fileName->url");
+                unlink("uploads/$this->viewFolder/images/$gallery->folder_name/897x635/$fileName->url");
+            }
+            if($modelName == "file_model") {
+                unlink("uploads/$this->viewFolder/files/$gallery->folder_name/$fileName->url");
+            }
+        }
 
         $delete = $this->$modelName->delete(
           array(

@@ -16,7 +16,7 @@
                     <div class="clients">
                         <?php foreach ($references as $reference){ ?>
                             <div class="client-image object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100">
-                                <a href="<?php echo base_url("referanslarimiz") ?>"><img src="<?php echo get_image("reference_v",$reference->img_url,"80x80");?>" alt=""></a>
+                                <a href="<?php echo base_url("referanslarimiz#$reference->url") ?>"><img src="<?php echo get_image("reference_v",$reference->img_url,"80x80");?>" alt=""></a>
                             </div>
                         <?php } ?>
                     </div>

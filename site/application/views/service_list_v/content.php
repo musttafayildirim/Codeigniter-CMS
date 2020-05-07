@@ -20,7 +20,7 @@
                                 <div class="col-lg-6">
                                     <div class="overlay-container">
 
-                                        <img src="<?php echo get_image("services_v", $service->img_url, "555x343");?>" alt="<?php echo $service->title;?>">
+                                        <img id="<?php echo $service->url;?>" src="<?php echo get_image("services_v", $service->img_url, "555x343");?>" alt="<?php echo $service->title;?>">
                                         <div class="overlay-to-top">
                                             <p class="small margin-clear"><em><?php echo $service->title ?></em></p>
                                         </div>
@@ -29,8 +29,7 @@
                                 <div class="col-lg-6">
                                     <div class="body">
                                         <div class="pv-30 hidden-lg-down"></div>
-
-                                        <a name="<?php echo $service->url;?>"></a><h3><?php echo $service->title;?></h3>
+                                        <h3><?php echo $service->title;?></h3>
                                         <div class="separator-2"></div>
                                         <p class="margin-clear"><?php echo character_limiter(strip_tags($service->description), 600) ;?></p>
                                         <br>
@@ -44,7 +43,7 @@
                                 <div class="col-lg-6">
                                     <div class="body">
                                         <div class="pv-30 hidden-lg-down"></div>
-                                        <a name="<?php echo $service->url;?>"></a><h3><?php echo $service->title;?></h3>
+                                        <h3><?php echo $service->title;?></h3>
                                         <div class="separator-2"></div>
                                         <p class="margin-clear"><?php echo character_limiter(strip_tags($service->description), 600) ;?></p>
                                         <br>
@@ -53,7 +52,7 @@
                                 <div class="col-lg-6">
                                     <div class="overlay-container">
 
-                                        <img src="<?php echo get_image("services_v", $service->img_url, "555x343"); ?>" alt="<?php echo $service->title;?>">
+                                        <img id="<?php echo $service->url;?>" src="<?php echo get_image("services_v", $service->img_url, "555x343"); ?>" alt="<?php echo $service->title;?>">
                                         <div class="overlay-to-top">
                                             <p class="small margin-clear"><em><?php echo $service->title ?></em></p>
                                         </div>

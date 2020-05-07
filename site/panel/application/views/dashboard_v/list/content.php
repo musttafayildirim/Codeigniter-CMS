@@ -38,7 +38,7 @@
         // street view panorama
         panorama = new google.maps.StreetViewPanorama(document.getElementById('google-streetview'), {
             position: { lat: <?php echo $settings->mapLat;?>, lng: <?php echo $settings->mapLong;?> },
-            pov: { heading: 0, pitch: 0 },
+            pov: { heading: 320, pitch: 0 },
             addressControlOptions: {
                 position: google.maps.ControlPosition.TOP_LEFT
             },
