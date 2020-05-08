@@ -22,7 +22,9 @@
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
             <span class="brand-icon">
                 <img
-                        src="<?php echo get_image("settings_v",$settings->logo,"27x24");?>" alt="<?php echo $settings->company_name;?>" width="37" class="img-responsive">
+                        src="<?php echo get_image("settings_v",$settings->favicon,"32x32");?>"
+                        alt="<?php echo $settings->company_name;?>"
+                        width="32" class="img-responsive">
             </span>
             <span class="brand-name"><?php echo $settings->company_name;?></span>
         </a>

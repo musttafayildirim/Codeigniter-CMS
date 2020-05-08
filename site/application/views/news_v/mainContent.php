@@ -29,7 +29,7 @@
                             </div>
                         <?php }else{ ?>
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="<?php echo $news->video_url ?>" allowfullscreen></iframe>
+                                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/<?php echo $news->video_url?>" allowfullscreen></iframe>
                             </div>
                         <?php } ?>
                     </div>

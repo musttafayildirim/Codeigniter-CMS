@@ -30,7 +30,7 @@
                             </div>
                             <?php }else{ ?>
                                 <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="<?php echo $new->video_url ?>"></iframe>
+                                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/<?php echo $new->video_url?>"></iframe>
                                 </div>
                             <?php } ?>
                             <header>

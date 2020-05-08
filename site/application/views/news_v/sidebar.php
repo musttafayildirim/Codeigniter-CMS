@@ -20,7 +20,7 @@
                     <div class="media margin-clear">
                         <div class="d-flex pr-3">
                             <div class="overlay-container">
-                                <img src="<?php echo base_url("panel/uploads/news_v/$other_new->img_url")?>" alt="">
+                                <img src="<?php echo get_image("news_v",$other_new->img_url,"60x37");?>" alt="">
                                 <a class="overlay-link" href="<?php echo base_url("haber-detayi/$other_new->url") ?>"><i class="fa fa-link"></i></a>
                             </div>
                     </div>
@@ -39,7 +39,7 @@
                                 <div class="image-box shadow bordered text-center mb-20">
                                     <div class="overlay-container">
                                         <div class="embed-responsive embed-responsive-16by9">
-                                            <iframe class="embed-responsive-item" src="<?php echo $other_new->video_url ?>" allowfullscreen></iframe>
+                                            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/<?php echo $other_new->video_url?>" allowfullscreen></iframe>
                                         </div>
                                         <div class="media-body">
                                             <h6 class="media-heading"><a href="<?php echo base_url("haber-detayi/$other_new->url");?>"><?php echo $other_new->title;?></a></h6>

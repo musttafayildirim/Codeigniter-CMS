@@ -60,6 +60,28 @@ class Settings extends MY_Controller
             redirect(base_url("settings/new_setting"));
         }
 
+        if($_FILES["mobile_logo"]["name"] == ""){
+
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen bir resim ekleyiniz!",
+                "type"    => "error"
+            );
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("settings/new_setting"));
+        }
+
+        if($_FILES["favicon"]["name"] == ""){
+
+            $alert = array(
+                "title"   => "İşlem başarısız",
+                "text"    => "Lütfen bir resim ekleyiniz!",
+                "type"    => "error"
+            );
+            $this->session->set_flashdata("alert", $alert);
+            redirect(base_url("settings/new_setting"));
+        }
+
         $this->form_validation->set_rules("company_name", "Şirket İsmi", "required|trim");
         $this->form_validation->set_rules("email", "E-Posta Adresi", "required|trim|valid_email");
         $this->form_validation->set_rules('phone_1', 'Birinci Telefon', 'required|trim|regex_match[/^[0-9]{10}$/]');
@@ -80,14 +102,16 @@ class Settings extends MY_Controller
 
         if ($validate) {
 
-            $file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
+            $logo_file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
+            $mobile_logo_file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["mobile_logo"]["name"], PATHINFO_EXTENSION);
+            $favicon_file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["favicon"]["name"], PATHINFO_EXTENSION);
 
-            $image150x35 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 150,35, $file_name);
-            $image27x24 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 27,24, $file_name);
-            $image70x70 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
+            $image150x35 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $logo_file_name);
+            $mobil_image150x35 = upload_image($_FILES["mobile_logo"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $mobile_logo_file_name);
+            $image32x32 = upload_image($_FILES["favicon"]["tmp_name"], "uploads/$this->viewFolder/", 32,32, $favicon_file_name);
 
 
-            if ($image150x35 && $image27x24 && $image70x70 ) {
+            if ($image150x35 && $image32x32 && $mobil_image150x35) {
 
                 $insert = $this->setting_model->add(
                     array(
@@ -105,7 +129,9 @@ class Settings extends MY_Controller
                         "twitter"       => $this->input->post("twitter"),
                         "instagram"     => $this->input->post("instagram"),
                         "linkedin"      => $this->input->post("linkedin"),
-                        "logo"          => $file_name,
+                        "logo"          => $logo_file_name,
+                        "mobile_logo"   => $mobile_logo_file_name,
+                        "favicon"       => $favicon_file_name,
                         "createdAt"     => date("Y-m-d H:i:s")
                     )
                 );
@@ -205,6 +231,24 @@ class Settings extends MY_Controller
 
         if ($validate) {
 
+            $data = array(
+                "company_name"  => $this->input->post("company_name"),
+                "about_us"      => $this->input->post("about"),
+                "mission"       => $this->input->post("mission"),
+                "address"       => $this->input->post("address"),
+                "vision"        => $this->input->post("vision"),
+                "phone_1"       => $this->input->post("phone_1"),
+                "phone_2"       => $this->input->post("phone_2"),
+                "fax_1"         => $this->input->post("fax_1"),
+                "fax_2"         => $this->input->post("fax_2"),
+                "email"         => $this->input->post("email"),
+                "facebook"      => $this->input->post("facebook"),
+                "twitter"       => $this->input->post("twitter"),
+                "instagram"     => $this->input->post("instagram"),
+                "linkedin"      => $this->input->post("linkedin"),
+                "updatedAt"     => date("Y-m-d H:i:s")
+            );
+
             if ($_FILES["logo"]["name"] !== "") {
 
                 $delete_image = $this->setting_model->get(
@@ -213,42 +257,14 @@ class Settings extends MY_Controller
                   )
                 );
 
-                $paths = array(
-                    $path1 = "uploads/$this->viewFolder/150x35/$delete_image->logo",
-                    $path2 = "uploads/$this->viewFolder/27x24/$delete_image->logo",
-                    $path3 = "uploads/$this->viewFolder/70x70/$delete_image->logo",
-                );
+               unlink("uploads/$this->viewFolder/150x35/$delete_image->logo");
 
-                foreach ($paths as $path)
-                   unlink($path);
-
-                $file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
+               $file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["logo"]["name"], PATHINFO_EXTENSION);
 
                 $image150x35 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 150,35, $file_name);
-                $image27x24 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 27,24, $file_name);
-                $image70x70 = upload_image($_FILES["logo"]["tmp_name"], "uploads/$this->viewFolder/", 70,70, $file_name);
 
-
-                if ($image150x35 && $image27x24 && $image70x70 ) {
-
-                    $data = array(
-                        "company_name"  => $this->input->post("company_name"),
-                        "about_us"      => $this->input->post("about"),
-                        "mission"       => $this->input->post("mission"),
-                        "address"       => $this->input->post("address"),
-                        "vision"        => $this->input->post("vision"),
-                        "phone_1"       => $this->input->post("phone_1"),
-                        "phone_2"       => $this->input->post("phone_2"),
-                        "fax_1"         => $this->input->post("fax_1"),
-                        "fax_2"         => $this->input->post("fax_2"),
-                        "email"         => $this->input->post("email"),
-                        "facebook"      => $this->input->post("facebook"),
-                        "twitter"       => $this->input->post("twitter"),
-                        "instagram"     => $this->input->post("instagram"),
-                        "linkedin"      => $this->input->post("linkedin"),
-                        "logo"          => $file_name,
-                        "updatedAt"     => date("Y-m-d H:i:s")
-                    );
+                if ($image150x35) {
+                    $data["logo"] = $file_name;
                 } else {
                     $alert = array(
                         "title" => "Opppss",
@@ -258,24 +274,60 @@ class Settings extends MY_Controller
                     $this->session->set_flashdata("alert", $alert);
                     redirect(base_url("settings/update_setting/$id"));
                 }
-            } else {
-                $data = array(
-                    "company_name"  => $this->input->post("company_name"),
-                    "about_us"      => $this->input->post("about"),
-                    "mission"       => $this->input->post("mission"),
-                    "address"       => $this->input->post("address"),
-                    "vision"        => $this->input->post("vision"),
-                    "phone_1"       => $this->input->post("phone_1"),
-                    "phone_2"       => $this->input->post("phone_2"),
-                    "fax_1"         => $this->input->post("fax_1"),
-                    "fax_2"         => $this->input->post("fax_2"),
-                    "email"         => $this->input->post("email"),
-                    "facebook"      => $this->input->post("facebook"),
-                    "twitter"       => $this->input->post("twitter"),
-                    "instagram"     => $this->input->post("instagram"),
-                    "linkedin"      => $this->input->post("linkedin"),
-                    "updatedAt"     => date("Y-m-d H:i:s")
+            }
+
+            if ($_FILES["mobile_logo"]["name"] !== "") {
+
+                $delete_image = $this->setting_model->get(
+                    array(
+                        "id" => $id
+                    )
                 );
+
+                unlink("uploads/$this->viewFolder/150x35/$delete_image->mobile_logo");
+
+                $file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["mobile_logo"]["name"], PATHINFO_EXTENSION);
+
+                $image150x35 = upload_image($_FILES["mobile_logo"]["tmp_name"], "uploads/$this->viewFolder/", 150,35, $file_name);
+
+                if ($image150x35) {
+                    $data["mobile_logo"] = $file_name;
+                } else {
+                    $alert = array(
+                        "title" => "Opppss",
+                        "text" => "Resim yüklenme esnasında bir problem oluştu.",
+                        "type" => "error"
+                    );
+                    $this->session->set_flashdata("alert", $alert);
+                    redirect(base_url("settings/update_setting/$id"));
+                }
+            }
+
+            if ($_FILES["favicon"]["name"] !== "") {
+
+                $delete_image = $this->setting_model->get(
+                    array(
+                        "id" => $id
+                    )
+                );
+
+                unlink("uploads/$this->viewFolder/150x35/$delete_image->favicon");
+
+                $file_name = rand().rand().converToSEO($this->input->post("company_name")) . "." . pathinfo($_FILES["favicon"]["name"], PATHINFO_EXTENSION);
+
+                $image32x32 = upload_image($_FILES["favicon"]["tmp_name"], "uploads/$this->viewFolder/", 32,32, $file_name);
+
+                if ($image32x32) {
+                    $data["favicon"] = $file_name;
+                } else {
+                    $alert = array(
+                        "title" => "Opppss",
+                        "text" => "Resim yüklenme esnasında bir problem oluştu.",
+                        "type" => "error"
+                    );
+                    $this->session->set_flashdata("alert", $alert);
+                    redirect(base_url("settings/update_setting/$id"));
+                }
             }
 
             $update = $this->setting_model->update(array("id" => $id), $data);

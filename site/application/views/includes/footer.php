@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="footer-content">
-                            <div class="logo-footer"><img id="logo-footer" src="<?php echo base_url("assets/images")?>/logo_blue.png" alt="<?php echo $settings->company_name;?>"></div>
+                            <div class="logo-footer"><img id="logo-footer" src="<?php echo get_image("settings_v",$settings->logo,"150x35");?>" alt="<?php echo $settings->company_name;?>"></div>
                             <p><?php echo character_limiter(strip_tags($settings->about_us),350)  ;?></p>
                             <ul class="list-inline mb-20">
                                 <li class="list-inline-item"><i class="text-default fa fa-map-marker pr-1"></i> <?php echo $settings->address;?></li>
